@@ -26,6 +26,8 @@ public class ThreadTheNeedleGame extends JPanel {
     ArrayList<Surface> surfaces;
     ArrayList<Gate> gates;
     
+    int index;
+    
     NeedleGameThread thread;
     
 	/**
@@ -37,7 +39,10 @@ public class ThreadTheNeedleGame extends JPanel {
 		
 		super();
 		
+		index = 0;
+		
 		surfaces = new ArrayList<Surface>();
+		gates = new ArrayList<Gate>();
 		needle = new Needle(0.05, 0.90, 0);
 		
 		setBackground(Color.white);
@@ -89,6 +94,26 @@ public class ThreadTheNeedleGame extends JPanel {
         	s.draw(g2);
         }
         
+        if (index < gates.size()) {
+        	if (gates.get(index).getStatus() == Gate.GATE_PASSED) {
+        		index++;
+        	}
+        	
+        	if(index < gates.size()) {
+        		gates.get(index).setStatus(Gate.GATE_NEXT);
+        	}
+        	
+        	if(index + 1 < gates.size()) {
+        		gates.get(index + 1).setStatus(Gate.GATE_ON_DECK);
+        	}
+        }
+        
+        for (Gate gt: gates) {
+        	gt.rescale(d.width, d.height);
+        	gt.update(needle);
+        	gt.draw(g2);
+        }
+        
         needle.draw(g2);
         repaint();
 	}
@@ -124,6 +149,14 @@ public class ThreadTheNeedleGame extends JPanel {
 			double[] outsidey = {0.4, 0.6, 0.6, 0.4, 0, 0};
 			Surface outside = new Surface(Color.ORANGE, true, 45, outsidex, outsidey, true);
 			surfaces.add(outside);
+			
+			//Gate g1 = new Gate(0.4, 0.5, - Math.PI * 3 / 4);
+			//Gate g2 = new Gate(0.6, 0.5, Math.PI * 3 / 4);
+			gates.add(new Gate(0.2, 0.7, Math.PI / 2));
+			gates.add(new Gate(0.4, 0.5, Math.PI / 2));
+			gates.add(new Gate(0.6, 0.5, Math.PI / 2));
+			gates.add(new Gate(0.8, 0.7, Math.PI / 2));
+			
 		}
 	}
 	
@@ -150,7 +183,6 @@ public class ThreadTheNeedleGame extends JPanel {
 
 		frame.setVisible(true);
 		frame.setLocationRelativeTo(null);
-		
 	}
 
 }

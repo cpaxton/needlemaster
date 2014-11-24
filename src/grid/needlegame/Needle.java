@@ -3,6 +3,7 @@ package grid.needlegame;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.GeneralPath;
+import java.awt.geom.PathIterator;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
@@ -186,5 +187,13 @@ public class Needle {
 
 	public void endMove() {
 		isMoving = false;
+	}
+
+	public synchronized double getRealX() {
+		return x * screenWidth;
+	}
+
+	public synchronized double getRealY() {
+		return (1.0 - y) * screenHeight;
 	}
 }
