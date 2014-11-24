@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
 
 /**
  * Class to store the state of the needle and to draw the needle when necessary
@@ -27,7 +28,10 @@ public class Needle {
 	int screenHeight;
 	double length;
 	
+	ArrayList<Point2D> threadPoints;
+	
 	GeneralPath polygon;
+	GeneralPath thread;
 	
 	private static final Color needleColor = Color.BLUE;
 	private static final Color threadColor = Color.BLUE;
@@ -39,6 +43,8 @@ public class Needle {
 		this.x = x;
 		this.y = y;
 		this.w = w;
+		
+		threadPoints.add(new Point2D.Double(x,y));
 		
 		isMoving = false;
 		
@@ -67,13 +73,7 @@ public class Needle {
 		double bottomX = realX + ((0.01 * screenHeight) * Math.cos(bottomW)) - (length * Math.cos(w));
 		double bottomY = realY + ((0.01 * screenHeight) * Math.sin(bottomW)) - (length * Math.sin(w));
 		
-		//double pointX = realX + (length * Math.cos(w));
-		//double pointY = realY + (length * Math.sin(w));
-		//double pointX = realX;
-		//double pointY = realY;
-		
 		polygon.lineTo(topX, topY);
-		//polygon.lineTo(pointX, pointY);
 		polygon.lineTo(bottomX, bottomY);
 		polygon.closePath();
 	}
