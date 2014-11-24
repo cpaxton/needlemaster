@@ -58,6 +58,11 @@ public class Needle {
 		rescale(800, 600);
 	}
 	
+	void applySurfaceEffects(Surface s) {
+		
+		
+	}
+	
 	void redraw() {
 
 		synchronized(this) {
@@ -137,7 +142,6 @@ public class Needle {
 			
 			double dist = Math.sqrt((dx*dx)+(dy*dy));
 			
-			//System.out.println(dx + ", " + dy + ", " + dist);
 			if (dist > MAX_DELTA_XY) {
 				dist = MAX_DELTA_XY;
 			}

@@ -17,15 +17,33 @@ public class Surface {
 	double [] x;
 	double [] y;
 	
+	boolean isVirtual;
+	
 	int width;
 	int height;
 	
-	public Surface(Color color, boolean isAngleRestricted, double entryAngle, double[] x, double[] y) {
+	/**
+	 * Does this surface actually do anything or does it just exist to create useful predicates?
+	 * @return true if it is a virtual surface; false otherwise.
+	 */
+	boolean isVirtualSurface() { return isVirtual; }
+	
+	/**
+	 * Basic Surface constructor.
+	 * @param color
+	 * @param isAngleRestricted
+	 * @param entryAngle
+	 * @param x
+	 * @param y
+	 * @param isVirtual
+	 */
+	public Surface(Color color, boolean isAngleRestricted, double entryAngle, double[] x, double[] y, boolean isVirtual) {
 		mycolor = color;
 		angleRestricted = isAngleRestricted;
 		angle = entryAngle;
 		this.x = x;
 		this.y = y;
+		this.isVirtual = isVirtual;
 		
 		width = 1;
 		height = 1;
@@ -55,6 +73,10 @@ public class Surface {
 	 */
 	public void draw(Graphics2D g2) {
 		g2.setPaint(mycolor);
-		g2.fill(scaledLine);
+		if (isVirtual) {
+			g2.draw(scaledLine);
+		} else {
+			g2.fill(scaledLine);
+		}
 	}
 }

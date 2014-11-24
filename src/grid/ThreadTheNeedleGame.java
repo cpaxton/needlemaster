@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import grid.needlegame.Gate;
 import grid.needlegame.Needle;
 import grid.needlegame.NeedleGameThread;
 import grid.needlegame.Surface;
@@ -20,10 +21,10 @@ public class ThreadTheNeedleGame extends JPanel {
     final static Color tissue = Color.yellow;
     final static Color deepTissue = Color.red;
     final static Color white = Color.white;
-	    
     
     Needle needle;
     ArrayList<Surface> surfaces;
+    ArrayList<Gate> gates;
     
     NeedleGameThread thread;
     
@@ -100,24 +101,29 @@ public class ThreadTheNeedleGame extends JPanel {
 		if (preset == 0) {
 			double[] s1x = {0, 0.25, 0.5, 1, 1, 0};
 			double[] s1y = {0.6, 0.3, 0.35, 0.4, 0, 0};
-			Surface s1 = new Surface(tissue, true, 45, s1x, s1y);
+			Surface s1 = new Surface(tissue, true, 45, s1x, s1y, false);
 			surfaces.add(s1);
 			
 			double[] s2x = {0, 0.23, 0.45, 1, 1, 0};
 			double[] s2y = {0.25, 0.12, 0.17, 0.26, 0, 0};
-			Surface s2 = new Surface(deepTissue, true, 45, s2x, s2y);
+			Surface s2 = new Surface(deepTissue, true, 45, s2x, s2y, false);
 			surfaces.add(s2);
 			
 		} else if (preset == 1) {
 			double[] s1x = {0, 0.4, 0.5, 0.6, 1, 1, 0};
 			double[] s1y = {0.4, 0.6, 0.25, 0.6, 0.4, 0, 0};
-			Surface s1 = new Surface(tissue, true, 45, s1x, s1y);
+			Surface s1 = new Surface(tissue, true, 45, s1x, s1y, false);
 			surfaces.add(s1);
 			
 			double[] s2x = {0, 0.38, 0.5, 0.61, 1, 1, 0};
 			double[] s2y = {0.21, 0.34, 0.13, 0.32, 0.26, 0, 0};
-			Surface s2 = new Surface(deepTissue, true, 45, s2x, s2y);
+			Surface s2 = new Surface(deepTissue, true, 45, s2x, s2y, false);
 			surfaces.add(s2);
+			
+			double[] outsidex = {0, 0.4, 0.6, 1, 1, 0};
+			double[] outsidey = {0.4, 0.6, 0.6, 0.4, 0, 0};
+			Surface outside = new Surface(Color.ORANGE, true, 45, outsidex, outsidey, true);
+			surfaces.add(outside);
 		}
 	}
 	
@@ -140,11 +146,8 @@ public class ThreadTheNeedleGame extends JPanel {
 		frame.pack();
 		frame.setSize(new Dimension(800, 600));
 		
-		//Label background = new Label("Game goes here");
 		frame.getContentPane().add(game, BorderLayout.CENTER);
 
-		//game.pack();
-		//game.setSize(new Dimension(800,600));
 		frame.setVisible(true);
 		frame.setLocationRelativeTo(null);
 		
