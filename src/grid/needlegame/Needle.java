@@ -39,12 +39,15 @@ public class Needle {
 	private static final double MAX_DELTA_W = 0.050;
 	private static final double MAX_DELTA_XY = 0.025;
 	
+	private static final double LENGTH_CONST = 0.08;
+	
 	public Needle(double x, double y, double w) {
 		this.x = x;
 		this.y = y;
 		this.w = w;
 		
-		threadPoints.add(new Point2D.Double(x,y));
+		threadPoints = new ArrayList<Point2D>();
+		//threadPoints.add(new Point2D.Double(x,y));
 		
 		isMoving = false;
 		
@@ -57,25 +60,40 @@ public class Needle {
 	
 	void redraw() {
 
-		double realX = x * screenWidth;
-		double realY = (1.0 - y) * screenHeight;
-		polygon = new GeneralPath();
-		polygon.moveTo(realX, realY);
-		
-		double topW = w + (Math.PI/2);
-		double bottomW = w - (Math.PI/2);
-
-		length = 0.08 * screenWidth;
-		
-		double topX = realX + ((0.01 * screenHeight) * Math.cos(topW)) - (length * Math.cos(w));
-		double topY = realY + ((0.01 * screenHeight) * Math.sin(topW)) - (length * Math.sin(w));
-		
-		double bottomX = realX + ((0.01 * screenHeight) * Math.cos(bottomW)) - (length * Math.cos(w));
-		double bottomY = realY + ((0.01 * screenHeight) * Math.sin(bottomW)) - (length * Math.sin(w));
-		
-		polygon.lineTo(topX, topY);
-		polygon.lineTo(bottomX, bottomY);
-		polygon.closePath();
+		synchronized(this) {
+			
+			double realX = x * screenWidth;
+			double realY = (1.0 - y) * screenHeight;
+			polygon = new GeneralPath();
+			polygon.moveTo(realX, realY);
+			
+			double topW = w + (Math.PI/2);
+			double bottomW = w - (Math.PI/2);
+	
+			length = LENGTH_CONST * screenWidth;
+			
+			double topX = realX + ((0.01 * screenHeight) * Math.cos(topW)) - (length * Math.cos(w));
+			double topY = realY + ((0.01 * screenHeight) * Math.sin(topW)) - (length * Math.sin(w));
+			
+			double bottomX = realX + ((0.01 * screenHeight) * Math.cos(bottomW)) - (length * Math.cos(w));
+			double bottomY = realY + ((0.01 * screenHeight) * Math.sin(bottomW)) - (length * Math.sin(w));
+			
+			polygon.lineTo(topX, topY);
+			polygon.lineTo(bottomX, bottomY);
+			polygon.closePath();
+			
+			thread = new GeneralPath();
+			if (threadPoints.size() > 0) {
+				thread.moveTo(threadPoints.get(0).getX() * screenWidth,
+						(1.0 - threadPoints.get(0).getX()) * screenHeight);
+				
+				for (int i = 1; i < threadPoints.size(); i++) {
+					thread.lineTo(threadPoints.get(i).getX() * screenWidth,
+							(1.0 - threadPoints.get(i).getY()) * screenHeight);
+				}
+			}
+			
+		}
 	}
 	
 	public boolean rescale(int width, int height) {
@@ -93,8 +111,12 @@ public class Needle {
 	}
 	
 	public void draw(Graphics2D g) {
-		g.setColor(needleColor);;
-		g.fill(polygon);
+		synchronized(this) {
+			g.setColor(needleColor);
+			g.fill(polygon);
+			g.setColor(threadColor);
+			g.draw(thread);
+		}
 	}
 	
 	public void updateMove(int x, int y) {
@@ -126,9 +148,9 @@ public class Needle {
 				// we also may want to apply a threshold so that this works better
 				double dw = w + Math.atan2(dy, dx);
 				
-				System.out.println("dx/dy: " + dx + ", " + dy);
-				System.out.println("Old angle: " + w);
-				System.out.println("delta: " + dw);
+				threadPoints.add(new Point2D.Double(this.x - (LENGTH_CONST*Math.cos(w)),
+						this.y + (LENGTH_CONST * Math.sin(w))));
+				//System.out.println(this.x - (LENGTH_CONST*Math.cos(w)) + ", " + (this.y + (LENGTH_CONST * Math.sin(w))));
 				
 				double movement = dist * Math.cos(dw); // x projection of the motion?
 				this.x = this.x + (movement * Math.cos(w));
@@ -137,7 +159,7 @@ public class Needle {
 				double rotation = Math.sin(dw) / 12.0;
 				w += rotation;
 				
-				System.out.println("Location:" + (this.x * screenWidth) + ", " + (this.y * screenHeight) + "; " + this.w);	
+				//System.out.println("Location:" + (this.x * screenWidth) + ", " + (this.y * screenHeight) + "; " + this.w);	
 			}
 			
 			if (w < 0) {
