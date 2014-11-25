@@ -152,10 +152,10 @@ public class ThreadTheNeedleGame extends JPanel {
 			
 			//Gate g1 = new Gate(0.4, 0.5, - Math.PI * 3 / 4);
 			//Gate g2 = new Gate(0.6, 0.5, Math.PI * 3 / 4);
-			gates.add(new Gate(0.2, 0.7, Math.PI / 2));
+			gates.add(new Gate(0.2, 0.7, 0.3));
 			gates.add(new Gate(0.4, 0.5, Math.PI / 2));
 			gates.add(new Gate(0.6, 0.5, Math.PI / 2));
-			gates.add(new Gate(0.8, 0.7, Math.PI / 2));
+			gates.add(new Gate(0.8, 0.7, 1.5));
 			
 		}
 	}
