@@ -35,10 +35,12 @@ public class Needle {
 	GeneralPath polygon;
 	GeneralPath thread;
 	
+	Surface current;
+	
 	private static final Color needleColor = new Color(0.50f, 0.50f, 0.75f);
 	private static final Color threadColor = new Color(0.50f, 0.50f, 0.50f);
 	
-	private static final double MAX_DELTA_W = 0.050;
+	private static final double MAX_DELTA_W = 0.100;
 	private static final double MAX_DELTA_XY = 0.025;
 	
 	private static final double LENGTH_CONST = 0.08;
@@ -61,9 +63,10 @@ public class Needle {
 		rescale(800, 600);
 	}
 	
-	void applySurfaceEffects(Surface s) {
-		
-		
+	void applySurface(Surface s) {
+		if (s.contains(x * screenWidth, y * screenHeight)) {
+			current = s;
+		}
 	}
 	
 	void redraw() {
@@ -165,7 +168,7 @@ public class Needle {
 				this.x = this.x + (movement * Math.cos(w));
 				this.y = this.y - (movement * Math.sin(w));
 				
-				double rotation = Math.sin(dw) / 12.0;
+				double rotation = Math.sin(dw) / 24.0;
 				w += rotation;
 				
 				//System.out.println("Location:" + (this.x * screenWidth) + ", " + (this.y * screenHeight) + "; " + this.w);	

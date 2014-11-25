@@ -3,6 +3,7 @@ package grid.needlegame;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.GeneralPath;
+import java.awt.geom.Point2D;
 
 /**
  * This class describes a line delimiting a surface where the needle behaves differently.
@@ -78,5 +79,9 @@ public class Surface {
 		} else {
 			g2.fill(scaledLine);
 		}
+	}
+
+	public boolean contains(double x, double y) {
+		return scaledLine.contains(new Point2D.Double(x, y));
 	}
 }
