@@ -78,13 +78,13 @@ public class Needle {
 			double topW = w + (Math.PI/2);
 			double bottomW = w - (Math.PI/2);
 	
-			length = LENGTH_CONST * screenWidth;
+			length = LENGTH_CONST * scale;
 			
-			double topX = realX + ((0.01 * screenHeight) * Math.cos(topW)) - (length * Math.cos(w));
-			double topY = realY + ((0.01 * screenHeight) * Math.sin(topW)) - (length * Math.sin(w));
+			double topX = realX + ((0.01 * scale) * Math.cos(topW)) - (length * Math.cos(w));
+			double topY = realY + ((0.01 * scale) * Math.sin(topW)) - (length * Math.sin(w));
 			
-			double bottomX = realX + ((0.01 * screenHeight) * Math.cos(bottomW)) - (length * Math.cos(w));
-			double bottomY = realY + ((0.01 * screenHeight) * Math.sin(bottomW)) - (length * Math.sin(w));
+			double bottomX = realX + ((0.01 * scale) * Math.cos(bottomW)) - (length * Math.cos(w));
+			double bottomY = realY + ((0.01 * scale) * Math.sin(bottomW)) - (length * Math.sin(w));
 			
 			polygon.lineTo(topX, topY);
 			polygon.lineTo(bottomX, bottomY);
@@ -110,6 +110,7 @@ public class Needle {
 			
 			screenWidth = width;
 			screenHeight = height;
+			scale = Math.sqrt(width*width + height*height);
 			
 			redraw();
 				
