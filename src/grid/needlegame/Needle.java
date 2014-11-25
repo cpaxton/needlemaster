@@ -35,8 +35,8 @@ public class Needle {
 	GeneralPath polygon;
 	GeneralPath thread;
 	
-	private static final Color needleColor = Color.BLUE;
-	private static final Color threadColor = Color.BLUE;
+	private static final Color needleColor = new Color(0.50f, 0.50f, 0.75f);
+	private static final Color threadColor = new Color(0.50f, 0.50f, 0.50f);
 	
 	private static final double MAX_DELTA_W = 0.050;
 	private static final double MAX_DELTA_XY = 0.025;

@@ -28,10 +28,10 @@ public class Gate {
 	public static final int GATE_NEXT = 2;
 	public static final int GATE_PASSED = 3;
 	
-	private static final Color closed = Color.DARK_GRAY;
-	private static final Color onDeck = Color.LIGHT_GRAY;
-	private static final Color next = Color.CYAN;
-	private static final Color passed = Color.GREEN;
+	private static final Color closed = new Color(0.15f, 0.30f, 0.15f);
+	private static final Color onDeck = new Color(0.40f, 0.60f, 0.40f);
+	private static final Color next = new Color(0.70f, 0.90f, 0.70f);
+	private static final Color passed = new Color(0.70f, 0.70f, 0.70f);
 	
 	public Gate(double x, double y, double w) {
 		this.x = x;

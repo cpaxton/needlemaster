@@ -16,11 +16,12 @@ import grid.needlegame.Surface;
 
 public class ThreadTheNeedleGame extends JPanel {
 	
-    final static Color bg = Color.white;
+    final static Color bg = new Color(0.85f, 0.90f, 1.00f);
     final static Color fg = Color.black;
-    final static Color tissue = Color.yellow;
-    final static Color deepTissue = Color.red;
+    final static Color tissue = new Color(0.98f, 0.85f, 0.50f);
+    final static Color deepTissue = new Color(0.90f, 0.50f, 0.15f);
     final static Color white = Color.white;
+    final static Color outlines = new Color(1.0f, 0.80f, 0.0f);
     
     Needle needle;
     ArrayList<Surface> surfaces;
@@ -89,6 +90,9 @@ public class ThreadTheNeedleGame extends JPanel {
         	repaint();
         }
         
+        g.setColor(bg);
+        g.fillRect(0, 0, d.width, d.height);
+        
         for (Surface s: surfaces) {
         	s.rescaleLine(d.width, d.height);
         	s.draw(g2);
@@ -147,7 +151,7 @@ public class ThreadTheNeedleGame extends JPanel {
 			
 			double[] outsidex = {0, 0.4, 0.6, 1, 1, 0};
 			double[] outsidey = {0.4, 0.6, 0.6, 0.4, 0, 0};
-			Surface outside = new Surface(Color.ORANGE, true, 45, outsidex, outsidey, true);
+			Surface outside = new Surface(outlines, true, 45, outsidex, outsidey, true);
 			surfaces.add(outside);
 			
 			//Gate g1 = new Gate(0.4, 0.5, - Math.PI * 3 / 4);
