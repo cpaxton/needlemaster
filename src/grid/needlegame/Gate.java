@@ -76,10 +76,14 @@ public class Gate {
 	void redraw() {
 
 		synchronized(this) {
-			double width1 = screenWidth * 0.05 * Math.cos(w + (0.1 * Math.PI));
-			double height1 = screenHeight * 0.05 * Math.sin(w + (0.1 * Math.PI));
-			double width2 = screenWidth * 0.05 * Math.cos(w - (0.1 * Math.PI));
-			double height2 = screenHeight * 0.05 * Math.sin(w - (0.1 * Math.PI));
+			//double width1 = screenWidth * 0.05 * Math.cos(w + (0.1 * Math.PI));
+			//double height1 = screenHeight * 0.05 * Math.sin(w + (0.1 * Math.PI));
+			//double width2 = screenWidth * 0.05 * Math.cos(w - (0.1 * Math.PI));
+			//double height2 = screenHeight * 0.05 * Math.sin(w - (0.1 * Math.PI));
+			double width1 = screenWidth * 0.05 * Math.cos(w) + screenHeight * 0.03 * Math.sin(w);
+			double height1 = screenHeight * 0.05 * Math.sin(w) - screenHeight * 0.03 * Math.cos(w);
+			double width2 = -1 * screenWidth * 0.05 * Math.cos(w) + screenHeight * 0.03 * Math.sin(w);
+			double height2 = -1 * screenHeight * 0.05 * Math.sin(w) - screenHeight * 0.03 * Math.cos(w);
 			
 			double realX = x * screenWidth;
 			double realY = (1.0 - y) * screenHeight;

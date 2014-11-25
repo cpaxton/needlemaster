@@ -27,6 +27,7 @@ public class Needle {
 	
 	int screenWidth;
 	int screenHeight;
+	double scale;
 	double length;
 	
 	ArrayList<Point2D> threadPoints;
@@ -54,6 +55,7 @@ public class Needle {
 		
 		screenWidth = 0;
 		screenHeight = 0;
+		scale = 0;
 		polygon = new GeneralPath();
 		
 		rescale(800, 600);
@@ -91,7 +93,7 @@ public class Needle {
 			thread = new GeneralPath();
 			if (threadPoints.size() > 0) {
 				thread.moveTo(threadPoints.get(0).getX() * screenWidth,
-						(1.0 - threadPoints.get(0).getX()) * screenHeight);
+						(1.0 - threadPoints.get(0).getY()) * screenHeight);
 				
 				for (int i = 1; i < threadPoints.size(); i++) {
 					thread.lineTo(threadPoints.get(i).getX() * screenWidth,
@@ -153,8 +155,9 @@ public class Needle {
 				// we also may want to apply a threshold so that this works better
 				double dw = w + Math.atan2(dy, dx);
 				
-				threadPoints.add(new Point2D.Double(this.x - (LENGTH_CONST*Math.cos(w)),
-						this.y + (LENGTH_CONST * Math.sin(w))));
+				threadPoints.add(new Point2D.Double(this.x, this.y));
+				// - (LENGTH_CONST*Math.cos(w)),
+				//		this.y - (LENGTH_CONST * Math.sin(w + Math.PI/2))));
 				//System.out.println(this.x - (LENGTH_CONST*Math.cos(w)) + ", " + (this.y + (LENGTH_CONST * Math.sin(w))));
 				
 				double movement = dist * Math.cos(dw); // x projection of the motion?
