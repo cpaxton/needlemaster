@@ -29,6 +29,9 @@ public class Needle {
 	int screenHeight;
 	double scale;
 	double length;
+
+	double movementMultiplier;
+	double rotationMultiplier;
 	
 	ArrayList<Point2D> threadPoints;
 	
@@ -59,13 +62,34 @@ public class Needle {
 		screenHeight = 0;
 		scale = 0;
 		polygon = new GeneralPath();
+	
+		movementMultiplier = 1.0;
+		rotationMultiplier = 1.0;
 		
 		rescale(800, 600);
 	}
 	
-	void applySurface(Surface s) {
-		if (s.contains(x * screenWidth, y * screenHeight)) {
+	public void applySurface(Surface s) {
+		if (s.contains(x * screenWidth, (1.0 - y) * screenHeight)) {
 			current = s;
+		}
+	}
+	
+	/**
+	 * updates the current surface, makes sure we are still in it...
+	 */
+	private void updateSurface() {
+		if (current == null) {
+			movementMultiplier = 1.0;
+			rotationMultiplier = 1.0;
+			return;
+		} else if (! current.contains(x * screenWidth, (1.0 - y) * screenHeight)) {
+			current = null;
+			movementMultiplier = 1.0;
+			rotationMultiplier = 1.0;
+		} else {
+			movementMultiplier = current.getMovementMultiplier();
+			rotationMultiplier = current.getRotationMultiplier();
 		}
 	}
 	
@@ -160,15 +184,12 @@ public class Needle {
 				double dw = w + Math.atan2(dy, dx);
 				
 				threadPoints.add(new Point2D.Double(this.x, this.y));
-				// - (LENGTH_CONST*Math.cos(w)),
-				//		this.y - (LENGTH_CONST * Math.sin(w + Math.PI/2))));
-				//System.out.println(this.x - (LENGTH_CONST*Math.cos(w)) + ", " + (this.y + (LENGTH_CONST * Math.sin(w))));
 				
-				double movement = dist * Math.cos(dw); // x projection of the motion?
+				double movement = dist * Math.cos(dw) * movementMultiplier; // x projection of the motion?
 				this.x = this.x + (movement * Math.cos(w));
 				this.y = this.y - (movement * Math.sin(w));
 				
-				double rotation = Math.sin(dw) / 24.0;
+				double rotation = Math.sin(dw) / 16.0 * rotationMultiplier;
 				w += rotation;
 				
 				//System.out.println("Location:" + (this.x * screenWidth) + ", " + (this.y * screenHeight) + "; " + this.w);	

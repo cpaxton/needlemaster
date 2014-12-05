@@ -18,6 +18,25 @@ public class Surface {
 	double [] x;
 	double [] y;
 	
+	double rotationMultiplier;
+	public double getRotationMultiplier() {
+		return rotationMultiplier;
+	}
+
+	public void setRotationMultiplier(double rotationMultiplier) {
+		this.rotationMultiplier = rotationMultiplier;
+	}
+
+	public double getMovementMultiplier() {
+		return movementMultiplier;
+	}
+
+	public void setMovementMultiplier(double movementMultiplier) {
+		this.movementMultiplier = movementMultiplier;
+	}
+
+	double movementMultiplier;
+	
 	boolean isVirtual;
 	
 	int width;
