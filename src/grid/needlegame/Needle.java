@@ -163,9 +163,10 @@ public class Needle {
 	public void updateMove(int x, int y) {
 		moveX = (double)x / screenWidth;
 		moveY = 1.0 - ((double)y / screenHeight); 
+		System.out.println("move = " + moveX + "," + moveY);
 	}
 	
-	public synchronized void move() {
+	public void move() {
 		
 		updateSurface();
 		

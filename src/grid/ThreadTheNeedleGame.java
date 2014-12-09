@@ -52,11 +52,12 @@ public class ThreadTheNeedleGame extends JPanel {
             public void mousePressed(MouseEvent e) {
             	System.out.println("Starting motion at: " + e.getX() + ", " + e.getY());
                 needle.startMove(e.getX(), e.getY());
-                
+                needle.updateMove(e.getX(), e.getY());
             }
             
             public void mouseReleased(MouseEvent e) {
             	System.out.println("Ending motion at: " + e.getX() + ", " + e.getY());
+                needle.updateMove(e.getX(), e.getY());
             	needle.endMove();
             }
         });
@@ -118,6 +119,9 @@ public class ThreadTheNeedleGame extends JPanel {
         }
         
         needle.draw(g2);
+        //int widthRange = d.width / 5;
+        //int heightRange = d.height / 5;
+        //repaint((int)needle.getRealX() - widthRange, (int)needle.getRealY() - heightRange, 2 * widthRange, 2 * heightRange);
         repaint();
 	}
 	

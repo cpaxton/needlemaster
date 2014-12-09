@@ -23,7 +23,7 @@ public class NeedleGameThread extends Thread {
 	}
 	
 	public void run() {
-		
+		long t00 = System.currentTimeMillis();
 		while(running) {
 			long t0 = System.currentTimeMillis();
 			
@@ -37,14 +37,15 @@ public class NeedleGameThread extends Thread {
 			//System.out.println("time taken = " + dt);
 			if (dt < TICK_LENGTH) {
 				try {
-					System.out.println(System.currentTimeMillis() + " -- " + dt + " -- sleeping for " + (TICK_LENGTH - dt));
+					//System.out.println(System.currentTimeMillis() + " -- " + dt + " -- sleeping for " + (TICK_LENGTH - dt));
 					Thread.sleep(TICK_LENGTH - dt);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
-			
+			long ttmp = System.currentTimeMillis();
+			System.out.println(ttmp - t00); t00 = ttmp;
 		}
 	}
 }
