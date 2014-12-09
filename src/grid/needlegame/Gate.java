@@ -86,22 +86,22 @@ public class Gate {
 			double realX = x * screenWidth;
 			double realY = (1.0 - y) * screenHeight;
 			
-			System.out.println("Drawing gate:");
+			//System.out.println("Drawing gate:");
 			
-			System.out.println(width1);
-			System.out.println(height1);
-			System.out.println(width2);
-			System.out.println(height2);
+			//System.out.println(width1);
+			//System.out.println(height1);
+			//System.out.println(width2);
+			//System.out.println(height2);
 			
 			polygon = new GeneralPath();
 			polygon.moveTo(realX + width1, realY + height1);
-			System.out.println((realX + width1) + ", " + (realY + height1));
+			//System.out.println((realX + width1) + ", " + (realY + height1));
 			polygon.lineTo(realX + width2, realY + height2);
-			System.out.println((realX + width2) + ", " + (realY + height2));
+			//System.out.println((realX + width2) + ", " + (realY + height2));
 			polygon.lineTo(realX - width1, realY - height1);
-			System.out.println((realX - width1) + ", " + (realY - height2));
+			//System.out.println((realX - width1) + ", " + (realY - height2));
 			polygon.lineTo(realX - width2, realY - height2);
-			System.out.println((realX - width2) + ", " + (realY - height2));
+			//System.out.println((realX - width2) + ", " + (realY - height2));
 			polygon.closePath();
 		}
 	}

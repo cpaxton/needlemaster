@@ -1,5 +1,7 @@
 package grid.needlegame;
 
+import grid.ThreadTheNeedleGame;
+
 /**
  * Core game loop.
  * Updates things, calls 
@@ -10,12 +12,14 @@ public class NeedleGameThread extends Thread {
 	
 	boolean running;
 	Needle needle;
+	ThreadTheNeedleGame game;
 	
 	private static final long TICK_LENGTH = 20;
 	
-	public NeedleGameThread(Needle needle) {
+	public NeedleGameThread(Needle needle, ThreadTheNeedleGame game) {
 		running = true;
 		this.needle = needle;
+		this.game = game;
 	}
 	
 	public void run() {
@@ -23,6 +27,10 @@ public class NeedleGameThread extends Thread {
 		while(running) {
 			long t0 = System.currentTimeMillis();
 			
+			Surface s = game.checkNeedleLocation(needle.getRealX(), needle.getRealY());
+			if (s != null) {
+				needle.applySurface(s);
+			}
 			needle.move();
 			
 			long dt = System.currentTimeMillis() - t0;

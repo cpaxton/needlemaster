@@ -3,7 +3,6 @@ package grid;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.geom.*;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -70,7 +69,7 @@ public class ThreadTheNeedleGame extends JPanel {
 		
 		initialize(preset);
 		
-		thread = new NeedleGameThread(needle);
+		thread = new NeedleGameThread(needle, this);
 		thread.start();
 	}
 	
@@ -187,6 +186,22 @@ public class ThreadTheNeedleGame extends JPanel {
 
 		frame.setVisible(true);
 		frame.setLocationRelativeTo(null);
+	}
+
+
+	/**
+	 * Check to see if the needle is in any surfaces of interest
+	 * @param realX -- the real X location of the needle
+	 * @param realY -- the real Y location of the needle
+	 * @return
+	 */
+	public Surface checkNeedleLocation(double realX, double realY) {
+		for(Surface s: surfaces) {
+			if (s.contains(realX, realY)) {
+				return s;
+			}
+		}
+		return null;
 	}
 
 }

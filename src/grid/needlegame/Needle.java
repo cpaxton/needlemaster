@@ -3,7 +3,6 @@ package grid.needlegame;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.GeneralPath;
-import java.awt.geom.PathIterator;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
@@ -43,7 +42,6 @@ public class Needle {
 	private static final Color needleColor = new Color(0.50f, 0.50f, 0.75f);
 	private static final Color threadColor = new Color(0.50f, 0.50f, 0.50f);
 	
-	private static final double MAX_DELTA_W = 0.100;
 	private static final double MAX_DELTA_XY = 0.025;
 	
 	private static final double LENGTH_CONST = 0.08;
@@ -69,10 +67,14 @@ public class Needle {
 		rescale(800, 600);
 	}
 	
+	/**
+	 * Simple setter for the surface, right now.
+	 * @param s
+	 */
 	public void applySurface(Surface s) {
-		if (s.contains(x * screenWidth, (1.0 - y) * screenHeight)) {
-			current = s;
-		}
+		//if (s.contains(x * screenWidth, (1.0 - y) * screenHeight)) {
+		current = s;
+		//}
 	}
 	
 	/**
@@ -83,7 +85,7 @@ public class Needle {
 			movementMultiplier = 1.0;
 			rotationMultiplier = 1.0;
 			return;
-		} else if (! current.contains(x * screenWidth, (1.0 - y) * screenHeight)) {
+		} else if (! current.contains(getRealX(), getRealY())) {
 			current = null;
 			movementMultiplier = 1.0;
 			rotationMultiplier = 1.0;
@@ -93,7 +95,10 @@ public class Needle {
 		}
 	}
 	
-	void redraw() {
+	/**
+	 * Redraw the needle -- recomputes the lines so that it looks right
+	 */
+	private void redraw() {
 
 		synchronized(this) {
 			
@@ -160,7 +165,10 @@ public class Needle {
 		moveY = 1.0 - ((double)y / screenHeight); 
 	}
 	
-	public void move() {
+	public synchronized void move() {
+		
+		updateSurface();
+		
 		if (isMoving) {
 			
 			// compute speed and change in rotation from this information
@@ -185,14 +193,15 @@ public class Needle {
 				
 				threadPoints.add(new Point2D.Double(this.x, this.y));
 				
+				System.out.println("movement mult = " + movementMultiplier);
+				
 				double movement = dist * Math.cos(dw) * movementMultiplier; // x projection of the motion?
+				System.out.println("actual = " + movement);
 				this.x = this.x + (movement * Math.cos(w));
 				this.y = this.y - (movement * Math.sin(w));
 				
 				double rotation = Math.sin(dw) / 16.0 * rotationMultiplier;
-				w += rotation;
-				
-				//System.out.println("Location:" + (this.x * screenWidth) + ", " + (this.y * screenHeight) + "; " + this.w);	
+				w += rotation;				
 			}
 			
 			if (w < 0) {

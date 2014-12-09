@@ -100,7 +100,23 @@ public class Surface {
 		}
 	}
 
+	/**
+	 * Does the surface contain anything
+	 * @param x real X location
+	 * @param y real Y location
+	 * @return true if contained and non-virtual
+	 */
 	public boolean contains(double x, double y) {
-		return scaledLine.contains(new Point2D.Double(x, y));
+		if(scaledLine != null) {
+			return (!isVirtual) && scaledLine.contains(new Point2D.Double(x, y));
+		} else {
+			return false; 
+		}
 	}
+	
+	/**
+	 * isVirtual
+	 * @return true if this is a virtual surface (aka, does not affect anything)
+	 */
+	public boolean isVirtual() { return isVirtual; }
 }
