@@ -37,6 +37,7 @@ public class NeedleGameThread extends Thread {
 			//System.out.println("time taken = " + dt);
 			if (dt < TICK_LENGTH) {
 				try {
+					System.out.println(System.currentTimeMillis() + " -- " + dt + " -- sleeping for " + (TICK_LENGTH - dt));
 					Thread.sleep(TICK_LENGTH - dt);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block

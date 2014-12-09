@@ -193,14 +193,12 @@ public class Needle {
 				
 				threadPoints.add(new Point2D.Double(this.x, this.y));
 				
-				System.out.println("movement mult = " + movementMultiplier);
-				
 				double movement = dist * Math.cos(dw) * movementMultiplier; // x projection of the motion?
-				System.out.println("actual = " + movement);
+				
 				this.x = this.x + (movement * Math.cos(w));
 				this.y = this.y - (movement * Math.sin(w));
 				
-				double rotation = Math.sin(dw) / 16.0 * rotationMultiplier;
+				double rotation = Math.sin(dw) / 12.0 * rotationMultiplier;
 				w += rotation;				
 			}
 			

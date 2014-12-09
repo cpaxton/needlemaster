@@ -141,6 +141,8 @@ public class ThreadTheNeedleGame extends JPanel {
 			double[] s1x = {0, 0.4, 0.5, 0.6, 1, 1, 0};
 			double[] s1y = {0.4, 0.6, 0.25, 0.6, 0.4, 0, 0};
 			Surface s1 = new Surface(tissue, true, 45, s1x, s1y, false);
+			s1.setMovementMultiplier(0.8);
+			s1.setRotationMultiplier(0.4);
 			surfaces.add(s1);
 			
 			double[] s2x = {0, 0.38, 0.5, 0.61, 1, 1, 0};
