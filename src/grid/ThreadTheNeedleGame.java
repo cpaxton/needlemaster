@@ -16,7 +16,7 @@ import grid.needlegame.Surface;
 public class ThreadTheNeedleGame extends JPanel {
 	
     final static Color bg = new Color(0.85f, 0.90f, 1.00f);
-    final static Color fg = Color.black;
+    final static Color fg = new Color(0.00f, 0.00f, 0.00f, 0.50f);
     final static Color tissue = new Color(0.98f, 0.85f, 0.50f);
     final static Color deepTissue = new Color(0.90f, 0.50f, 0.15f);
     final static Color white = Color.white;
@@ -120,6 +120,12 @@ public class ThreadTheNeedleGame extends JPanel {
         }
         
         needle.draw(g2);
+        
+        g.setColor(fg);
+        int fontSize = d.height / 10;
+        g.setFont(new Font("Geneva",Font.PLAIN,fontSize));
+        g.drawString("Testing", 50, fontSize + 10); // how to print out time remaining
+        
         //int widthRange = d.width / 5;
         //int heightRange = d.height / 5;
         //repaint((int)needle.getRealX() - widthRange, (int)needle.getRealY() - heightRange, 2 * widthRange, 2 * heightRange);
