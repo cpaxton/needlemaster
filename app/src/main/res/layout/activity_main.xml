@@ -21,7 +21,9 @@
         android:id="@+id/selectLevelButton"
         android:layout_above="@+id/aboutButton"
         android:layout_alignLeft="@+id/newGameButton"
-        android:layout_alignStart="@+id/newGameButton" />
+        android:layout_alignStart="@+id/newGameButton"
+        android:layout_alignRight="@+id/newGameButton"
+        android:layout_alignEnd="@+id/newGameButton" />
 
     <ImageView
         android:layout_width="wrap_content"
