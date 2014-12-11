@@ -1,7 +1,9 @@
 package grid.needlegame;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Stroke;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
 
@@ -23,15 +25,21 @@ public class Gate {
 	
 	GeneralPath polygon;
 	
+	public static final int GATE_FAILED = -1;
 	public static final int GATE_CLOSED = 0;
 	public static final int GATE_ON_DECK = 1;
 	public static final int GATE_NEXT = 2;
 	public static final int GATE_PASSED = 3;
 	
+	private static final Color failed = new Color(0.30f, 0.15f, 0.15f);
+	private static final Color passed = new Color(0.70f, 0.70f, 0.70f);
+	
 	private static final Color closed = new Color(0.15f, 0.30f, 0.15f);
 	private static final Color onDeck = new Color(0.40f, 0.60f, 0.40f);
 	private static final Color next = new Color(0.70f, 0.90f, 0.70f);
-	private static final Color passed = new Color(0.70f, 0.70f, 0.70f);
+	
+	private static final Color highlight = new Color(0.40f, 0.90f, 0.40f);
+	private static final Color highlightOnDeck = new Color(0.30f, 0.50f, 0.30f);
 	
 	public Gate(double x, double y, double w) {
 		this.x = x;
@@ -72,6 +80,17 @@ public class Gate {
 			g.setColor(passed);	
 		}
 		g.fill(polygon);
+		
+		Stroke s = g.getStroke();
+		g.setStroke(new BasicStroke(5.0f,BasicStroke.CAP_ROUND,BasicStroke.JOIN_BEVEL));
+		if(status == GATE_NEXT) {
+			g.setColor(highlight);
+			g.draw(polygon);
+		} else if (status == GATE_ON_DECK) {
+			g.setColor(highlightOnDeck);
+			g.draw(polygon);
+		}
+		g.setStroke(s);
 		
 	}
 	
