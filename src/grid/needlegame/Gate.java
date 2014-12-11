@@ -24,6 +24,8 @@ public class Gate {
 	int status;
 	
 	GeneralPath polygon;
+	GeneralPath top;
+	GeneralPath bottom;
 	
 	Point2D.Double topA, topB, bottomA, bottomB;
 	
@@ -102,6 +104,10 @@ public class Gate {
 		}
 		g.setStroke(s);
 		
+		g.setColor(Color.red);
+		g.drawLine((int)topA.x, (int)topA.y, (int)topB.x, (int)topB.y);
+		g.drawLine((int)bottomA.x, (int)bottomA.y, (int)bottomB.x, (int)bottomB.y);
+		
 	}
 	
 	void redraw() {
@@ -111,6 +117,11 @@ public class Gate {
 			double height1 = scale * 0.025 * Math.sin(w) - scale * 0.015 * Math.cos(w);
 			double width2 = -1 * scale * 0.025 * Math.cos(w) + scale * 0.015 * Math.sin(w);
 			double height2 = -1 * scale * 0.025 * Math.sin(w) - scale * 0.015 * Math.cos(w);
+			
+			double width1m = (scale * 0.025 - 6.0) * Math.cos(w) + scale * 0.015 * Math.sin(w);
+			double height1m = (scale * 0.025 - 6.0) * Math.sin(w) - scale * 0.015 * Math.cos(w);
+			double width2m = (-1 * scale * 0.025 + 6.0) * Math.cos(w) + scale * 0.015 * Math.sin(w);
+			double height2m = (-1 * scale * 0.025 + 6.0) * Math.sin(w) - scale * 0.015 * Math.cos(w);
 			
 			double realX = x * screenWidth;
 			double realY = (1.0 - y) * screenHeight;
@@ -132,6 +143,11 @@ public class Gate {
 			polygon.lineTo(realX - width2, realY - height2);
 			//System.out.println((realX - width2) + ", " + (realY - height2));
 			polygon.closePath();
+			
+			topA = new Point2D.Double(realX + width1m, realY + height1m);
+			topB = new Point2D.Double(realX - width2m, realY - height2m);
+			bottomA = new Point2D.Double(realX - width1m, realY - height1m);
+			bottomB = new Point2D.Double(realX + width2m, realY + height2m);
 		}
 	}
 
