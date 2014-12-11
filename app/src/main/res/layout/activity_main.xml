@@ -10,18 +10,16 @@
         android:layout_height="wrap_content"
         android:text="Begin Game"
         android:id="@+id/newGameButton"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:padding="20dp" />
+        android:padding="20dp"
+        android:layout_above="@+id/selectLevelButton"
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Select Level"
         android:id="@+id/selectLevelButton"
-        android:layout_below="@+id/newGameButton"
-        android:layout_alignRight="@+id/newGameButton"
-        android:layout_alignEnd="@+id/newGameButton"
+        android:layout_above="@+id/aboutButton"
         android:layout_alignLeft="@+id/newGameButton"
         android:layout_alignStart="@+id/newGameButton" />
 
@@ -37,19 +35,15 @@
         android:layout_above="@+id/newGameButton"
         android:src="@drawable/thread_the_needle" />
 
-    <ImageView
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageView2"
+        android:text="About"
+        android:id="@+id/aboutButton"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignLeft="@+id/selectLevelButton"
+        android:layout_alignStart="@+id/selectLevelButton"
+        android:layout_alignRight="@+id/selectLevelButton"
+        android:layout_alignEnd="@+id/selectLevelButton" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageView3"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
 </RelativeLayout>
