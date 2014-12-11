@@ -25,18 +25,22 @@ public class Gate {
 	
 	GeneralPath polygon;
 	
+	Point2D.Double topA, topB, bottomA, bottomB;
+	
+	boolean entered;
+	
 	public static final int GATE_FAILED = -1;
 	public static final int GATE_CLOSED = 0;
 	public static final int GATE_ON_DECK = 1;
 	public static final int GATE_NEXT = 2;
 	public static final int GATE_PASSED = 3;
 	
-	private static final Color failed = new Color(0.30f, 0.15f, 0.15f);
-	private static final Color passed = new Color(0.70f, 0.70f, 0.70f);
+	private static final Color failed = new Color(0.50f, 0.40f, 0.40f);
+	private static final Color passed = new Color(0.40f, 0.50f, 0.50f);
 	
-	private static final Color closed = new Color(0.15f, 0.30f, 0.15f);
-	private static final Color onDeck = new Color(0.40f, 0.60f, 0.40f);
-	private static final Color next = new Color(0.70f, 0.90f, 0.70f);
+	private static final Color closed = new Color(0.40f, 0.40f, 0.40f);
+	private static final Color onDeck = new Color(0.50f, 0.50f, 0.50f);
+	private static final Color next = new Color(0.70f, 0.70f, 0.70f);
 	
 	private static final Color highlight = new Color(0.40f, 0.90f, 0.40f);
 	private static final Color highlightOnDeck = new Color(0.30f, 0.50f, 0.30f);
@@ -51,6 +55,8 @@ public class Gate {
 		screenHeight = 0;
 		scale = 0;
 		rescale(800, 600);
+		
+		entered = false;
 	}
 
 	/**
@@ -68,6 +74,10 @@ public class Gate {
 		}
 	}
 	
+	/**
+	 * Draw the gate on the screen.
+	 * @param g
+	 */
 	public void draw(Graphics2D g) {
 		
 		if(status == GATE_CLOSED) {
@@ -83,7 +93,7 @@ public class Gate {
 		
 		Stroke s = g.getStroke();
 		g.setStroke(new BasicStroke(5.0f,BasicStroke.CAP_ROUND,BasicStroke.JOIN_BEVEL));
-		if(status == GATE_NEXT) {
+		if(status == GATE_NEXT && !entered) {
 			g.setColor(highlight);
 			g.draw(polygon);
 		} else if (status == GATE_ON_DECK) {
@@ -97,7 +107,7 @@ public class Gate {
 	void redraw() {
 
 		synchronized(this) {
-			double width1 = scale* 0.025 * Math.cos(w) + scale * 0.015 * Math.sin(w);
+			double width1 = scale * 0.025 * Math.cos(w) + scale * 0.015 * Math.sin(w);
 			double height1 = scale * 0.025 * Math.sin(w) - scale * 0.015 * Math.cos(w);
 			double width2 = -1 * scale * 0.025 * Math.cos(w) + scale * 0.015 * Math.sin(w);
 			double height2 = -1 * scale * 0.025 * Math.sin(w) - scale * 0.015 * Math.cos(w);
@@ -142,6 +152,8 @@ public class Gate {
 
 	public void update(Needle needle) {
 		if (polygon.contains(new Point2D.Double(needle.getRealX(), needle.getRealY())) && status == GATE_NEXT) {
+			entered = true;
+		} else if (entered == true) {
 			status = GATE_PASSED;
 		}
 	}
