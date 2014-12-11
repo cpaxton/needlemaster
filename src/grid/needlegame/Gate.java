@@ -23,13 +23,11 @@ public class Gate {
 	
 	int status;
 	
-	GeneralPath polygon;
-	GeneralPath top;
-	GeneralPath bottom;
+	GeneralPath polygon; // total outline of the gate
+	GeneralPath top; // top "cap": do not hit it!
+	GeneralPath bottom; // bottom "cap": do not hit it!
 	
-	Point2D.Double topA, topB, bottomA, bottomB;
-	
-	boolean entered;
+	boolean entered; // have you entered this gate?
 	
 	public static final int GATE_FAILED = -1;
 	public static final int GATE_CLOSED = 0;
@@ -150,11 +148,6 @@ public class Gate {
 			bottom.lineTo(realX - width1m, realY - height1m);
 			bottom.lineTo(realX - width1, realY - height1);
 			bottom.closePath();
-			
-			//topA = new Point2D.Double(realX + width1m, realY + height1m);
-			//topB = new Point2D.Double(realX - width2m, realY - height2m);
-			//bottomA = new Point2D.Double(realX - width1m, realY - height1m);
-			//bottomB = new Point2D.Double(realX + width2m, realY + height2m);
 		}
 	}
 

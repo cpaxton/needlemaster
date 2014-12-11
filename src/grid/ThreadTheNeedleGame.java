@@ -98,21 +98,20 @@ public class ThreadTheNeedleGame extends JPanel {
         	s.draw(g2);
         }
         
-        if (index < gates.size()) {
-        	if (gates.get(index).getStatus() == Gate.GATE_PASSED
-        		|| gates.get(index).getStatus() == Gate.GATE_FAILED)
-        	{
-        		index++;
-        	}
-        	
-        	if(index < gates.size()) {
-        		gates.get(index).setStatus(Gate.GATE_NEXT);
-        	}
-        	
-        	if(index + 1 < gates.size()) {
-        		gates.get(index + 1).setStatus(Gate.GATE_ON_DECK);
-        	}
-        }
+		while (index < gates.size()
+				&& (gates.get(index).getStatus() == Gate.GATE_PASSED
+				|| gates.get(index).getStatus() == Gate.GATE_FAILED))
+		{
+			index++;
+		}
+
+		if (index < gates.size()) {
+			gates.get(index).setStatus(Gate.GATE_NEXT);
+		}
+
+		if (index + 1 < gates.size()) {
+			gates.get(index + 1).setStatus(Gate.GATE_ON_DECK);
+		}
         
         for (Gate gt: gates) {
         	gt.rescale(d.width, d.height);
