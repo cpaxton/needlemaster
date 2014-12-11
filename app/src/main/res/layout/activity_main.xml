@@ -11,7 +11,8 @@
         android:text="Begin Game"
         android:id="@+id/newGameButton"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:padding="20dp" />
 
     <Button
         android:layout_width="wrap_content"
@@ -24,17 +25,6 @@
         android:layout_alignLeft="@+id/newGameButton"
         android:layout_alignStart="@+id/newGameButton" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Settings"
-        android:id="@+id/settingsButton"
-        android:layout_below="@+id/selectLevelButton"
-        android:layout_alignLeft="@+id/selectLevelButton"
-        android:layout_alignStart="@+id/selectLevelButton"
-        android:layout_alignRight="@+id/selectLevelButton"
-        android:layout_alignEnd="@+id/selectLevelButton" />
-
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -42,9 +32,9 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_above="@+id/newGameButton"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_above="@+id/newGameButton" />
 
     <ImageView
         android:layout_width="wrap_content"
