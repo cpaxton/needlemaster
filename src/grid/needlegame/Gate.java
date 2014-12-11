@@ -38,7 +38,7 @@ public class Gate {
 	public static final int GATE_PASSED = 3;
 	
 	private static final Color failed = new Color(0.50f, 0.40f, 0.40f);
-	private static final Color passed = new Color(0.40f, 0.50f, 0.50f);
+	private static final Color passed = new Color(0.40f, 0.50f, 0.40f);
 	
 	private static final Color closed = new Color(0.40f, 0.40f, 0.40f);
 	private static final Color onDeck = new Color(0.50f, 0.50f, 0.50f);
@@ -46,6 +46,7 @@ public class Gate {
 	
 	private static final Color highlight = new Color(0.40f, 0.90f, 0.40f);
 	private static final Color highlightOnDeck = new Color(0.30f, 0.50f, 0.30f);
+	private static final Color warning = new Color(1.00f, 0.20f, 0.05f);
 	
 	public Gate(double x, double y, double w) {
 		this.x = x;
@@ -88,13 +89,21 @@ public class Gate {
 			g.setColor(onDeck);
 		} else if (status == GATE_NEXT) {
 			g.setColor(next);
-		} else {
+		} else if (status == GATE_PASSED) {
 			g.setColor(passed);	
+		} else if (status == GATE_FAILED) {
+			g.setColor(failed);
 		}
 		g.fill(polygon);
 		
+		if(status != GATE_PASSED && status != GATE_FAILED) {
+			g.setColor(warning);
+			g.fill(top);
+			g.fill(bottom);
+		}
+		
 		Stroke s = g.getStroke();
-		g.setStroke(new BasicStroke(5.0f,BasicStroke.CAP_ROUND,BasicStroke.JOIN_BEVEL));
+		g.setStroke(new BasicStroke(3.0f,BasicStroke.CAP_ROUND,BasicStroke.JOIN_BEVEL));
 		if(status == GATE_NEXT && !entered) {
 			g.setColor(highlight);
 			g.draw(polygon);
@@ -103,11 +112,6 @@ public class Gate {
 			g.draw(polygon);
 		}
 		g.setStroke(s);
-		
-		g.setColor(Color.red);
-		g.drawLine((int)topA.x, (int)topA.y, (int)topB.x, (int)topB.y);
-		g.drawLine((int)bottomA.x, (int)bottomA.y, (int)bottomB.x, (int)bottomB.y);
-		
 	}
 	
 	void redraw() {
@@ -126,28 +130,31 @@ public class Gate {
 			double realX = x * screenWidth;
 			double realY = (1.0 - y) * screenHeight;
 			
-			//System.out.println("Drawing gate:");
-			
-			//System.out.println(width1);
-			//System.out.println(height1);
-			//System.out.println(width2);
-			//System.out.println(height2);
-			
 			polygon = new GeneralPath();
 			polygon.moveTo(realX + width1, realY + height1);
-			//System.out.println((realX + width1) + ", " + (realY + height1));
 			polygon.lineTo(realX + width2, realY + height2);
-			//System.out.println((realX + width2) + ", " + (realY + height2));
 			polygon.lineTo(realX - width1, realY - height1);
-			//System.out.println((realX - width1) + ", " + (realY - height2));
-			polygon.lineTo(realX - width2, realY - height2);
-			//System.out.println((realX - width2) + ", " + (realY - height2));
+			polygon.lineTo(realX - width2, realY - height2); 
 			polygon.closePath();
 			
-			topA = new Point2D.Double(realX + width1m, realY + height1m);
-			topB = new Point2D.Double(realX - width2m, realY - height2m);
-			bottomA = new Point2D.Double(realX - width1m, realY - height1m);
-			bottomB = new Point2D.Double(realX + width2m, realY + height2m);
+			top = new GeneralPath();
+			top.moveTo(realX + width1, realY + height1);
+			top.lineTo(realX + width1m, realY + height1m);
+			top.lineTo(realX - width2m, realY - height2m);
+			top.lineTo(realX - width2, realY - height2); 
+			top.closePath();
+			
+			bottom = new GeneralPath();
+			bottom.moveTo(realX + width2, realY + height2);
+			bottom.lineTo(realX + width2m, realY + height2m);
+			bottom.lineTo(realX - width1m, realY - height1m);
+			bottom.lineTo(realX - width1, realY - height1);
+			bottom.closePath();
+			
+			//topA = new Point2D.Double(realX + width1m, realY + height1m);
+			//topB = new Point2D.Double(realX - width2m, realY - height2m);
+			//bottomA = new Point2D.Double(realX - width1m, realY - height1m);
+			//bottomB = new Point2D.Double(realX + width2m, realY + height2m);
 		}
 	}
 
@@ -167,9 +174,12 @@ public class Gate {
 	}
 
 	public void update(Needle needle) {
-		if (polygon.contains(new Point2D.Double(needle.getRealX(), needle.getRealY())) && status == GATE_NEXT) {
+		Point2D.Double pt = new Point2D.Double(needle.getRealX(), needle.getRealY());
+		if (top.contains(pt) || bottom.contains(pt)) {
+			status = GATE_FAILED;
+		} else if (polygon.contains(pt) && status == GATE_NEXT) {
 			entered = true;
-		} else if (entered == true) {
+		} else if (entered == true && status != GATE_FAILED) {
 			status = GATE_PASSED;
 		}
 	}

@@ -99,7 +99,9 @@ public class ThreadTheNeedleGame extends JPanel {
         }
         
         if (index < gates.size()) {
-        	if (gates.get(index).getStatus() == Gate.GATE_PASSED) {
+        	if (gates.get(index).getStatus() == Gate.GATE_PASSED
+        		|| gates.get(index).getStatus() == Gate.GATE_FAILED)
+        	{
         		index++;
         	}
         	
