@@ -23,14 +23,14 @@ public class NeedleGameThread extends Thread {
 	}
 	
 	public void run() {
-		long t00 = System.currentTimeMillis();
+		//long t00 = System.currentTimeMillis();
 		while(running) {
 			long t0 = System.currentTimeMillis();
 			
 			Surface s = game.checkNeedleLocation(needle.getRealX(), needle.getRealY());
-			if (s != null) {
-				needle.applySurface(s);
-			}
+			//if (s != null) {
+			needle.applySurface(s);
+			//}
 			needle.move();
 			
 			long dt = System.currentTimeMillis() - t0;
@@ -44,8 +44,8 @@ public class NeedleGameThread extends Thread {
 					e.printStackTrace();
 				}
 			}
-			long ttmp = System.currentTimeMillis();
-			System.out.println(ttmp - t00); t00 = ttmp;
+			//long ttmp = System.currentTimeMillis();
+			//System.out.println(ttmp - t00); t00 = ttmp;
 		}
 	}
 }

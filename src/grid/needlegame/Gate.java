@@ -35,11 +35,11 @@ public class Gate {
 	public static final int GATE_NEXT = 2;
 	public static final int GATE_PASSED = 3;
 	
-	private static final Color failed = new Color(0.50f, 0.40f, 0.40f);
-	private static final Color passed = new Color(0.40f, 0.50f, 0.40f);
+	private static final Color failed = new Color(0.70f, 0.40f, 0.40f);
+	private static final Color passed = new Color(0.40f, 0.70f, 0.40f);
 	
-	private static final Color closed = new Color(0.40f, 0.40f, 0.40f);
-	private static final Color onDeck = new Color(0.50f, 0.50f, 0.50f);
+	private static final Color closed = new Color(0.70f, 0.70f, 0.70f);
+	private static final Color onDeck = new Color(0.70f, 0.70f, 0.70f);
 	private static final Color next = new Color(0.70f, 0.70f, 0.70f);
 	
 	private static final Color highlight = new Color(0.40f, 0.90f, 0.40f);

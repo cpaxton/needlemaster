@@ -18,7 +18,7 @@ public class ThreadTheNeedleGame extends JPanel {
     final static Color bg = new Color(0.85f, 0.90f, 1.00f);
     final static Color fg = new Color(0.00f, 0.00f, 0.00f, 0.50f);
     final static Color tissue = new Color(0.98f, 0.85f, 0.50f);
-    final static Color deepTissue = new Color(0.90f, 0.50f, 0.15f);
+    final static Color deepTissue = new Color(0.90f, 0.25f, 0.15f);
     final static Color white = Color.white;
     final static Color outlines = new Color(1.0f, 0.80f, 0.0f);
     
@@ -30,6 +30,9 @@ public class ThreadTheNeedleGame extends JPanel {
     
     NeedleGameThread thread;
     
+    long startTime;
+    boolean running;
+    
 	/**
 	 * 
 	 */
@@ -38,6 +41,9 @@ public class ThreadTheNeedleGame extends JPanel {
 	ThreadTheNeedleGame(int width, int height, int preset) {		
 		
 		super();
+		
+		startTime = 0;
+		running = false;
 		
 		index = 0;
 		
@@ -71,7 +77,21 @@ public class ThreadTheNeedleGame extends JPanel {
 		initialize(preset);
 		
 		thread = new NeedleGameThread(needle, this);
+	}
+	
+	public void start() {
 		thread.start();
+		startTime = System.currentTimeMillis();
+		running = true;
+	}
+	
+	public void end() {
+		try {
+			thread.join();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	
@@ -80,6 +100,7 @@ public class ThreadTheNeedleGame extends JPanel {
 	 * Note: some example code taken from the shape demo online
 	 */
 	public void paintComponent(Graphics g) {
+		
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D)g;
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
@@ -109,7 +130,7 @@ public class ThreadTheNeedleGame extends JPanel {
 			gates.get(index).setStatus(Gate.GATE_NEXT);
 		}
 
-		if (index + 1 < gates.size()) {
+		if (index + 1 < gates.size() && gates.get(index + 1).getStatus() != Gate.GATE_FAILED) {
 			gates.get(index + 1).setStatus(Gate.GATE_ON_DECK);
 		}
         
@@ -124,7 +145,15 @@ public class ThreadTheNeedleGame extends JPanel {
         g.setColor(fg);
         int fontSize = d.height / 10;
         g.setFont(new Font("Geneva",Font.PLAIN,fontSize));
-        g.drawString("Testing", 50, fontSize + 10); // how to print out time remaining
+        
+        // compute time remaining
+        long time = 30000 + startTime - System.currentTimeMillis();
+        if(time < 0) {
+        	end();
+        	time = 0;
+        }
+        
+        g.drawString("Time remaining: " + time, 50, fontSize + 10); // how to print out time remaining
         
         //int widthRange = d.width / 5;
         //int heightRange = d.height / 5;
@@ -152,8 +181,8 @@ public class ThreadTheNeedleGame extends JPanel {
 			double[] s1x = {0, 0.4, 0.5, 0.6, 1, 1, 0};
 			double[] s1y = {0.4, 0.6, 0.25, 0.6, 0.4, 0, 0};
 			Surface s1 = new Surface(tissue, true, 45, s1x, s1y, false);
-			s1.setMovementMultiplier(0.8);
-			s1.setRotationMultiplier(0.4);
+			s1.setMovementMultiplier(0.5);
+			s1.setRotationMultiplier(0.3);
 			surfaces.add(s1);
 			
 			double[] s2x = {0, 0.38, 0.5, 0.61, 1, 1, 0};
@@ -199,6 +228,8 @@ public class ThreadTheNeedleGame extends JPanel {
 
 		frame.setVisible(true);
 		frame.setLocationRelativeTo(null);
+		
+		game.start();
 	}
 
 
@@ -209,12 +240,13 @@ public class ThreadTheNeedleGame extends JPanel {
 	 * @return
 	 */
 	public Surface checkNeedleLocation(double realX, double realY) {
+		Surface in = null;
 		for(Surface s: surfaces) {
 			if (s.contains(realX, realY)) {
-				return s;
+				in = s;
 			}
 		}
-		return null;
+		return in;
 	}
 
 }
