@@ -46,6 +46,9 @@ public class NeedleGameThread extends Thread {
 			}
 			//long ttmp = System.currentTimeMillis();
 			//System.out.println(ttmp - t00); t00 = ttmp;
+			
+			running = game.isRunning();
+			
 		}
 	}
 }

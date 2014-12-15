@@ -80,18 +80,28 @@ public class ThreadTheNeedleGame extends JPanel {
 	}
 	
 	public void start() {
+		synchronized(this) {
+			running = true;
+		}
 		thread.start();
 		startTime = System.currentTimeMillis();
-		running = true;
 	}
 	
 	public void end() {
+		synchronized(this) {
+			running = false;
+		}
 		try {
 			thread.join();
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		System.out.println("Level over!");
+	}
+	
+	public synchronized boolean isRunning() {
+		return running;
 	}
 	
 	
@@ -143,17 +153,26 @@ public class ThreadTheNeedleGame extends JPanel {
         needle.draw(g2);
         
         g.setColor(fg);
-        int fontSize = d.height / 10;
+        int fontSize = (int) Math.min(d.height, d.width) / 10;
         g.setFont(new Font("Geneva",Font.PLAIN,fontSize));
         
         // compute time remaining
         long time = 30000 + startTime - System.currentTimeMillis();
         if(time < 0) {
-        	end();
         	time = 0;
+        	if (isRunning()) {
+        		end();
+        	}
         }
         
-        g.drawString("Time remaining: " + time, 50, fontSize + 10); // how to print out time remaining
+        long mins = time / 60000;
+        long secs = (time - (60000 * mins)) / 1000;
+        long millis = time - (60000 * mins) - (1000 * secs);
+        
+        g.drawString("Time: " + String.format("%02d", mins)
+        		+ ":" + String.format("%02d", secs)
+        		+ ":" + String.format("%02d", millis / 10),
+        		50, fontSize + 10); // how to print out time remaining
         
         //int widthRange = d.width / 5;
         //int heightRange = d.height / 5;
