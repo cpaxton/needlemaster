@@ -1,6 +1,6 @@
-package grid.needlegame;
+package edu.jhu.lcsr.grid.needlegame;
 
-import grid.ThreadTheNeedleGame;
+import edu.jhu.lcsr.grid.ThreadTheNeedleGame;
 
 /**
  * Core game loop.

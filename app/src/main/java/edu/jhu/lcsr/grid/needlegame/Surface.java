@@ -1,6 +1,8 @@
-package grid.needlegame;
+package edu.jhu.lcsr.grid.needlegame;
 
-import java.awt.Color;
+//import java.awt.Color;
+import android.graphics.Path;
+
 import java.awt.Graphics2D;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
@@ -11,10 +13,10 @@ import java.awt.geom.Point2D;
  *
  */
 public class Surface {
-	Color mycolor; // what color does this surface show up as?
+	int mycolor; // what color does this surface show up as?
 	boolean angleRestricted; // is this restricted by angle?
 	double angle; // angle on which the needle is allowed to enter
-	GeneralPath scaledLine; 
+	Path scaledLine;
 	double [] x;
 	double [] y;
 	
@@ -57,7 +59,7 @@ public class Surface {
 	 * @param y
 	 * @param isVirtual
 	 */
-	public Surface(Color color, boolean isAngleRestricted, double entryAngle, double[] x, double[] y, boolean isVirtual) {
+	public Surface(int color, boolean isAngleRestricted, double entryAngle, double[] x, double[] y, boolean isVirtual) {
 		mycolor = color;
 		angleRestricted = isAngleRestricted;
 		angle = entryAngle;
@@ -78,12 +80,12 @@ public class Surface {
 		if (width != this.width || height != this.height) {
 			this.width = width;
 			this.height = height;
-			scaledLine = new GeneralPath(GeneralPath.WIND_NON_ZERO, x.length);
-			scaledLine.moveTo(x[0] * width, (1.0 - y[0]) * height);
+			scaledLine = new Path(); //GeneralPath.WIND_NON_ZERO, x.length);
+			scaledLine.moveTo((float)(x[0] * width), (float)((1.0 - y[0]) * height));
 			for (int i = 1; i < x.length; i ++) {
-				scaledLine.lineTo(x[i] * width, (1.0 - y[i]) * height);
+				scaledLine.lineTo((float)(x[i] * width), (float)((1.0 - y[i]) * height));
 			}
-			scaledLine.closePath();
+			scaledLine.close();
 		}
 	}
 	

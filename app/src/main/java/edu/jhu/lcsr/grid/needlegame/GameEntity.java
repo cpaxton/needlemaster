@@ -1,4 +1,4 @@
-package grid.needlegame;
+package edu.jhu.lcsr.grid.needlegame;
 
 import java.awt.geom.GeneralPath;
 

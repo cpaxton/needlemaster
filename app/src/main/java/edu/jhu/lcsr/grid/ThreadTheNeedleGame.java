@@ -1,26 +1,25 @@
-package grid;
+package edu.jhu.lcsr.grid;
 
-import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import android.graphics.Color;
+import android.view.View;
+
+//import java.awt.event.MouseAdapter;
+//import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import edu.jhu.lcsr.grid.needlegame.Gate;
+import edu.jhu.lcsr.grid.needlegame.Needle;
+import edu.jhu.lcsr.grid.needlegame.NeedleGameThread;
+import edu.jhu.lcsr.grid.needlegame.Surface;
 
-import grid.needlegame.Gate;
-import grid.needlegame.Needle;
-import grid.needlegame.NeedleGameThread;
-import grid.needlegame.Surface;
-
-public class ThreadTheNeedleGame extends JPanel {
+public class ThreadTheNeedleGame extends View {
 	
-    final static Color bg = new Color(0.85f, 0.90f, 1.00f);
-    final static Color fg = new Color(0.00f, 0.00f, 0.00f, 0.50f);
-    final static Color tissue = new Color(0.98f, 0.85f, 0.50f);
-    final static Color deepTissue = new Color(0.90f, 0.25f, 0.15f);
-    final static Color white = Color.white;
-    final static Color outlines = new Color(1.0f, 0.80f, 0.0f);
+    final static int bg = Color.argb(255, (int)(255*0.85f), 200, 255);
+    final static int fg = Color.argb(125, 0, 0, 0);
+    final static int tissue = Color.argb(255, 250, (int)(255*0.85f), 125);
+    final static int deepTissue = Color.argb(255, 200, 63, (int)(255*0.15f));
+    final static int white = Color.white;
+    final static int outlines = Color.argb(255, 255, 200, 0);
     
     Needle needle;
     ArrayList<Surface> surfaces;
@@ -38,9 +37,8 @@ public class ThreadTheNeedleGame extends JPanel {
 	 */
 	private static final long serialVersionUID = -3307855543895436008L;
 
-	ThreadTheNeedleGame(int width, int height, int preset) {		
-		
-		super();
+	ThreadTheNeedleGame(int width, int height, int preset) {
+        super();
 		
 		startTime = 0;
 		running = false;
