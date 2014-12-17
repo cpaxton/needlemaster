@@ -5,6 +5,7 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Color;
 import android.graphics.PointF;
+import android.graphics.RectF;
 import android.graphics.Region;
 
 /**
@@ -71,7 +72,7 @@ public class Gate {
 
 	/**
 	 * Update this gate's status.
-	 * @param status
+	 * @param status status of the gate
 	 * @return true if the status was updated; false otherwise.
 	 */
 	public boolean setStatus(int status) {
@@ -86,7 +87,7 @@ public class Gate {
 
 	/**
 	 * Draw the gate on the screen.
-	 * @param c
+	 * @param c canvas on which to draw
 	 */
 	public void draw(Canvas c) {
 
@@ -110,8 +111,6 @@ public class Gate {
 			c.drawPath(bottom, warningPaint);
 		}
 
-		//Stroke s = g.getStroke();
-		//g.setStroke(new BasicStroke(3.0f,BasicStroke.CAP_ROUND,BasicStroke.JOIN_BEVEL));
         gatePaint.setStyle(Paint.Style.STROKE);
 		if(status == GATE_NEXT && !entered) {
             gatePaint.setColor(highlight);
@@ -160,6 +159,19 @@ public class Gate {
 			bottom.lineTo(realX - width1m, realY - height1m);
 			bottom.lineTo(realX - width1, realY - height1);
 			bottom.close();
+
+            RectF tmp = new RectF();
+            polygon.computeBounds(tmp, true);
+            gateRegion = new Region();
+            gateRegion.setPath(polygon, new Region((int)tmp.left, (int)tmp.top, (int)tmp.left, (int)tmp.right));
+
+            top.computeBounds(tmp, true);
+            topRegion = new Region();
+            topRegion.setPath(top, new Region((int)tmp.left, (int)tmp.top, (int)tmp.left, (int)tmp.right));
+
+            bottom.computeBounds(tmp, true);
+            bottomRegion = new Region();
+            bottomRegion.setPath(bottom, new Region((int)tmp.left, (int)tmp.top, (int)tmp.left, (int)tmp.right));
 		}
 	}
 

@@ -1,10 +1,11 @@
 package edu.jhu.lcsr.grid;
 
+import android.content.Context;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.util.AttributeSet;
 import android.view.View;
 
-//import java.awt.event.MouseAdapter;
-//import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 import edu.jhu.lcsr.grid.needlegame.Gate;
@@ -16,9 +17,8 @@ public class ThreadTheNeedleGame extends View {
 	
     final static int bg = Color.argb(255, (int)(255*0.85f), 200, 255);
     final static int fg = Color.argb(125, 0, 0, 0);
-    final static int tissue = Color.argb(255, 250, (int)(255*0.85f), 125);
-    final static int deepTissue = Color.argb(255, 200, 63, (int)(255*0.15f));
-    final static int white = Color.white;
+    final static int tissue = Color.argb(255, 250, (int) (255 * 0.85f), 125);
+    final static int deepTissue = Color.argb(255, 200, 63, (int) (255 * 0.15f));
     final static int outlines = Color.argb(255, 255, 200, 0);
     
     Needle needle;
@@ -37,9 +37,10 @@ public class ThreadTheNeedleGame extends View {
 	 */
 	private static final long serialVersionUID = -3307855543895436008L;
 
-	ThreadTheNeedleGame(int width, int height, int preset) {
-        super();
-		
+	ThreadTheNeedleGame(Context context, AttributeSet attrs) {
+        //int width, int height, int preset
+        super(context, attrs);
+
 		startTime = 0;
 		running = false;
 		
@@ -48,11 +49,8 @@ public class ThreadTheNeedleGame extends View {
 		surfaces = new ArrayList<Surface>();
 		gates = new ArrayList<Gate>();
 		needle = new Needle(0.05, 0.90, 0);
-		
-		setBackground(Color.white);
-		setForeground(Color.black);
 
-        addMouseListener(new MouseAdapter() {
+        /*addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
             	System.out.println("Starting motion at: " + e.getX() + ", " + e.getY());
                 needle.startMove(e.getX(), e.getY());
@@ -70,9 +68,7 @@ public class ThreadTheNeedleGame extends View {
             public void mouseDragged(MouseEvent e) {
                 needle.updateMove(e.getX(), e.getY());
             }
-        });
-		
-		initialize(preset);
+        });*/
 		
 		thread = new NeedleGameThread(needle, this);
 	}
@@ -101,30 +97,30 @@ public class ThreadTheNeedleGame extends View {
 	public synchronized boolean isRunning() {
 		return running;
 	}
-	
+
+    public void onSizeChanged(int w, int h, int oldw, int oldh) {
+
+        needle.rescale(w, h);
+        for (Surface s: surfaces) {
+            s.rescaleLine(w, h);
+        }
+
+        for (Gate gt: gates) {
+            gt.rescale(w, h);
+        }
+    }
 	
 	/**
 	 * Paint function for the game
 	 * Note: some example code taken from the shape demo online
 	 */
-	public void paintComponent(Graphics g) {
-		
-		super.paintComponent(g);
-		Graphics2D g2 = (Graphics2D)g;
-		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-				RenderingHints.VALUE_ANTIALIAS_ON);
-        Dimension d = getSize();
-        
-        if (needle.rescale(d.width, d.height)) {
-        	repaint();
-        }
-        
-        g.setColor(bg);
-        g.fillRect(0, 0, d.width, d.height);
+	public void onPaint(Canvas c) {
+
+        //g.setColor(bg);
+        //g.fillRect(0, 0, d.width, d.height);
         
         for (Surface s: surfaces) {
-        	s.rescaleLine(d.width, d.height);
-        	s.draw(g2);
+        	s.draw(c);
         }
         
 		while (index < gates.size()
@@ -143,16 +139,15 @@ public class ThreadTheNeedleGame extends View {
 		}
         
         for (Gate gt: gates) {
-        	gt.rescale(d.width, d.height);
         	gt.update(needle);
-        	gt.draw(g2);
+        	gt.draw(c);
         }
         
-        needle.draw(g2);
+        needle.draw(c);
         
-        g.setColor(fg);
-        int fontSize = (int) Math.min(d.height, d.width) / 10;
-        g.setFont(new Font("Geneva",Font.PLAIN,fontSize));
+        //g.setColor(fg);
+        //int fontSize = (int) Math.min(d.height, d.width) / 10;
+        //g.setFont(new Font("Geneva",Font.PLAIN,fontSize));
         
         // compute time remaining
         long time = 30000 + startTime - System.currentTimeMillis();
@@ -167,22 +162,19 @@ public class ThreadTheNeedleGame extends View {
         long secs = (time - (60000 * mins)) / 1000;
         long millis = time - (60000 * mins) - (1000 * secs);
         
-        g.drawString("Time: " + String.format("%02d", mins)
-        		+ ":" + String.format("%02d", secs)
-        		+ ":" + String.format("%02d", millis / 10),
-        		50, fontSize + 10); // how to print out time remaining
-        
-        //int widthRange = d.width / 5;
-        //int heightRange = d.height / 5;
-        //repaint((int)needle.getRealX() - widthRange, (int)needle.getRealY() - heightRange, 2 * widthRange, 2 * heightRange);
-        repaint();
+        //g.drawString("Time: " + String.format("%02d", mins)
+        //		+ ":" + String.format("%02d", secs)
+        //		+ ":" + String.format("%02d", millis / 10),
+        //		50, fontSize + 10); // how to print out time remaining
 	}
 	
 	/**
 	 * Set up the needle game with a specific preset list of information
-	 * @param preset
+     * 0 == largely empty world
+     * 1 == two peaks, four gates
+	 * @param preset which one of the preset levels we want to use
 	 */
-	private void initialize(int preset) {
+	public void initialize(int preset) {
 		if (preset == 0) {
 			double[] s1x = {0, 0.25, 0.5, 1, 1, 0};
 			double[] s1y = {0.6, 0.3, 0.35, 0.4, 0, 0};
@@ -221,40 +213,12 @@ public class ThreadTheNeedleGame extends View {
 			
 		}
 	}
-	
-	// curve for the depth of the surface
-	// curve for the depth of the 
-	Surface tough;
-	Surface danger;
-	
-	/**
-	 * Starts a demo instance of the game
-	 * With its own 
-	 * 
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		JFrame frame = new JFrame("Demo");
-		ThreadTheNeedleGame game = new ThreadTheNeedleGame(800, 600, 1);
-		
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.pack();
-		frame.setSize(new Dimension(800, 600));
-		
-		frame.getContentPane().add(game, BorderLayout.CENTER);
-
-		frame.setVisible(true);
-		frame.setLocationRelativeTo(null);
-		
-		game.start();
-	}
-
 
 	/**
 	 * Check to see if the needle is in any surfaces of interest
 	 * @param realX -- the real X location of the needle
 	 * @param realY -- the real Y location of the needle
-	 * @return
+	 * @return which surface this needle point is located within
 	 */
 	public Surface checkNeedleLocation(double realX, double realY) {
 		Surface in = null;
