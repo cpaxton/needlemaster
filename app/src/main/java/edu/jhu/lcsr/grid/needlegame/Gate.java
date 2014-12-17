@@ -1,14 +1,11 @@
 package edu.jhu.lcsr.grid.needlegame;
 
+import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Color;
-
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Stroke;
-import java.awt.geom.GeneralPath;
-import java.awt.geom.Point2D;
+import android.graphics.PointF;
+import android.graphics.Region;
 
 /**
  * This class represents a gate that must be passed through.
@@ -49,11 +46,20 @@ public class Gate {
 	private static final int highlightOnDeck = Color.argb(255, 75, 125, 75);
 	private static final int warning = Color.argb(255, 255, 50, 12);
 
+    Paint warningPaint;
+
+    Region topRegion;
+    Region bottomRegion;
+    Region gateRegion;
+
 	public Gate(double x, double y, double w) {
 		this.x = x;
 		this.y = y;
 		this.w = w;
 		status = GATE_CLOSED;
+
+        warningPaint = new Paint();
+        warningPaint.setColor(warning);
 
 		screenWidth = 0;
 		screenHeight = 0;
@@ -80,39 +86,39 @@ public class Gate {
 
 	/**
 	 * Draw the gate on the screen.
-	 * @param g
+	 * @param c
 	 */
-	public void draw(Graphics2D g) {
+	public void draw(Canvas c) {
 
+        Paint gatePaint = new Paint();
+        gatePaint.setStyle(Paint.Style.FILL);
 		if(status == GATE_CLOSED) {
-			g.setColor(closed);
+            gatePaint.setColor(closed);
 		} else if (status == GATE_ON_DECK) {
-			g.setColor(onDeck);
+            gatePaint.setColor(onDeck);
 		} else if (status == GATE_NEXT) {
-			g.setColor(next);
+			gatePaint.setColor(next);
 		} else if (status == GATE_PASSED) {
-			g.setColor(passed);
+            gatePaint.setColor(passed);
 		} else if (status == GATE_FAILED) {
-			g.setColor(failed);
+            gatePaint.setColor(failed);
 		}
-		g.fill(polygon);
+		c.drawPath(polygon, gatePaint);
 
 		if(status != GATE_PASSED && status != GATE_FAILED) {
-			g.setColor(warning);
-			g.fill(top);
-			g.fill(bottom);
+			c.drawPath(top, warningPaint);
+			c.drawPath(bottom, warningPaint);
 		}
 
-		Stroke s = g.getStroke();
-		g.setStroke(new BasicStroke(3.0f,BasicStroke.CAP_ROUND,BasicStroke.JOIN_BEVEL));
+		//Stroke s = g.getStroke();
+		//g.setStroke(new BasicStroke(3.0f,BasicStroke.CAP_ROUND,BasicStroke.JOIN_BEVEL));
+        gatePaint.setStyle(Paint.Style.STROKE);
 		if(status == GATE_NEXT && !entered) {
-			g.setColor(highlight);
-			g.draw(polygon);
+            gatePaint.setColor(highlight);
 		} else if (status == GATE_ON_DECK) {
-			g.setColor(highlightOnDeck);
-			g.draw(polygon);
+            gatePaint.setColor(highlightOnDeck);
 		}
-		g.setStroke(s);
+        c.drawPath(polygon, gatePaint);
 	}
 
 	void redraw() {
@@ -132,6 +138,7 @@ public class Gate {
             float realY = (float)((1.0 - y) * screenHeight);
 
 			polygon = new Path();
+            polygon.setFillType(Path.FillType.EVEN_ODD);
 			polygon.moveTo(realX + width1, realY + height1);
 			polygon.lineTo(realX + width2, realY + height2);
 			polygon.lineTo(realX - width1, realY - height1);
@@ -139,6 +146,7 @@ public class Gate {
 			polygon.close();
 
 			top = new Path();
+            top.setFillType(Path.FillType.EVEN_ODD);
 			top.moveTo(realX + width1, realY + height1);
 			top.lineTo(realX + width1m, realY + height1m);
 			top.lineTo(realX - width2m, realY - height2m);
@@ -146,6 +154,7 @@ public class Gate {
 			top.close();
 
 			bottom = new Path();
+            bottom.setFillType(Path.FillType.EVEN_ODD);
 			bottom.moveTo(realX + width2, realY + height2);
 			bottom.lineTo(realX + width2m, realY + height2m);
 			bottom.lineTo(realX - width1m, realY - height1m);
@@ -170,10 +179,10 @@ public class Gate {
 	}
 
 	public void update(Needle needle) {
-		Point2D.Double pt = new Point2D.Double(needle.getRealX(), needle.getRealY());
-		if (top.contains(pt) || bottom.contains(pt)) {
+		PointF pt = new PointF(needle.getRealX(), needle.getRealY());
+		if (topRegion.contains((int)pt.x, (int)pt.y) || bottomRegion.contains((int)pt.x, (int)pt.y)) {
 			status = GATE_FAILED;
-		} else if (polygon.contains(pt) && status == GATE_NEXT) {
+		} else if (gateRegion.contains((int)pt.x, (int)pt.y) && status == GATE_NEXT) {
 			entered = true;
 		} else if (entered == true && status != GATE_FAILED) {
 			status = GATE_PASSED;

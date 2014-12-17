@@ -1,9 +1,9 @@
 package edu.jhu.lcsr.grid.needlegame;
 
-import java.awt.geom.GeneralPath;
+import android.graphics.Path;
 
 public class GameEntity {
-	GeneralPath polygon;
+	Path polygon;
 	
 	
 }

@@ -1,11 +1,10 @@
 package edu.jhu.lcsr.grid.needlegame;
 
-//import java.awt.Color;
+import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.graphics.Path;
-
-import java.awt.Graphics2D;
-import java.awt.geom.GeneralPath;
-import java.awt.geom.Point2D;
+import android.graphics.RectF;
+import android.graphics.Region;
 
 /**
  * This class describes a line delimiting a surface where the needle behaves differently.
@@ -43,6 +42,9 @@ public class Surface {
 	
 	int width;
 	int height;
+
+    Paint myPaint;
+    Region myRegion;
 	
 	/**
 	 * Does this surface actually do anything or does it just exist to create useful predicates?
@@ -66,9 +68,18 @@ public class Surface {
 		this.x = x;
 		this.y = y;
 		this.isVirtual = isVirtual;
+
+        myPaint = new Paint();
+        myPaint.setColor(mycolor);
+
+        if(isVirtual) {
+            myPaint.setStyle(Paint.Style.FILL);
+        }
 		
 		width = 1;
 		height = 1;
+
+        rescaleLine(800, 600);
 	}
 	
 	/**
@@ -87,19 +98,19 @@ public class Surface {
 			}
 			scaledLine.close();
 		}
+
+        RectF tmp = new RectF();
+        scaledLine.computeBounds(tmp, true);
+        myRegion = new Region();
+        myRegion.setPath(scaledLine, new Region((int)tmp.left, (int)tmp.top, (int)tmp.left, (int)tmp.right));
 	}
 	
 	/**
 	 * Draw the filled-in surface in its chosen color.
-	 * @param g2
+	 * @param c
 	 */
-	public void draw(Graphics2D g2) {
-		g2.setPaint(mycolor);
-		if (isVirtual) {
-			g2.draw(scaledLine);
-		} else {
-			g2.fill(scaledLine);
-		}
+	public void draw(Canvas c) {
+        c.drawPath(scaledLine, myPaint);
 	}
 
 	/**
@@ -110,7 +121,7 @@ public class Surface {
 	 */
 	public boolean contains(double x, double y) {
 		if(scaledLine != null) {
-			return (!isVirtual) && scaledLine.contains(new Point2D.Double(x, y));
+			return (!isVirtual) && myRegion.contains((int)x, (int)y);
 		} else {
 			return false; 
 		}

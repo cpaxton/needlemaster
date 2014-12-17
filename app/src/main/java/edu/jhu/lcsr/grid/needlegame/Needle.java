@@ -1,9 +1,11 @@
 package edu.jhu.lcsr.grid.needlegame;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.geom.GeneralPath;
-import java.awt.geom.Point2D;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Path;
+import android.graphics.PointF;
+
 import java.util.ArrayList;
 
 /**
@@ -29,18 +31,21 @@ public class Needle {
 	double scale;
 	double length;
 
+    Paint needlePaint;
+    Paint threadPaint;
+
 	double movementMultiplier;
 	double rotationMultiplier;
 	
-	ArrayList<Point2D> threadPoints;
+	ArrayList<PointF> threadPoints;
 	
-	GeneralPath polygon;
-	GeneralPath thread;
+	Path polygon;
+	Path thread;
 	
 	Surface current;
 	
-	private static final Color needleColor = new Color(0.50f, 0.50f, 0.75f);
-	private static final Color threadColor = new Color(0.50f, 0.50f, 0.50f);
+	private static final int needleColor = Color.argb(255, 125, 125, 180);
+	private static final int threadColor = Color.argb(255, 125, 125, 125);
 	
 	private static final double MAX_DELTA_XY = 0.025;
 	
@@ -51,7 +56,7 @@ public class Needle {
 		this.y = y;
 		this.w = w;
 		
-		threadPoints = new ArrayList<Point2D>();
+		threadPoints = new ArrayList<PointF>();
 		//threadPoints.add(new Point2D.Double(x,y));
 		
 		isMoving = false;
@@ -59,11 +64,16 @@ public class Needle {
 		screenWidth = 0;
 		screenHeight = 0;
 		scale = 0;
-		polygon = new GeneralPath();
+		polygon = new Path();
 	
 		movementMultiplier = 1.0;
 		rotationMultiplier = 1.0;
-		
+
+        threadPaint = new Paint();
+        threadPaint.setColor(threadColor);
+        needlePaint = new Paint();
+        needlePaint.setColor(needleColor);
+
 		rescale(800, 600);
 	}
 	
@@ -104,8 +114,8 @@ public class Needle {
 			
 			double realX = x * screenWidth;
 			double realY = (1.0 - y) * screenHeight;
-			polygon = new GeneralPath();
-			polygon.moveTo(realX, realY);
+			polygon = new Path();
+			polygon.moveTo((float)realX, (float)realY);
 			
 			double topW = w + (Math.PI/2);
 			double bottomW = w - (Math.PI/2);
@@ -118,18 +128,18 @@ public class Needle {
 			double bottomX = realX + ((0.01 * scale) * Math.cos(bottomW)) - (length * Math.cos(w));
 			double bottomY = realY + ((0.01 * scale) * Math.sin(bottomW)) - (length * Math.sin(w));
 			
-			polygon.lineTo(topX, topY);
-			polygon.lineTo(bottomX, bottomY);
-			polygon.closePath();
+			polygon.lineTo((float)topX, (float)topY);
+			polygon.lineTo((float)bottomX, (float)bottomY);
+			polygon.close();
 			
-			thread = new GeneralPath();
+			thread = new Path();
 			if (threadPoints.size() > 0) {
-				thread.moveTo(threadPoints.get(0).getX() * screenWidth,
-						(1.0 - threadPoints.get(0).getY()) * screenHeight);
+				thread.moveTo(threadPoints.get(0).x * screenWidth,
+						(1.0f - threadPoints.get(0).y) * screenHeight);
 				
 				for (int i = 1; i < threadPoints.size(); i++) {
-					thread.lineTo(threadPoints.get(i).getX() * screenWidth,
-							(1.0 - threadPoints.get(i).getY()) * screenHeight);
+					thread.lineTo(threadPoints.get(i).x * screenWidth,
+							(1.0f - threadPoints.get(i).y) * screenHeight);
 				}
 			}
 			
@@ -151,12 +161,10 @@ public class Needle {
 		else return false;
 	}
 	
-	public void draw(Graphics2D g) {
+	public void draw(Canvas c) {
 		synchronized(this) {
-			g.setColor(needleColor);
-			g.fill(polygon);
-			g.setColor(threadColor);
-			g.draw(thread);
+			c.drawPath(polygon, needlePaint);
+			c.drawPath(thread, threadPaint);
 		}
 	}
 	
@@ -192,7 +200,7 @@ public class Needle {
 				// we also may want to apply a threshold so that this works better
 				double dw = w + Math.atan2(dy, dx);
 				
-				threadPoints.add(new Point2D.Double(this.x, this.y));
+				threadPoints.add(new PointF((float)this.x, (float)this.y));
 				
 				double movement = dist * Math.cos(dw) * movementMultiplier; // x projection of the motion?
 				
@@ -225,11 +233,11 @@ public class Needle {
 		isMoving = false;
 	}
 
-	public synchronized double getRealX() {
-		return x * screenWidth;
+	public synchronized float getRealX() {
+		return (float) x * screenWidth;
 	}
 
-	public synchronized double getRealY() {
-		return (1.0 - y) * screenHeight;
+	public synchronized float getRealY() {
+		return (float)(1.0 - y) * screenHeight;
 	}
 }
