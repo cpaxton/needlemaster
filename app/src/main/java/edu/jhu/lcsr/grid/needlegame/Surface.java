@@ -73,7 +73,9 @@ public class Surface {
         myPaint.setColor(mycolor);
 
         if(isVirtual) {
-            myPaint.setStyle(Paint.Style.FILL);
+            myPaint.setStyle(Paint.Style.STROKE);
+        } else {
+            myPaint.setStyle(Paint.Style.FILL_AND_STROKE);
         }
 		
 		width = 1;

@@ -20,7 +20,7 @@ public class Gate {
 
 	int screenWidth;
 	int screenHeight;
-	double scale;
+	float scale;
 
 	int status;
 
@@ -61,6 +61,8 @@ public class Gate {
 
         warningPaint = new Paint();
         warningPaint.setColor(warning);
+        warningPaint.setStyle(Paint.Style.FILL_AND_STROKE);
+        warningPaint.setStrokeWidth(3.0f);
 
 		screenWidth = 0;
 		screenHeight = 0;
@@ -112,6 +114,7 @@ public class Gate {
 		}
 
         gatePaint.setStyle(Paint.Style.STROKE);
+        gatePaint.setStrokeWidth(5.0f);
 		if(status == GATE_NEXT && !entered) {
             gatePaint.setColor(highlight);
 		} else if (status == GATE_ON_DECK) {
@@ -123,15 +126,17 @@ public class Gate {
 	void redraw() {
 
 		synchronized(this) {
-			float width1 = (float)(scale * 0.025 * Math.cos(w) + scale * 0.015 * Math.sin(w));
-			float height1 = (float)(scale * 0.025 * Math.sin(w) - scale * 0.015 * Math.cos(w));
-			float width2 = (float)(-1 * scale * 0.025 * Math.cos(w) + scale * 0.015 * Math.sin(w));
-			float height2 = (float)(-1 * scale * 0.025 * Math.sin(w) - scale * 0.015 * Math.cos(w));
+            double warningWidth = screenHeight / 100;
 
-            float width1m = (float)((scale * 0.025 - 6.0) * Math.cos(w) + scale * 0.015 * Math.sin(w));
-            float height1m = (float)((scale * 0.025 - 6.0) * Math.sin(w) - scale * 0.015 * Math.cos(w));
-            float width2m = (float)((-1 * scale * 0.025 + 6.0) * Math.cos(w) + scale * 0.015 * Math.sin(w));
-            float height2m = (float)((-1 * scale * 0.025 + 6.0) * Math.sin(w) - scale * 0.015 * Math.cos(w));
+			float width1 = (float)(screenHeight * 0.05 * Math.cos(w) + screenHeight * 0.03 * Math.sin(w));
+			float height1 = (float)(screenHeight * 0.05 * Math.sin(w) - screenHeight * 0.03 * Math.cos(w));
+			float width2 = (float)(-1 * screenHeight * 0.05 * Math.cos(w) + screenHeight * 0.03 * Math.sin(w));
+			float height2 = (float)(-1 * screenHeight * 0.05 * Math.sin(w) - screenHeight * 0.03 * Math.cos(w));
+
+            float width1m = (float)((screenHeight * 0.05 - warningWidth) * Math.cos(w) + screenHeight * 0.03 * Math.sin(w));
+            float height1m = (float)((screenHeight * 0.05 - warningWidth) * Math.sin(w) - screenHeight * 0.03 * Math.cos(w));
+            float width2m = (float)((-1 * screenHeight * 0.05 + warningWidth) * Math.cos(w) + screenHeight * 0.03 * Math.sin(w));
+            float height2m = (float)((-1 * screenHeight * 0.05 + warningWidth) * Math.sin(w) - screenHeight * 0.03 * Math.cos(w));
 
             float realX = (float)(x * screenWidth);
             float realY = (float)((1.0 - y) * screenHeight);
@@ -181,7 +186,7 @@ public class Gate {
 
 			screenWidth = width;
 			screenHeight = height;
-			scale = Math.sqrt(width*width + height*height);
+			scale = (float)Math.sqrt(width*width + height*height);
 
 			redraw();
 

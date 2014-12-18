@@ -44,7 +44,7 @@ public class Needle {
 	
 	Surface current;
 	
-	private static final int needleColor = Color.argb(255, 125, 125, 180);
+	private static final int needleColor = Color.argb(255, 134, 200, 188);
 	private static final int threadColor = Color.argb(255, 125, 125, 125);
 	
 	private static final double MAX_DELTA_XY = 0.025;

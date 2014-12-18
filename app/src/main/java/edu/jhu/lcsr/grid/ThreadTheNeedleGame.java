@@ -14,11 +14,11 @@ import edu.jhu.lcsr.grid.needlegame.NeedleGameThread;
 import edu.jhu.lcsr.grid.needlegame.Surface;
 
 public class ThreadTheNeedleGame extends View {
-	
-    final static int bg = Color.argb(255, (int)(255*0.85f), 200, 255);
+
+    final static int bg = Color.argb(255, 99, 153, 174);
     final static int fg = Color.argb(125, 0, 0, 0);
-    final static int tissue = Color.argb(255, 250, (int) (255 * 0.85f), 125);
-    final static int deepTissue = Color.argb(255, 200, 63, (int) (255 * 0.15f));
+    final static int tissue = Color.argb(255, 232, 146, 124);
+    final static int deepTissue = Color.argb(255, 207, 69, 32);
     final static int outlines = Color.argb(255, 255, 200, 0);
     
     Needle needle;
@@ -37,7 +37,7 @@ public class ThreadTheNeedleGame extends View {
 	 */
 	private static final long serialVersionUID = -3307855543895436008L;
 
-	ThreadTheNeedleGame(Context context, AttributeSet attrs) {
+	public ThreadTheNeedleGame(Context context, AttributeSet attrs) {
         //int width, int height, int preset
         super(context, attrs);
 
@@ -71,6 +71,8 @@ public class ThreadTheNeedleGame extends View {
         });*/
 		
 		thread = new NeedleGameThread(needle, this);
+
+        System.out.println("Starting game");
 	}
 	
 	public void start() {
@@ -114,7 +116,7 @@ public class ThreadTheNeedleGame extends View {
 	 * Paint function for the game
 	 * Note: some example code taken from the shape demo online
 	 */
-	public void onPaint(Canvas c) {
+	public void onDraw(Canvas c) {
 
         //g.setColor(bg);
         //g.fillRect(0, 0, d.width, d.height);

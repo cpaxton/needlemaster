@@ -1,5 +1,9 @@
 <resources>
 
     <color name="black_overlay">#66000000</color>
+    <color name="background">#6399AE</color>
+    <color name="tissue">#E8927C</color>
+    <color name="deepTissue">#CF4520</color>
+    <color name="needleColor">#86C8BC</color>
 
 </resources>

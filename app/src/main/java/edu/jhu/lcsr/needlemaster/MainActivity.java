@@ -2,6 +2,7 @@ package edu.jhu.lcsr.needlemaster;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
@@ -10,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 
 import edu.jhu.lcsr.needlemaster.util.SystemUiHider;
 
@@ -48,6 +50,15 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
+
+        final Button button = (Button) findViewById(R.id.newGameButton);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), Game.class);
+                startActivity(i);
+            }
+        });
+
 
     }
 
