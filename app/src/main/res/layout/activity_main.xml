@@ -3,27 +3,8 @@
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity">
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Begin Game"
-        android:id="@+id/newGameButton"
-        android:padding="20dp"
-        android:layout_above="@+id/selectLevelButton"
-        android:layout_centerHorizontal="true" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Select Level"
-        android:id="@+id/selectLevelButton"
-        android:layout_above="@+id/aboutButton"
-        android:layout_alignLeft="@+id/newGameButton"
-        android:layout_alignStart="@+id/newGameButton"
-        android:layout_alignRight="@+id/newGameButton"
-        android:layout_alignEnd="@+id/newGameButton" />
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity"
+    android:background="@color/background_material_light">
 
     <ImageView
         android:layout_width="wrap_content"
@@ -33,16 +14,42 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_above="@+id/newGameButton"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:contentDescription="@string/background_screen_content_description" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="About"
+        android:text="@string/begin_game"
+        android:id="@+id/newGameButton"
+        android:padding="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:layout_above="@+id/selectLevelButton"
+        android:layout_alignRight="@+id/selectLevelButton"
+        android:layout_alignEnd="@+id/selectLevelButton"
+        android:layout_alignLeft="@+id/selectLevelButton"
+        android:layout_alignStart="@+id/selectLevelButton" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/select_level"
+        android:id="@+id/selectLevelButton"
+        android:padding="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/about_button"
         android:id="@+id/aboutButton"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/selectLevelButton"
         android:layout_alignLeft="@+id/selectLevelButton"
         android:layout_alignStart="@+id/selectLevelButton"
         android:layout_alignRight="@+id/selectLevelButton"

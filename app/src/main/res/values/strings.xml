@@ -7,5 +7,9 @@
     <string name="title_activity_game">Game</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="select_level">Select Level</string>
+    <string name="begin_game">Begin Game</string>
+    <string name="background_screen_content_description">Background screen for app</string>
+    <string name="about_button">About</string>
 
 </resources>
