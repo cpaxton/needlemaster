@@ -61,7 +61,7 @@ public class Gate {
 
         warningPaint = new Paint();
         warningPaint.setColor(warning);
-        warningPaint.setStyle(Paint.Style.FILL);
+        warningPaint.setStyle(Paint.Style.FILL_AND_STROKE);
         warningPaint.setStrokeWidth(3.0f);
 
 		screenWidth = 0;
@@ -94,6 +94,7 @@ public class Gate {
 	public void draw(Canvas c) {
 
         Paint gatePaint = new Paint();
+        gatePaint.setStrokeWidth(0.0f);
         gatePaint.setStyle(Paint.Style.FILL);
 		if(status == GATE_CLOSED) {
             gatePaint.setColor(closed);
@@ -201,7 +202,9 @@ public class Gate {
 		if (topRegion.contains((int)pt.x, (int)pt.y) || bottomRegion.contains((int)pt.x, (int)pt.y)) {
 			status = GATE_FAILED;
 		} else if (gateRegion.contains((int)pt.x, (int)pt.y) && status == GATE_NEXT) {
-			entered = true;
+            entered = true;
+        } else if (gateRegion.contains((int)pt.x, (int)pt.y)) {
+            status = GATE_FAILED;
 		} else if (entered == true && status != GATE_FAILED) {
 			status = GATE_PASSED;
 		}
