@@ -5,6 +5,8 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -32,6 +34,7 @@ public class ThreadTheNeedleGame extends View {
     
     long startTime;
     boolean running;
+    boolean finished;
 
     Paint textPaint;
     
@@ -46,6 +49,7 @@ public class ThreadTheNeedleGame extends View {
 
 		startTime = 0;
 		running = false;
+        finished = false;
 		
 		index = 0;
 		
@@ -53,32 +57,13 @@ public class ThreadTheNeedleGame extends View {
 		gates = new ArrayList<Gate>();
 		needle = new Needle(0.05, 0.90, 0);
 
-        /*addMouseListener(new MouseAdapter() {
-            public void mousePressed(MouseEvent e) {
-            	System.out.println("Starting motion at: " + e.getX() + ", " + e.getY());
-                needle.startMove(e.getX(), e.getY());
-                needle.updateMove(e.getX(), e.getY());
-            }
-            
-            public void mouseReleased(MouseEvent e) {
-            	System.out.println("Ending motion at: " + e.getX() + ", " + e.getY());
-                needle.updateMove(e.getX(), e.getY());
-            	needle.endMove();
-            }
-        });
-
-        addMouseMotionListener(new MouseAdapter() {
-            public void mouseDragged(MouseEvent e) {
-                needle.updateMove(e.getX(), e.getY());
-            }
-        });*/
-
         textPaint = new Paint();
         textPaint.setColor(fg);
 
 		thread = new NeedleGameThread(needle, this);
 
         System.out.println("Starting game");
+        start();
 	}
 	
 	public void start() {
@@ -100,7 +85,12 @@ public class ThreadTheNeedleGame extends View {
 			e.printStackTrace();
 		}
 		System.out.println("Level over!");
+        finished = true;
 	}
+
+    public boolean isFinished() {
+        return finished;
+    }
 	
 	public synchronized boolean isRunning() {
 		return running;
@@ -118,6 +108,23 @@ public class ThreadTheNeedleGame extends View {
         for (Gate gt: gates) {
             gt.rescale(w, h);
         }
+    }
+
+    public void startMove(float x, float y) {
+
+        if(!running && !finished) {
+            start();
+        }
+
+        needle.startMove(x, y);
+    }
+
+    public void updateMove(float x, float y) {
+        needle.updateMove(x, y);
+    }
+
+    public void endMove() {
+        needle.endMove();
     }
 	
 	/**
@@ -240,4 +247,7 @@ public class ThreadTheNeedleGame extends View {
 		return in;
 	}
 
+    public void redraw() {
+        postInvalidate();
+    }
 }

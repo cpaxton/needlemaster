@@ -1,6 +1,7 @@
 package edu.jhu.lcsr.needlemaster;
 
 import edu.jhu.lcsr.grid.ThreadTheNeedleGame;
+import edu.jhu.lcsr.grid.needlegame.Needle;
 import edu.jhu.lcsr.needlemaster.util.SystemUiHider;
 
 import android.annotation.TargetApi;
@@ -8,6 +9,7 @@ import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -47,30 +49,26 @@ public class Game extends Activity {
      */
     private SystemUiHider mSystemUiHider;
 
+    ThreadTheNeedleGame gameView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_game);
 
-        ThreadTheNeedleGame gameView = (ThreadTheNeedleGame)findViewById(R.id.needleGameView);
+        gameView = (ThreadTheNeedleGame)findViewById(R.id.needleGameView);
         gameView.initialize(1);
 
     }
 
-
-    /**
-     * Touch listener to use for in-layout UI controls to delay hiding the
-     * system UI. This is to prevent the jarring behavior of controls going away
-     * while interacting with activity UI.
-     */
-    View.OnTouchListener touchListener = new View.OnTouchListener() {
-        @Override
-        public boolean onTouch(View view, MotionEvent motionEvent) {
-            if (AUTO_HIDE) {
-
-            }
-            return false;
+    @Override
+    public boolean onTouchEvent(MotionEvent me) {
+        switch(me.getActionMasked()) {
+            case MotionEvent.ACTION_DOWN: gameView.startMove(me.getX(), me.getY()); break;
+            case MotionEvent.ACTION_MOVE: gameView.updateMove(me.getX(), me.getY()); break;
+            case MotionEvent.ACTION_UP: gameView.endMove(); break;
         }
-    };
+        return true;
+    }
 }

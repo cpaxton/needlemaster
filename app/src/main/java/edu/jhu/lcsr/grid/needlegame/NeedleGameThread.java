@@ -32,6 +32,7 @@ public class NeedleGameThread extends Thread {
 			needle.applySurface(s);
 			//}
 			needle.move();
+            game.redraw();
 			
 			long dt = System.currentTimeMillis() - t0;
 			//System.out.println("time taken = " + dt);

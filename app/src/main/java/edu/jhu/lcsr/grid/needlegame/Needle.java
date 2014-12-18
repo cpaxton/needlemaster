@@ -168,7 +168,7 @@ public class Needle {
 		}
 	}
 	
-	public void updateMove(int x, int y) {
+	public void updateMove(float x, float y) {
 		moveX = (double)x / screenWidth;
 		moveY = 1.0 - ((double)y / screenHeight); 
 		System.out.println("move = " + moveX + "," + moveY);
@@ -216,14 +216,16 @@ public class Needle {
 			} else if (w > 2*Math.PI) {
 				w -= 2*Math.PI;
 			}
-			
+
+            isMoving = false;
+
 			redraw();
 		} else {
 			return;
 		}
 	}
 
-	public void startMove(int x2, int y2) {
+	public void startMove(float x2, float y2) {
 		moveX = lastMoveX = (double)x2 / screenWidth;
 		moveY = lastMoveY = 1.0 - ((double)y2 / screenHeight);
 		isMoving = true;
