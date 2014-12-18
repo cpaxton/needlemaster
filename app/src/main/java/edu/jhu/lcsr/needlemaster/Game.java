@@ -65,9 +65,20 @@ public class Game extends Activity {
     @Override
     public boolean onTouchEvent(MotionEvent me) {
         switch(me.getActionMasked()) {
-            case MotionEvent.ACTION_DOWN: gameView.startMove(me.getX(), me.getY()); break;
-            case MotionEvent.ACTION_MOVE: gameView.updateMove(me.getX(), me.getY()); break;
-            case MotionEvent.ACTION_UP: gameView.endMove(); break;
+            case MotionEvent.ACTION_DOWN:
+                System.out.println("starting move");
+                gameView.startMove(me.getX(), me.getY());
+                gameView.updateMove(me.getX(), me.getY());
+                break;
+            case MotionEvent.ACTION_MOVE:
+                gameView.updateMove(me.getX(), me.getY());
+                break;
+            case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_CANCEL:
+                System.out.println("ending move");
+                gameView.updateMove(me.getX(), me.getY());
+                gameView.endMove();
+                break;
         }
         return true;
     }

@@ -5,5 +5,6 @@
     <color name="tissue">#E8927C</color>
     <color name="deepTissue">#CF4520</color>
     <color name="needleColor">#86C8BC</color>
+    <color name="threadColor">#A7BCD6</color>
 
 </resources>

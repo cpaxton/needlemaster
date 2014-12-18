@@ -126,6 +126,16 @@ public class ThreadTheNeedleGame extends View {
     public void endMove() {
         needle.endMove();
     }
+
+    public void updateObjects () {
+        for (Gate gt: gates) {
+            gt.update(needle);
+        }
+
+        for (Surface s : surfaces) {
+
+        }
+    }
 	
 	/**
 	 * Paint function for the game

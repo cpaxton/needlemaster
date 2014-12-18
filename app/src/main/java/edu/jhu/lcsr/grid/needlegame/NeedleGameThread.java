@@ -26,7 +26,7 @@ public class NeedleGameThread extends Thread {
 		//long t00 = System.currentTimeMillis();
 		while(running) {
 			long t0 = System.currentTimeMillis();
-			
+
 			Surface s = game.checkNeedleLocation(needle.getRealX(), needle.getRealY());
 			//if (s != null) {
 			needle.applySurface(s);

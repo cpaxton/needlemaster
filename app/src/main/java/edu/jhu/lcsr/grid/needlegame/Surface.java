@@ -94,7 +94,7 @@ public class Surface {
         RectF tmp = new RectF();
         scaledLine.computeBounds(tmp, true);
         myRegion = new Region();
-        myRegion.setPath(scaledLine, new Region((int)tmp.left, (int)tmp.top, (int)tmp.left, (int)tmp.right));
+        myRegion.setPath(scaledLine, new Region((int)tmp.left, (int)tmp.top, (int)tmp.right, (int)tmp.bottom));
 	}
 	
 	/**

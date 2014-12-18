@@ -45,7 +45,7 @@ public class Needle {
 	Surface current;
 	
 	private static final int needleColor = Color.argb(255, 134, 200, 188);
-	private static final int threadColor = Color.argb(255, 125, 125, 125);
+	private static final int threadColor = Color.argb(255, 167, 188, 214);
 	
 	private static final double MAX_DELTA_XY = 0.025;
 	
@@ -70,9 +70,12 @@ public class Needle {
 		rotationMultiplier = 1.0;
 
         threadPaint = new Paint();
+        threadPaint.setStyle(Paint.Style.STROKE);
         threadPaint.setColor(threadColor);
+        threadPaint.setStrokeWidth(2.0f);
         needlePaint = new Paint();
         needlePaint.setColor(needleColor);
+        needlePaint.setStyle(Paint.Style.FILL_AND_STROKE);
 
 		rescale(800, 600);
 	}
@@ -171,13 +174,13 @@ public class Needle {
 	public void updateMove(float x, float y) {
 		moveX = (double)x / screenWidth;
 		moveY = 1.0 - ((double)y / screenHeight); 
-		System.out.println("move = " + moveX + "," + moveY);
+		//System.out.println("move = " + moveX + "," + moveY);
 	}
 	
 	public void move() {
 		
 		updateSurface();
-		
+
 		if (isMoving) {
 			
 			// compute speed and change in rotation from this information
@@ -216,8 +219,6 @@ public class Needle {
 			} else if (w > 2*Math.PI) {
 				w -= 2*Math.PI;
 			}
-
-            isMoving = false;
 
 			redraw();
 		} else {

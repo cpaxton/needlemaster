@@ -61,7 +61,7 @@ public class Gate {
 
         warningPaint = new Paint();
         warningPaint.setColor(warning);
-        warningPaint.setStyle(Paint.Style.FILL_AND_STROKE);
+        warningPaint.setStyle(Paint.Style.FILL);
         warningPaint.setStrokeWidth(3.0f);
 
 		screenWidth = 0;
@@ -168,15 +168,15 @@ public class Gate {
             RectF tmp = new RectF();
             polygon.computeBounds(tmp, true);
             gateRegion = new Region();
-            gateRegion.setPath(polygon, new Region((int)tmp.left, (int)tmp.top, (int)tmp.left, (int)tmp.right));
+            gateRegion.setPath(polygon, new Region((int)tmp.left, (int)tmp.top, (int)tmp.right, (int)tmp.bottom));
 
             top.computeBounds(tmp, true);
             topRegion = new Region();
-            topRegion.setPath(top, new Region((int)tmp.left, (int)tmp.top, (int)tmp.left, (int)tmp.right));
+            topRegion.setPath(top, new Region((int)tmp.left, (int)tmp.top, (int)tmp.right, (int)tmp.bottom));
 
             bottom.computeBounds(tmp, true);
             bottomRegion = new Region();
-            bottomRegion.setPath(bottom, new Region((int)tmp.left, (int)tmp.top, (int)tmp.left, (int)tmp.right));
+            bottomRegion.setPath(bottom, new Region((int)tmp.left, (int)tmp.top, (int)tmp.right, (int)tmp.bottom));
 		}
 	}
 
@@ -197,6 +197,7 @@ public class Gate {
 
 	public void update(Needle needle) {
 		PointF pt = new PointF(needle.getRealX(), needle.getRealY());
+
 		if (topRegion.contains((int)pt.x, (int)pt.y) || bottomRegion.contains((int)pt.x, (int)pt.y)) {
 			status = GATE_FAILED;
 		} else if (gateRegion.contains((int)pt.x, (int)pt.y) && status == GATE_NEXT) {
