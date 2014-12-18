@@ -5,8 +5,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -18,7 +16,6 @@ import edu.jhu.lcsr.grid.needlegame.Surface;
 
 public class ThreadTheNeedleGame extends View {
 
-    //final static int bg = Color.argb(255, 99, 153, 174);
     final static int fg = Color.argb(125, 0, 0, 0);
     final static int tissue = Color.argb(255, 232, 146, 124);
     final static int deepTissue = Color.argb(255, 207, 69, 32);
@@ -37,11 +34,7 @@ public class ThreadTheNeedleGame extends View {
     boolean finished;
 
     Paint textPaint;
-    
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -3307855543895436008L;
+    Paint endTextPaint;
 
 	public ThreadTheNeedleGame(Context context, AttributeSet attrs) {
         //int width, int height, int preset
@@ -60,6 +53,9 @@ public class ThreadTheNeedleGame extends View {
         textPaint = new Paint();
         textPaint.setColor(fg);
 
+        endTextPaint = new Paint();
+        endTextPaint.setColor(fg);
+
 		thread = new NeedleGameThread(needle, this);
 
         System.out.println("Starting game");
@@ -77,6 +73,7 @@ public class ThreadTheNeedleGame extends View {
 	public void end() {
 		synchronized(this) {
 			running = false;
+            finished = true;
 		}
 		try {
 			thread.join();
@@ -85,7 +82,6 @@ public class ThreadTheNeedleGame extends View {
 			e.printStackTrace();
 		}
 		System.out.println("Level over!");
-        finished = true;
 	}
 
     public boolean isFinished() {
@@ -99,6 +95,7 @@ public class ThreadTheNeedleGame extends View {
     public void onSizeChanged(int w, int h, int oldw, int oldh) {
 
         textPaint.setTextSize((Math.min(h, w) / 10) + 10);
+        endTextPaint.setTextSize(Math.min(w,h) / 3);
 
         needle.rescale(w, h);
         for (Surface s: surfaces) {
@@ -125,16 +122,6 @@ public class ThreadTheNeedleGame extends View {
 
     public void endMove() {
         needle.endMove();
-    }
-
-    public void updateObjects () {
-        for (Gate gt: gates) {
-            gt.update(needle);
-        }
-
-        for (Surface s : surfaces) {
-
-        }
     }
 	
 	/**
@@ -193,6 +180,13 @@ public class ThreadTheNeedleGame extends View {
         		+ ":" + String.format("%02d", secs)
         		+ ":" + String.format("%02d", millis / 10),
         		50, textPaint.getFontSpacing() + 10, textPaint); // how to print out time remaining
+        //c.drawText("Level Complete!");
+
+        if(finished) {
+            c.drawText("LEVEL", 25, 1.2f * endTextPaint.getFontSpacing(), endTextPaint);
+            c.drawText("COMPLETE", 25, 2.1f * endTextPaint.getFontSpacing(), endTextPaint);
+        }
+
 	}
 	
 	/**
@@ -257,7 +251,21 @@ public class ThreadTheNeedleGame extends View {
 		return in;
 	}
 
+    public boolean gatesDone() {
+        int numDone = 0;
+        for (Gate gt: gates) {
+            if (gt.getStatus() == Gate.GATE_FAILED || gt.getStatus() == Gate.GATE_PASSED) {
+                numDone++;
+            }
+        }
+
+        return numDone == gates.size();
+    }
+
     public void redraw() {
         postInvalidate();
     }
+
+
+
 }

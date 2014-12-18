@@ -38,7 +38,9 @@ public class Needle {
 	double rotationMultiplier;
 	
 	ArrayList<PointF> threadPoints;
-	
+
+    boolean offscreen;
+
 	Path polygon;
 	Path thread;
 	
@@ -77,6 +79,8 @@ public class Needle {
         needlePaint.setColor(needleColor);
         needlePaint.setStyle(Paint.Style.FILL_AND_STROKE);
 
+        offscreen = false;
+
 		rescale(800, 600);
 	}
 	
@@ -89,6 +93,10 @@ public class Needle {
 		current = s;
 		//}
 	}
+
+    public boolean isOffscreen() {
+        return offscreen;
+    }
 	
 	/**
 	 * updates the current surface, makes sure we are still in it...
@@ -145,6 +153,10 @@ public class Needle {
 							(1.0f - threadPoints.get(i).y) * screenHeight);
 				}
 			}
+
+            if (x > 1.0 && topX > screenWidth && bottomX > screenHeight) {
+                offscreen = true;
+            }
 			
 		}
 	}
@@ -222,7 +234,8 @@ public class Needle {
 			}
 
 			redraw();
-		} else {
+
+        } else {
 			return;
 		}
 	}

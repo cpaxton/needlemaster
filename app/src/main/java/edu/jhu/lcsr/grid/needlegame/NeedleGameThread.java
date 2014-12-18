@@ -33,6 +33,10 @@ public class NeedleGameThread extends Thread {
 			//}
 			needle.move();
             game.redraw();
+
+            if (needle.isOffscreen() && game.gatesDone()) {
+                game.end();
+            }
 			
 			long dt = System.currentTimeMillis() - t0;
 			//System.out.println("time taken = " + dt);
