@@ -210,8 +210,9 @@ public class Needle {
 				this.x = this.x + (movement * Math.cos(w));
 				this.y = this.y - (movement * Math.sin(w));
 				
-				double rotation = Math.sin(dw) / 12.0 * rotationMultiplier;
-				w += rotation;				
+				double rotation = Math.sin(dw) / 15.0 * rotationMultiplier;
+                if (Math.abs(rotation) > 0.01)
+				    w += rotation;
 			}
 			
 			if (w < 0) {

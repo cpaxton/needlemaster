@@ -39,9 +39,9 @@ public class Gate {
 	private static final int failed = Color.argb(255, 175, 100, 100);
 	private static final int passed = Color.argb(255, 100, 175, 100);
 
-	private static final int closed = Color.argb(255, 175, 175, 175);
-	private static final int onDeck = Color.argb(255, 175, 175, 175);
-	private static final int next = Color.argb(255, 175, 175, 175);
+	private static final int closed = Color.argb(255, 251, 216, 114);
+	private static final int onDeck = Color.argb(255, 251, 216, 114);
+	private static final int next = Color.argb(255, 251, 216, 114);
 
 	private static final int highlight = Color.argb(255, 100, 230, 100);
 	private static final int highlightOnDeck = Color.argb(255, 75, 125, 75);
