@@ -12,9 +12,9 @@ import android.graphics.Region;
  *
  */
 public class Surface {
+
 	int mycolor; // what color does this surface show up as?
-	boolean angleRestricted; // is this restricted by angle?
-	double angle; // angle on which the needle is allowed to enter
+
 	Path scaledLine;
 	double [] x;
 	double [] y;
@@ -45,26 +45,16 @@ public class Surface {
 
     Paint myPaint;
     Region myRegion;
-	
-	/**
-	 * Does this surface actually do anything or does it just exist to create useful predicates?
-	 * @return true if it is a virtual surface; false otherwise.
-	 */
-	boolean isVirtualSurface() { return isVirtual; }
-	
-	/**
-	 * Basic Surface constructor.
-	 * @param color
-	 * @param isAngleRestricted
-	 * @param entryAngle
-	 * @param x
-	 * @param y
-	 * @param isVirtual
-	 */
-	public Surface(int color, boolean isAngleRestricted, double entryAngle, double[] x, double[] y, boolean isVirtual) {
+
+    /**
+     * Basic surface constructor.
+     * @param color what the surface looks like
+     * @param x locations of surface boundaries (x)
+     * @param y locations of surface boundaries (y)
+     * @param isVirtual is this a real surface, that influences the needle?
+     */
+	public Surface(int color, double[] x, double[] y, boolean isVirtual) {
 		mycolor = color;
-		angleRestricted = isAngleRestricted;
-		angle = entryAngle;
 		this.x = x;
 		this.y = y;
 		this.isVirtual = isVirtual;
@@ -109,7 +99,7 @@ public class Surface {
 	
 	/**
 	 * Draw the filled-in surface in its chosen color.
-	 * @param c
+	 * @param c canvas to draw on
 	 */
 	public void draw(Canvas c) {
         c.drawPath(scaledLine, myPaint);
@@ -122,16 +112,12 @@ public class Surface {
 	 * @return true if contained and non-virtual
 	 */
 	public boolean contains(double x, double y) {
-		if(scaledLine != null) {
-			return (!isVirtual) && myRegion.contains((int)x, (int)y);
-		} else {
-			return false; 
-		}
+		return scaledLine != null && (!isVirtual) && myRegion.contains((int)x, (int)y);
 	}
 	
 	/**
-	 * isVirtual
-	 * @return true if this is a virtual surface (aka, does not affect anything)
+     * Does this surface actually do anything or does it just exist to create useful predicates?
+     * @return true if it is a virtual surface (aka, does not affect anything); false otherwise.
 	 */
 	public boolean isVirtual() { return isVirtual; }
 }

@@ -3,6 +3,7 @@ package edu.jhu.lcsr.grid;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -15,7 +16,7 @@ import edu.jhu.lcsr.grid.needlegame.Surface;
 
 public class ThreadTheNeedleGame extends View {
 
-    final static int bg = Color.argb(255, 99, 153, 174);
+    //final static int bg = Color.argb(255, 99, 153, 174);
     final static int fg = Color.argb(125, 0, 0, 0);
     final static int tissue = Color.argb(255, 232, 146, 124);
     final static int deepTissue = Color.argb(255, 207, 69, 32);
@@ -31,6 +32,8 @@ public class ThreadTheNeedleGame extends View {
     
     long startTime;
     boolean running;
+
+    Paint textPaint;
     
 	/**
 	 * 
@@ -69,7 +72,10 @@ public class ThreadTheNeedleGame extends View {
                 needle.updateMove(e.getX(), e.getY());
             }
         });*/
-		
+
+        textPaint = new Paint();
+        textPaint.setColor(fg);
+
 		thread = new NeedleGameThread(needle, this);
 
         System.out.println("Starting game");
@@ -101,6 +107,8 @@ public class ThreadTheNeedleGame extends View {
 	}
 
     public void onSizeChanged(int w, int h, int oldw, int oldh) {
+
+        textPaint.setTextSize((Math.min(h, w) / 10) + 10);
 
         needle.rescale(w, h);
         for (Surface s: surfaces) {
@@ -163,11 +171,11 @@ public class ThreadTheNeedleGame extends View {
         long mins = time / 60000;
         long secs = (time - (60000 * mins)) / 1000;
         long millis = time - (60000 * mins) - (1000 * secs);
-        
-        //g.drawString("Time: " + String.format("%02d", mins)
-        //		+ ":" + String.format("%02d", secs)
-        //		+ ":" + String.format("%02d", millis / 10),
-        //		50, fontSize + 10); // how to print out time remaining
+
+        c.drawText("Time: " + String.format("%02d", mins)
+        		+ ":" + String.format("%02d", secs)
+        		+ ":" + String.format("%02d", millis / 10),
+        		50, textPaint.getFontSpacing() + 10, textPaint); // how to print out time remaining
 	}
 	
 	/**
@@ -180,30 +188,30 @@ public class ThreadTheNeedleGame extends View {
 		if (preset == 0) {
 			double[] s1x = {0, 0.25, 0.5, 1, 1, 0};
 			double[] s1y = {0.6, 0.3, 0.35, 0.4, 0, 0};
-			Surface s1 = new Surface(tissue, true, 45, s1x, s1y, false);
+			Surface s1 = new Surface(tissue, s1x, s1y, false);
 			surfaces.add(s1);
 			
 			double[] s2x = {0, 0.23, 0.45, 1, 1, 0};
 			double[] s2y = {0.25, 0.12, 0.17, 0.26, 0, 0};
-			Surface s2 = new Surface(deepTissue, true, 45, s2x, s2y, false);
+			Surface s2 = new Surface(deepTissue, s2x, s2y, false);
 			surfaces.add(s2);
 			
 		} else if (preset == 1) {
 			double[] s1x = {0, 0.4, 0.5, 0.6, 1, 1, 0};
 			double[] s1y = {0.4, 0.6, 0.25, 0.6, 0.4, 0, 0};
-			Surface s1 = new Surface(tissue, true, 45, s1x, s1y, false);
+			Surface s1 = new Surface(tissue, s1x, s1y, false);
 			s1.setMovementMultiplier(0.5);
 			s1.setRotationMultiplier(0.3);
 			surfaces.add(s1);
 			
 			double[] s2x = {0, 0.38, 0.5, 0.61, 1, 1, 0};
 			double[] s2y = {0.21, 0.34, 0.13, 0.32, 0.26, 0, 0};
-			Surface s2 = new Surface(deepTissue, true, 45, s2x, s2y, false);
+			Surface s2 = new Surface(deepTissue, s2x, s2y, false);
 			surfaces.add(s2);
 			
 			double[] outsidex = {0, 0.4, 0.6, 1, 1, 0};
 			double[] outsidey = {0.4, 0.6, 0.6, 0.4, 0, 0};
-			Surface outside = new Surface(outlines, true, 45, outsidex, outsidey, true);
+			Surface outside = new Surface(outlines, outsidex, outsidey, true);
 			surfaces.add(outside);
 			
 			//Gate g1 = new Gate(0.4, 0.5, - Math.PI * 3 / 4);
