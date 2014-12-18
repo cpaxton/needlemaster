@@ -15,4 +15,12 @@
         android:layout_height="fill_parent"
         android:id="@+id/needleGameView"/>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="This is sample text, don&apos;t worry about it!"
+        android:id="@+id/textView"
+        android:layout_gravity="left|bottom"
+        android:textColor="@color/black_overlay" />
+
 </FrameLayout>

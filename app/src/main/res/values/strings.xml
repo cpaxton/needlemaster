@@ -11,5 +11,6 @@
     <string name="begin_game">Begin Game</string>
     <string name="background_screen_content_description">Background screen for app</string>
     <string name="about_button">About</string>
+    <string name="title_activity_scoring">ScoringActivity</string>
 
 </resources>
