@@ -24,17 +24,21 @@
             android:name=".Game"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_game"
-            android:screenOrientation="landscape"
             android:noHistory="true"
+            android:screenOrientation="landscape"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
         </activity>
         <activity
             android:name=".ScoringActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_scoring"
-            android:screenOrientation="landscape"
             android:noHistory="true"
+            android:screenOrientation="landscape"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        </activity>
+        <activity
+            android:name=".SelectLevelActivity"
+            android:label="@string/title_activity_select_level" >
         </activity>
     </application>
 
