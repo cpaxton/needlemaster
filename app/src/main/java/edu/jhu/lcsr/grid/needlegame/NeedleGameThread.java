@@ -34,7 +34,7 @@ public class NeedleGameThread extends Thread {
 			needle.move();
             game.redraw();
 
-            if (needle.isOffscreen() && game.gatesDone()) {
+            if (needle.isOffscreen()) { //&& game.gatesDone()) {
                 game.end();
             }
 			

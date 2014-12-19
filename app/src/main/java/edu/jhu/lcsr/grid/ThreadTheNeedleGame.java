@@ -231,6 +231,8 @@ public class ThreadTheNeedleGame extends View {
             double[] s1x = {0, 0.25, 0.5, 1, 1, 0};
             double[] s1y = {0.6, 0.3, 0.35, 0.4, 0, 0};
             Surface s1 = new Surface(tissue, s1x, s1y, false);
+            s1.setMovementMultiplier(0.5);
+            s1.setRotationMultiplier(0.3);
             surfaces.add(s1);
 
             double[] s2x = {0, 0.23, 0.45, 1, 1, 0};

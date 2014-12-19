@@ -87,7 +87,7 @@ public class Needle {
 	
 	/**
 	 * Simple setter for the surface, right now.
-	 * @param s
+	 * @param s surface that this needle is now inside of
 	 */
 	public void applySurface(Surface s) {
 		//if (s.contains(x * screenWidth, (1.0 - y) * screenHeight)) {
@@ -95,6 +95,10 @@ public class Needle {
 		//}
 	}
 
+    /**
+     * is the needle on the screen or not?
+     * @return true or false; is the needle on the screen or did it go off the right side?
+     */
     public boolean isOffscreen() {
         return offscreen;
     }
@@ -157,6 +161,8 @@ public class Needle {
 
             if (x > 1.0 && topX > screenWidth && bottomX > screenHeight) {
                 offscreen = true;
+            } else {
+                offscreen = false;
             }
 			
 		}
@@ -236,9 +242,7 @@ public class Needle {
 
 			redraw();
 
-        } else {
-			return;
-		}
+        }
 	}
 
 	public void startMove(float x2, float y2) {
@@ -260,7 +264,13 @@ public class Needle {
 	}
 
     public double getPathLength() {
-        PathMeasure pm = new PathMeasure(thread, false);
-        return pm.getLength();
+        //PathMeasure pm = new PathMeasure(thread, false);
+        //return pm.getLength();
+        double len = 0.0;
+        for (PointF pt: threadPoints) {
+            len += Math.sqrt((pt.x*pt.x) + (pt.y*pt.y));
+        }
+
+        return len;
     }
 }

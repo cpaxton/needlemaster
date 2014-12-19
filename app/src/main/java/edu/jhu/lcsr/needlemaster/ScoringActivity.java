@@ -82,5 +82,10 @@ public class ScoringActivity extends Activity {
             }
         });
 
+
+        if (level == 4) {
+            nextButton.setEnabled(false);
+        }
+
     }
 }
