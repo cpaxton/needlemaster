@@ -12,7 +12,8 @@
         android:id="@+id/logoView"
         android:src="@drawable/thread_the_needle"
         android:contentDescription="@string/background_screen_content_description"
-        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/newGameButton"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
@@ -24,45 +25,46 @@
         android:padding="20dp"
         android:paddingLeft="0dp"
         android:paddingRight="0dp"
-        android:layout_above="@+id/selectLevelButton"
-        android:layout_centerHorizontal="true"
         android:paddingTop="0dp"
         android:paddingBottom="0dp"
-        android:textSize="@dimen/abc_text_size_medium_material" />
+        android:textSize="@dimen/abc_text_size_medium_material"
+        android:layout_above="@+id/selectLevelButton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/select_level"
         android:id="@+id/selectLevelButton"
-        android:padding="10dp"
+        android:padding="0dp"
         android:paddingLeft="0dp"
         android:paddingRight="0dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:textSize="@dimen/abc_text_size_medium_material"
         android:layout_centerVertical="true"
-        android:layout_alignLeft="@+id/newGameButton"
-        android:layout_alignStart="@+id/newGameButton"
-        android:layout_alignRight="@+id/newGameButton"
-        android:layout_alignEnd="@+id/newGameButton"
-        android:paddingTop="0dp"
-        android:paddingBottom="0dp"
-        android:textSize="@dimen/abc_text_size_medium_material" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@+id/logoView"
+        android:layout_toStartOf="@+id/logoView" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/about_button"
         android:id="@+id/aboutButton"
-        android:layout_below="@+id/selectLevelButton"
-        android:layout_alignLeft="@+id/selectLevelButton"
-        android:layout_alignStart="@+id/selectLevelButton"
-        android:layout_alignRight="@+id/selectLevelButton"
-        android:layout_alignEnd="@+id/selectLevelButton"
         android:padding="10dp"
         android:paddingLeft="0dp"
-        android:paddingTop="0dp"
+        android:paddingTop="20dp"
         android:paddingRight="0dp"
-        android:paddingBottom="0dp"
+        android:paddingBottom="20dp"
         android:textSize="@dimen/abc_text_size_medium_material"
-        android:enabled="true" />
+        android:enabled="true"
+        android:layout_below="@+id/selectLevelButton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/selectLevelButton"
+        android:layout_alignEnd="@+id/selectLevelButton" />
 
 </RelativeLayout>

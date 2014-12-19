@@ -22,6 +22,5 @@ public class ScoringActivity extends Activity {
 
         setContentView(R.layout.activity_scoring);
 
-
     }
 }
