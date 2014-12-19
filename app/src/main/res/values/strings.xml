@@ -12,5 +12,6 @@
     <string name="background_screen_content_description">Background screen for app</string>
     <string name="about_button">About</string>
     <string name="title_activity_scoring">ScoringActivity</string>
+    <string name="extra_level_number">EXTRA_LEVEL_NUMBER</string>
 
 </resources>

@@ -36,6 +36,8 @@ public class ThreadTheNeedleGame extends View {
     Paint textPaint;
     Paint endTextPaint;
 
+    long time;
+
 	public ThreadTheNeedleGame(Context context, AttributeSet attrs) {
         //int width, int height, int preset
         super(context, attrs);
@@ -45,7 +47,9 @@ public class ThreadTheNeedleGame extends View {
         finished = false;
 		
 		index = 0;
-		
+
+        time = 0;
+
 		surfaces = new ArrayList<Surface>();
 		gates = new ArrayList<Gate>();
 		needle = new Needle(0.05, 0.90, -1.0*Math.PI);
@@ -164,12 +168,14 @@ public class ThreadTheNeedleGame extends View {
         //g.setFont(new Font("Geneva",Font.PLAIN,fontSize));
         
         // compute time remaining
-        long time = 30000 + startTime - System.currentTimeMillis();
-        if(time < 0) {
-        	time = 0;
-        	if (isRunning()) {
-        		end();
-        	}
+        if(running) {
+            time = 30000 + startTime - System.currentTimeMillis();
+            if (time < 0) {
+                time = 0;
+                if (isRunning()) {
+                    end();
+                }
+            }
         }
         
         long mins = time / 60000;
@@ -299,5 +305,23 @@ public class ThreadTheNeedleGame extends View {
     }
 
 
+    public int getPassedGates() {
+        int passed = 0;
+        for (Gate gt : gates) {
+            passed++;
+        }
+        return passed;
+    }
 
+    public int getNumGates() {
+        return gates.size();
+    }
+
+    public double getPathLength() {
+        return needle.getPathLength();
+    }
+
+    public long getTimeRemaining() {
+        return time;
+    }
 }

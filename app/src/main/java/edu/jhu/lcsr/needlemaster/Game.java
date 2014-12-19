@@ -4,6 +4,7 @@ import edu.jhu.lcsr.grid.ThreadTheNeedleGame;
 import edu.jhu.lcsr.needlemaster.util.SystemUiHider;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.widget.TextView;
@@ -28,9 +29,17 @@ public class Game extends Activity {
         TextView instructions = (TextView)findViewById(R.id.textView);
 
         gameView = (ThreadTheNeedleGame)findViewById(R.id.needleGameView);
-        String text = gameView.initialize(2);
 
-        instructions.setText(text);
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            int num = extras.getInt("EXTRA_LEVEL_NUMBER", 0);
+            String text = gameView.initialize(num);
+            instructions.setText(text);
+        } else {
+            String text = gameView.initialize(2);
+            instructions.setText(text);
+        }
+
     }
 
     @Override
@@ -57,6 +66,14 @@ public class Game extends Activity {
         }
         else if (me.getActionMasked() == MotionEvent.ACTION_DOWN) {
             this.finish();
+            Intent i = new Intent(getApplicationContext(), ScoringActivity.class);
+            i.putExtra("GATES_PASSED", gameView.getPassedGates());
+            i.putExtra("GATES_TOTAL", gameView.getNumGates());
+            i.putExtra("PATH_LENGTH", gameView.getPathLength());
+            i.putExtra("TISSUE", 0);
+            i.putExtra("DEEP_TISSUE", 0);
+            i.putExtra("TIME_REMAINING", gameView.getTimeRemaining());
+            startActivity(i);
         }
         return true;
     }

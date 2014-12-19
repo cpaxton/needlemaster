@@ -55,6 +55,7 @@ public class MainActivity extends Activity {
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), Game.class);
+                i.putExtra("EXTRA_LEVEL_NUMBER",0);
                 startActivity(i);
             }
         });

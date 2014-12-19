@@ -4,6 +4,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.PathMeasure;
 import android.graphics.PointF;
 
 import java.util.ArrayList;
@@ -257,4 +258,9 @@ public class Needle {
 	public synchronized float getRealY() {
 		return (float)(1.0 - y) * screenHeight;
 	}
+
+    public double getPathLength() {
+        PathMeasure pm = new PathMeasure(thread, false);
+        return pm.getLength();
+    }
 }
