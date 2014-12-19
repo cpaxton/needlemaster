@@ -17,5 +17,13 @@
     <string name="back_to_main_label">Back to Main</string>
     <string name="next_button_label">Next Level</string>
     <string name="final_report_title">Final Report</string>
+    <string name="gates_default_label">\???/???</string>
+    <string name="tissue_label">Time in Tissue</string>
+    <string name="deep_tissue_label">Deep Tissue</string>
+    <string name="length_label">Path Length</string>
+    <string name="default_label">\???</string>
+    <string name="time_remaining_label" >\??? seconds</string>
+    <string name="gates_label">Gates Hit</string>
+    <string name="final_score_default_label">\???/???</string>
 
 </resources>

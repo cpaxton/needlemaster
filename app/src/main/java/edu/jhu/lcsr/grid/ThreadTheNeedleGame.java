@@ -308,7 +308,9 @@ public class ThreadTheNeedleGame extends View {
     public int getPassedGates() {
         int passed = 0;
         for (Gate gt : gates) {
-            passed++;
+            if(gt.getStatus() == Gate.GATE_PASSED) {
+                passed++;
+            }
         }
         return passed;
     }
