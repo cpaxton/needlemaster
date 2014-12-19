@@ -48,7 +48,7 @@ public class ThreadTheNeedleGame extends View {
 		
 		surfaces = new ArrayList<Surface>();
 		gates = new ArrayList<Gate>();
-		needle = new Needle(0.05, 0.90, 0);
+		needle = new Needle(0.05, 0.90, -1.0*Math.PI);
 
         textPaint = new Paint();
         textPaint.setColor(fg);
@@ -207,6 +207,21 @@ public class ThreadTheNeedleGame extends View {
             return "Go through the gate without hitting the red top or bottom!";
 
         } else if (preset == 2) {
+            Gate g1 = new Gate(0.25, 0.5, -1.0*Math.PI / 4);
+            g1.setScale(2.0f);
+
+            Gate g2 = new Gate(0.5, 0.5, Math.PI / 2);
+            g2.setScale(2.0f);
+
+            Gate g3 = new Gate(0.75, 0.5, Math.PI / 4);
+            g3.setScale(2.0f);
+
+            gates.add(g1);
+            gates.add(g2);
+            gates.add(g3);
+
+            return "Hit gates in the correct order! Pay attention to their borders!";
+        } else if (preset == 3) {
             double[] s1x = {0, 0.25, 0.5, 1, 1, 0};
             double[] s1y = {0.6, 0.3, 0.35, 0.4, 0, 0};
             Surface s1 = new Surface(tissue, s1x, s1y, false);
@@ -221,9 +236,6 @@ public class ThreadTheNeedleGame extends View {
             gates.get(0).setScale(3.0f);
 
             return "Go from left to right without hitting the dark tissue!";
-
-        } else if (preset == 3) {
-
         } else if (preset == 4) {
 			double[] s1x = {0, 0.4, 0.5, 0.6, 1, 1, 0};
 			double[] s1y = {0.4, 0.6, 0.25, 0.6, 0.4, 0, 0};

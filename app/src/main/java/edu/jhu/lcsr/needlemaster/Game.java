@@ -28,7 +28,7 @@ public class Game extends Activity {
         TextView instructions = (TextView)findViewById(R.id.textView);
 
         gameView = (ThreadTheNeedleGame)findViewById(R.id.needleGameView);
-        String text = gameView.initialize(1);
+        String text = gameView.initialize(2);
 
         instructions.setText(text);
     }

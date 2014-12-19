@@ -133,11 +133,11 @@ public class Needle {
 	
 			length = LENGTH_CONST * scale;
 			
-			double topX = realX + ((0.01 * scale) * Math.cos(topW)) - (length * Math.cos(w));
-			double topY = realY + ((0.01 * scale) * Math.sin(topW)) - (length * Math.sin(w));
+			double topX = realX - ((0.01 * scale) * Math.cos(topW)) + (length * Math.cos(w));
+			double topY = realY - ((0.01 * scale) * Math.sin(topW)) + (length * Math.sin(w));
 			
-			double bottomX = realX + ((0.01 * scale) * Math.cos(bottomW)) - (length * Math.cos(w));
-			double bottomY = realY + ((0.01 * scale) * Math.sin(bottomW)) - (length * Math.sin(w));
+			double bottomX = realX - ((0.01 * scale) * Math.cos(bottomW)) + (length * Math.cos(w));
+			double bottomY = realY - ((0.01 * scale) * Math.sin(bottomW)) + (length * Math.sin(w));
 			
 			polygon.lineTo((float)topX, (float)topY);
 			polygon.lineTo((float)bottomX, (float)bottomY);
