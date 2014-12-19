@@ -11,13 +11,10 @@
         android:layout_height="wrap_content"
         android:id="@+id/logoView"
         android:src="@drawable/thread_the_needle"
+        android:contentDescription="@string/background_screen_content_description"
         android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:contentDescription="@string/background_screen_content_description" />
+        android:layout_alignParentEnd="true" />
 
     <Button
         android:layout_width="wrap_content"
@@ -65,6 +62,7 @@
         android:paddingTop="0dp"
         android:paddingRight="0dp"
         android:paddingBottom="0dp"
-        android:textSize="@dimen/abc_text_size_medium_material" />
+        android:textSize="@dimen/abc_text_size_medium_material"
+        android:enabled="true" />
 
 </RelativeLayout>

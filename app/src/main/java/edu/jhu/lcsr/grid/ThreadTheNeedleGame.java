@@ -95,7 +95,7 @@ public class ThreadTheNeedleGame extends View {
     public void onSizeChanged(int w, int h, int oldw, int oldh) {
 
         textPaint.setTextSize((Math.min(h, w) / 10) + 10);
-        endTextPaint.setTextSize(Math.min(w,h) / 3);
+        endTextPaint.setTextSize(w / 6);
 
         needle.rescale(w, h);
         for (Surface s: surfaces) {
