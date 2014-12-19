@@ -193,7 +193,11 @@
         android:id="@+id/retryButton"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:background="?android:attr/selectableItemBackground"
+        android:textSize="@dimen/abc_text_size_large_material"
+        android:padding="10dp"
+        android:textColor="@color/black_overlay" />
 
     <Button
         android:layout_width="wrap_content"
@@ -201,7 +205,11 @@
         android:id="@+id/backButton"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:text="@string/back_to_main_label" />
+        android:text="@string/back_to_main_label"
+        android:background="?android:attr/selectableItemBackground"
+        android:textSize="@dimen/abc_text_size_large_material"
+        android:padding="10dp"
+        android:textColor="@color/black_overlay" />
 
     <Button
         android:layout_width="wrap_content"
@@ -210,6 +218,10 @@
         android:id="@+id/nextButton"
         android:layout_alignTop="@+id/backButton"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:background="?android:attr/selectableItemBackground"
+        android:textSize="@dimen/abc_text_size_large_material"
+        android:padding="10dp"
+        android:textColor="@color/black_overlay" />
 
 </RelativeLayout>
