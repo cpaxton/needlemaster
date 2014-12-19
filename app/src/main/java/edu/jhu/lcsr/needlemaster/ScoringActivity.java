@@ -74,7 +74,7 @@ public class ScoringActivity extends Activity {
             }
         });
 
-        final Button backButton = (Button) findViewById(R.id.backButton);
+        final Button backButton = (Button) findViewById(R.id.aboutBackButton);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

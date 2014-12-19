@@ -202,7 +202,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/backButton"
+        android:id="@+id/aboutBackButton"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:text="@string/back_to_main_label"
@@ -216,7 +216,7 @@
         android:layout_height="wrap_content"
         android:text="@string/next_button_label"
         android:id="@+id/nextButton"
-        android:layout_alignTop="@+id/backButton"
+        android:layout_alignTop="@+id/aboutBackButton"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:background="?android:attr/selectableItemBackground"

@@ -7,4 +7,46 @@
     tools:context="edu.jhu.lcsr.needlemaster.AboutActivity"
     android:background="@color/background">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/about_title_label"
+        android:id="@+id/aboutTitle"
+        android:textSize="50sp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/about_text_label"
+        android:id="@+id/textView2"
+        android:layout_below="@+id/aboutTitle"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/aboutBackButton"
+        android:text="@string/back_to_main_label"
+        android:background="?android:attr/selectableItemBackground"
+        android:textSize="@dimen/abc_text_size_large_material"
+        android:padding="10dp"
+        android:textColor="@color/black_overlay"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/checkbox_label"
+        android:id="@+id/checkBox"
+        android:checked="false"
+        android:layout_below="@+id/textView2"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
