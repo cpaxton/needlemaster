@@ -19,6 +19,7 @@ import android.widget.TextView;
 public class Game extends Activity {
 
     ThreadTheNeedleGame gameView;
+    int level;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,13 +33,12 @@ public class Game extends Activity {
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            int num = extras.getInt("EXTRA_LEVEL_NUMBER", 0);
-            String text = gameView.initialize(num);
-            instructions.setText(text);
+            level = extras.getInt("EXTRA_LEVEL_NUMBER", 0);
         } else {
-            String text = gameView.initialize(2);
-            instructions.setText(text);
+            level = 2;
         }
+        String text = gameView.initialize(level);
+        instructions.setText(text);
 
     }
 
@@ -73,7 +73,9 @@ public class Game extends Activity {
             i.putExtra("TISSUE", 0);
             i.putExtra("DEEP_TISSUE", 0);
             i.putExtra("TIME_REMAINING", gameView.getTimeRemaining());
+            i.putExtra("EXTRA_LEVEL_NUMBER", level);
             startActivity(i);
+            finish();
         }
         return true;
     }

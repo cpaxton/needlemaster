@@ -13,5 +13,9 @@
     <string name="about_button">About</string>
     <string name="title_activity_scoring">ScoringActivity</string>
     <string name="extra_level_number">EXTRA_LEVEL_NUMBER</string>
+    <string name="retry_button_label">Retry Level</string>
+    <string name="back_to_main_label">Back to Main</string>
+    <string name="next_button_label">Next Level</string>
+    <string name="final_report_title">Final Report</string>
 
 </resources>
