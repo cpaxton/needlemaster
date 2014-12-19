@@ -128,8 +128,8 @@ public class Needle {
 			polygon = new Path();
 			polygon.moveTo((float)realX, (float)realY);
 			
-			double topW = w + (Math.PI/2);
-			double bottomW = w - (Math.PI/2);
+			double topW = w - (Math.PI/2);
+			double bottomW = w + (Math.PI/2);
 	
 			length = LENGTH_CONST * scale;
 			
