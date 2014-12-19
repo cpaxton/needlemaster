@@ -6,6 +6,7 @@ import edu.jhu.lcsr.needlemaster.util.SystemUiHider;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.MotionEvent;
+import android.widget.TextView;
 
 
 /**
@@ -24,9 +25,12 @@ public class Game extends Activity {
 
         setContentView(R.layout.activity_game);
 
-        gameView = (ThreadTheNeedleGame)findViewById(R.id.needleGameView);
-        gameView.initialize(1);
+        TextView instructions = (TextView)findViewById(R.id.textView);
 
+        gameView = (ThreadTheNeedleGame)findViewById(R.id.needleGameView);
+        String text = gameView.initialize(1);
+
+        instructions.setText(text);
     }
 
     @Override

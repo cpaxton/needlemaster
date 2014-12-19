@@ -21,6 +21,7 @@
         android:text="This is sample text, don&apos;t worry about it!"
         android:id="@+id/textView"
         android:layout_gravity="left|bottom"
-        android:textColor="@color/black_overlay" />
+        android:textColor="@color/black_overlay"
+        android:textSize="@dimen/abc_text_size_large_material" />
 
 </FrameLayout>

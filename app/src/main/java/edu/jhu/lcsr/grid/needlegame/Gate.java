@@ -66,11 +66,15 @@ public class Gate {
 
 		screenWidth = 0;
 		screenHeight = 0;
-		scale = 0;
+		scale = 1.0f;
 		rescale(800, 600);
 
 		entered = false;
 	}
+
+    public void setScale(float scale) {
+        this.scale = scale;
+    }
 
 	/**
 	 * Update this gate's status.
@@ -129,15 +133,15 @@ public class Gate {
 		synchronized(this) {
             double warningWidth = screenHeight / 100;
 
-			float width1 = (float)(screenHeight * 0.05 * Math.cos(w) + screenHeight * 0.03 * Math.sin(w));
-			float height1 = (float)(screenHeight * 0.05 * Math.sin(w) - screenHeight * 0.03 * Math.cos(w));
-			float width2 = (float)(-1 * screenHeight * 0.05 * Math.cos(w) + screenHeight * 0.03 * Math.sin(w));
-			float height2 = (float)(-1 * screenHeight * 0.05 * Math.sin(w) - screenHeight * 0.03 * Math.cos(w));
+			float width1 = scale * (float)(screenHeight * 0.05 * Math.cos(w) + screenHeight * 0.03 * Math.sin(w));
+			float height1 = scale * (float)(screenHeight * 0.05 * Math.sin(w) - screenHeight * 0.03 * Math.cos(w));
+			float width2 = scale * (float)(-1 * screenHeight * 0.05 * Math.cos(w) + screenHeight * 0.03 * Math.sin(w));
+			float height2 = scale * (float)(-1 * screenHeight * 0.05 * Math.sin(w) - screenHeight * 0.03 * Math.cos(w));
 
-            float width1m = (float)((screenHeight * 0.05 - warningWidth) * Math.cos(w) + screenHeight * 0.03 * Math.sin(w));
-            float height1m = (float)((screenHeight * 0.05 - warningWidth) * Math.sin(w) - screenHeight * 0.03 * Math.cos(w));
-            float width2m = (float)((-1 * screenHeight * 0.05 + warningWidth) * Math.cos(w) + screenHeight * 0.03 * Math.sin(w));
-            float height2m = (float)((-1 * screenHeight * 0.05 + warningWidth) * Math.sin(w) - screenHeight * 0.03 * Math.cos(w));
+            float width1m = scale * (float)((screenHeight * 0.05 - warningWidth) * Math.cos(w) + screenHeight * 0.03 * Math.sin(w));
+            float height1m = scale * (float)((screenHeight * 0.05 - warningWidth) * Math.sin(w) - screenHeight * 0.03 * Math.cos(w));
+            float width2m = scale * (float)((-1 * screenHeight * 0.05 + warningWidth) * Math.cos(w) + screenHeight * 0.03 * Math.sin(w));
+            float height2m = scale * (float)((-1 * screenHeight * 0.05 + warningWidth) * Math.sin(w) - screenHeight * 0.03 * Math.cos(w));
 
             float realX = (float)(x * screenWidth);
             float realY = (float)((1.0 - y) * screenHeight);
@@ -187,7 +191,7 @@ public class Gate {
 
 			screenWidth = width;
 			screenHeight = height;
-			scale = (float)Math.sqrt(width*width + height*height);
+			//scale = (float)Math.sqrt(width*width + height*height);
 
 			redraw();
 

@@ -195,19 +195,36 @@ public class ThreadTheNeedleGame extends View {
      * 1 == two peaks, four gates
 	 * @param preset which one of the preset levels we want to use
 	 */
-	public void initialize(int preset) {
-		if (preset == 0) {
-			double[] s1x = {0, 0.25, 0.5, 1, 1, 0};
-			double[] s1y = {0.6, 0.3, 0.35, 0.4, 0, 0};
-			Surface s1 = new Surface(tissue, s1x, s1y, false);
-			surfaces.add(s1);
-			
-			double[] s2x = {0, 0.23, 0.45, 1, 1, 0};
-			double[] s2y = {0.25, 0.12, 0.17, 0.26, 0, 0};
-			Surface s2 = new Surface(deepTissue, s2x, s2y, false);
-			surfaces.add(s2);
-			
-		} else if (preset == 1) {
+	public String initialize(int preset) {
+        if (preset == 0) {
+            return "Swipe in the direction you want to move! Go off the right edge of the screen.";
+        } else if (preset == 1) {
+            Gate g = new Gate(0.5, 0.5, -1.0*Math.PI / 4);
+            g.setScale(5.0f);
+
+            gates.add(g);
+
+            return "Go through the gate without hitting the red top or bottom!";
+
+        } else if (preset == 2) {
+            double[] s1x = {0, 0.25, 0.5, 1, 1, 0};
+            double[] s1y = {0.6, 0.3, 0.35, 0.4, 0, 0};
+            Surface s1 = new Surface(tissue, s1x, s1y, false);
+            surfaces.add(s1);
+
+            double[] s2x = {0, 0.23, 0.45, 1, 1, 0};
+            double[] s2y = {0.25, 0.12, 0.17, 0.26, 0, 0};
+            Surface s2 = new Surface(deepTissue, s2x, s2y, false);
+            surfaces.add(s2);
+
+            gates.add(new Gate(0.2, 0.7, 0.3));
+            gates.get(0).setScale(3.0f);
+
+            return "Go from left to right without hitting the dark tissue!";
+
+        } else if (preset == 3) {
+
+        } else if (preset == 4) {
 			double[] s1x = {0, 0.4, 0.5, 0.6, 1, 1, 0};
 			double[] s1y = {0.4, 0.6, 0.25, 0.6, 0.4, 0, 0};
 			Surface s1 = new Surface(tissue, s1x, s1y, false);
@@ -231,8 +248,11 @@ public class ThreadTheNeedleGame extends View {
 			gates.add(new Gate(0.4, 0.5, Math.PI / 2));
 			gates.add(new Gate(0.6, 0.5, Math.PI / 2));
 			gates.add(new Gate(0.8, 0.7, 1.5));
-			
+
+            return "Hit all of the gates!";
 		}
+
+        return "Unknown level! Have fun!";
 	}
 
 	/**
