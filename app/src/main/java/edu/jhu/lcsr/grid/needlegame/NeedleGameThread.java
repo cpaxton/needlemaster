@@ -36,6 +36,8 @@ public class NeedleGameThread extends Thread {
 
             if (needle.isOffscreen()) { //&& game.gatesDone()) {
                 game.end();
+            } else if (game.checkFailureSurfaces()) {
+                game.end();
             }
 			
 			long dt = System.currentTimeMillis() - t0;
@@ -49,8 +51,6 @@ public class NeedleGameThread extends Thread {
 					e.printStackTrace();
 				}
 			}
-			//long ttmp = System.currentTimeMillis();
-			//System.out.println(ttmp - t00); t00 = ttmp;
 			
 			running = game.isRunning();
 			

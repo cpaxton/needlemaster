@@ -23,6 +23,7 @@ public class ThreadTheNeedleGame extends View {
     
     Needle needle;
     ArrayList<Surface> surfaces;
+    ArrayList<Surface> failureSurfaces;
     ArrayList<Gate> gates;
     
     int index;
@@ -51,6 +52,7 @@ public class ThreadTheNeedleGame extends View {
         time = 0;
 
 		surfaces = new ArrayList<Surface>();
+        failureSurfaces = new ArrayList<Surface>();
 		gates = new ArrayList<Gate>();
 		needle = new Needle(0.05, 0.90, -1.0*Math.PI);
 
@@ -194,7 +196,20 @@ public class ThreadTheNeedleGame extends View {
         }
 
 	}
-	
+
+    /**
+     * Checks to see if the needle has entered any failure areas
+     * @return true if failed
+     */
+    public boolean checkFailureSurfaces() {
+        for (Surface s: failureSurfaces) {
+            if (s.contains(needle.getRealX(), needle.getRealY())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 	/**
 	 * Set up the needle game with a specific preset list of information
      * 0 == largely empty world
@@ -232,13 +247,14 @@ public class ThreadTheNeedleGame extends View {
             double[] s1y = {0.6, 0.3, 0.35, 0.4, 0, 0};
             Surface s1 = new Surface(tissue, s1x, s1y, false);
             s1.setMovementMultiplier(0.5);
-            s1.setRotationMultiplier(0.3);
+            s1.setRotationMultiplier(0.15);
             surfaces.add(s1);
 
             double[] s2x = {0, 0.23, 0.45, 1, 1, 0};
             double[] s2y = {0.25, 0.12, 0.17, 0.26, 0, 0};
             Surface s2 = new Surface(deepTissue, s2x, s2y, false);
             surfaces.add(s2);
+            failureSurfaces.add(s2);
 
             gates.add(new Gate(0.2, 0.7, 0.3));
             gates.get(0).setScale(3.0f);
@@ -249,13 +265,14 @@ public class ThreadTheNeedleGame extends View {
 			double[] s1y = {0.4, 0.6, 0.25, 0.6, 0.4, 0, 0};
 			Surface s1 = new Surface(tissue, s1x, s1y, false);
 			s1.setMovementMultiplier(0.5);
-			s1.setRotationMultiplier(0.3);
+			s1.setRotationMultiplier(0.15);
 			surfaces.add(s1);
 			
 			double[] s2x = {0, 0.38, 0.5, 0.61, 1, 1, 0};
 			double[] s2y = {0.21, 0.34, 0.13, 0.32, 0.26, 0, 0};
 			Surface s2 = new Surface(deepTissue, s2x, s2y, false);
 			surfaces.add(s2);
+            failureSurfaces.add(s2);
 			
 			double[] outsidex = {0, 0.4, 0.6, 1, 1, 0};
 			double[] outsidey = {0.4, 0.6, 0.6, 0.4, 0, 0};
