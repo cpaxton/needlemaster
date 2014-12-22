@@ -167,7 +167,8 @@ public class ThreadTheNeedleGame extends View {
 
         // compute time remaining
         if(running) {
-            time = 30000 + startTime - System.currentTimeMillis();
+            // time is set here!
+            time = 10000 + startTime - System.currentTimeMillis();
             if (time < 0) {
                 time = 0;
                 if (isRunning()) {
@@ -320,12 +321,7 @@ public class ThreadTheNeedleGame extends View {
 			Surface s2 = new Surface(deepTissue, s2x, s2y, false);
 			surfaces.add(s2);
             failureSurfaces.add(s2);
-			
-			double[] outsidex = {0, 0.4, 0.6, 1, 1, 0};
-			double[] outsidey = {0.4, 0.6, 0.6, 0.4, 0, 0};
-			Surface outside = new Surface(outlines, outsidex, outsidey, true);
-			//surfaces.add(outside);
-			
+
 			gates.add(new Gate(0.2, 0.7, 0.3));
 			gates.add(new Gate(0.4, 0.5, Math.PI / 2));
 			gates.add(new Gate(0.6, 0.5, Math.PI / 2));

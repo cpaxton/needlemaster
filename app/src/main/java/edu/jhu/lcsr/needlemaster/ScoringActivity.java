@@ -31,6 +31,11 @@ public class ScoringActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        int score = 0;
+        int gatesScore;
+        int timeScore;
+        int pathScore;
+
         setContentView(R.layout.activity_scoring);
 
         Bundle extras = getIntent().getExtras();
@@ -45,21 +50,50 @@ public class ScoringActivity extends Activity {
             deepTissue = extras.getBoolean("DEEP_TISSUE", false);
 
             final TextView gatesView = (TextView) findViewById(R.id.gatesView);
+            final TextView gatesScoreView = (TextView) findViewById(R.id.gatesScore);
             gatesView.setText(passedGates + "/" + numGates);
+            if (0 == numGates) {
+                gatesScore = 1000;
+            } else {
+                gatesScore = (int) (1000.0 * (double) passedGates / numGates);
+            }
+            gatesScoreView.setText("" + gatesScore);
+            score += gatesScore;
 
             final TextView pathLengthView = (TextView) findViewById(R.id.lengthView);
+            final TextView pathLengthScoreView = (TextView) findViewById(R.id.pathScore);
             pathLengthView.setText("" + String.format("%.02f", pathLength));
+            pathScore = -1 * (int)pathLength;
+            score += pathScore;
+            pathLengthScoreView.setText("" + pathScore);
 
             double t = (double)timeRemaining / 1000.0;
             final TextView timeView = (TextView) findViewById(R.id.timeView);
+            final TextView timeScoreView = (TextView) findViewById(R.id.timeScore);
             timeView.setText("" + String.format("%.02f", t));
+            if (timeRemaining > 5000) {
+                timeScore = 1000;
+            } else {
+                timeScore = (int) (1000.0 * (double)(timeRemaining) / 5000.0);
+            }
+            timeScoreView.setText("" + timeScore);
+            score += timeScore;
 
             final TextView deepTissueView = (TextView) findViewById((R.id.deepTissueView));
+            final TextView deepTissueScoreView = (TextView) findViewById(R.id.deepTissueScore);
             if (deepTissue) {
                 deepTissueView.setText("HIT!");
+                deepTissueScoreView.setText("-1000");
+                score -= 1000;
             } else {
                 deepTissueView.setText("avoided");
+                deepTissueScoreView.setText("0");
             }
+
+
+            TextView scoreView = (TextView) findViewById(R.id.scoreView);
+            scoreView.setText("" + score + "/1000");
+
 
         } else {
             level = 2;
@@ -94,7 +128,7 @@ public class ScoringActivity extends Activity {
         });
 
 
-        if (level == 7) {
+        if (level == 7 || !passed) {
             nextButton.setEnabled(false);
             nextButton.setVisibility(View.INVISIBLE);
         }
