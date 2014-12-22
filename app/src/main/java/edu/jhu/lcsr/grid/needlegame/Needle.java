@@ -195,8 +195,24 @@ public class Needle {
 		moveY = 1.0 - ((double)y / screenHeight); 
 		//System.out.println("move = " + moveX + "," + moveY);
 	}
-	
-	public void move() {
+
+    public void move(double movement, double rotation) {
+
+        movement *= movementMultiplier;
+        rotation *= rotationMultiplier;
+
+        this.x = this.x + (movement * Math.cos(w));
+        this.y = this.y - (movement * Math.sin(w));
+
+        //if (Math.abs(rotation) > 0.01)
+        this.w += rotation;
+    }
+
+    /**
+     * The human version of the move.
+     * Processes old commands and uses them to order the needle around.
+     */
+	public void humanMove() {
 		
 		updateSurface();
 
@@ -224,14 +240,11 @@ public class Needle {
 				
 				threadPoints.add(new PointF((float)this.x, (float)this.y));
 				
-				double movement = dist * Math.cos(dw) * movementMultiplier; // x projection of the motion?
-				
-				this.x = this.x + (movement * Math.cos(w));
-				this.y = this.y - (movement * Math.sin(w));
-				
-				double rotation = Math.sin(dw) / 15.0 * rotationMultiplier;
-                if (Math.abs(rotation) > 0.01)
-				    w += rotation;
+				double movement = dist * Math.cos(dw); // x projection of the motion?
+				double rotation = Math.sin(dw) / 15.0;
+
+                move(movement, rotation);
+
 			}
 			
 			if (w < 0) {

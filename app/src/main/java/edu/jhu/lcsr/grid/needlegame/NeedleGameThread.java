@@ -23,28 +23,26 @@ public class NeedleGameThread extends Thread {
 	}
 	
 	public void run() {
-		//long t00 = System.currentTimeMillis();
+
 		while(running) {
 			long t0 = System.currentTimeMillis();
 
 			Surface s = game.checkNeedleLocation(needle.getRealX(), needle.getRealY());
-			//if (s != null) {
+
 			needle.applySurface(s);
-			//}
-			needle.move();
+			needle.humanMove();
             game.redraw();
 
-            if (needle.isOffscreen()) { //&& game.gatesDone()) {
+            if (needle.isOffscreen()) {
                 game.end();
             } else if (game.checkFailureSurfaces()) {
                 game.end();
             }
 			
 			long dt = System.currentTimeMillis() - t0;
-			//System.out.println("time taken = " + dt);
+
 			if (dt < TICK_LENGTH) {
 				try {
-					//System.out.println(System.currentTimeMillis() + " -- " + dt + " -- sleeping for " + (TICK_LENGTH - dt));
 					Thread.sleep(TICK_LENGTH - dt);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block

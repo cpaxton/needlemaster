@@ -24,6 +24,8 @@ public class ScoringActivity extends Activity {
     int failedGates;
     double pathLength;
     long timeRemaining;
+    boolean passed;
+    boolean deepTissue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +41,8 @@ public class ScoringActivity extends Activity {
             failedGates = extras.getInt("GATES_FAILED", 0);
             pathLength = extras.getDouble("PATH_LENGTH",0.0);
             timeRemaining = extras.getLong("TIME_REMAINING",0l);
+            passed = extras.getBoolean("LEVEL_PASSED", true);
+            deepTissue = extras.getBoolean("DEEP_TISSUE", false);
 
             final TextView gatesView = (TextView) findViewById(R.id.gatesView);
             gatesView.setText(passedGates + "/" + numGates);
@@ -49,6 +53,13 @@ public class ScoringActivity extends Activity {
             double t = (double)timeRemaining / 1000.0;
             final TextView timeView = (TextView) findViewById(R.id.timeView);
             timeView.setText("" + String.format("%.02f", t));
+
+            final TextView deepTissueView = (TextView) findViewById((R.id.deepTissueView));
+            if (deepTissue) {
+                deepTissueView.setText("HIT!");
+            } else {
+                deepTissueView.setText("avoided");
+            }
 
         } else {
             level = 2;
@@ -83,8 +94,9 @@ public class ScoringActivity extends Activity {
         });
 
 
-        if (level == 4) {
+        if (level == 7) {
             nextButton.setEnabled(false);
+            nextButton.setVisibility(View.INVISIBLE);
         }
 
     }

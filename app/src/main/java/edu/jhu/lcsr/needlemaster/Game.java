@@ -71,9 +71,10 @@ public class Game extends Activity {
             i.putExtra("GATES_TOTAL", gameView.getNumGates());
             i.putExtra("PATH_LENGTH", gameView.getPathLength());
             i.putExtra("TISSUE", 0);
-            i.putExtra("DEEP_TISSUE", 0);
+            i.putExtra("DEEP_TISSUE", gameView.checkFailureSurfaces());
             i.putExtra("TIME_REMAINING", gameView.getTimeRemaining());
             i.putExtra("EXTRA_LEVEL_NUMBER", level);
+            i.putExtra("LEVEL_PASSED", gameView.checkPassedLevel());
             startActivity(i);
             finish();
         }
