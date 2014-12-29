@@ -4,9 +4,11 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.os.Environment;
 import android.util.AttributeSet;
 import android.view.View;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import edu.jhu.lcsr.grid.needlegame.Gate;
@@ -80,6 +82,7 @@ public class ThreadTheNeedleGame extends View {
 		synchronized(this) {
 			running = false;
             finished = true;
+            needle.endFileOutput();
 		}
 		try {
 			thread.join();
@@ -223,6 +226,20 @@ public class ThreadTheNeedleGame extends View {
 	 * @param preset which one of the preset levels we want to use
 	 */
 	public String initialize(int preset) {
+
+        /* set up file output */
+        String filename = "trial_" + preset + "_" + System.currentTimeMillis() + ".csv";
+        String storageState = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED.equals(storageState)) {
+            File subdir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS), "needle_master_trials");
+            if (!subdir.mkdir()) {
+                System.err.println("Directory for trials not created!");
+            }
+            needle.startFileOutput(subdir, filename);
+        } else {
+            System.err.println("Could not open external storage to save user demonstrations!");
+        }
+
         if (preset == 0) {
             return "Swipe in the direction you want to move! Go off the right edge of the screen.";
         } else if (preset == 1) {

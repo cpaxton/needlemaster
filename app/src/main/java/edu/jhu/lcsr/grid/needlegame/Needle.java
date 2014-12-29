@@ -1,11 +1,15 @@
 package edu.jhu.lcsr.grid.needlegame;
 
+import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PointF;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
 /**
@@ -14,6 +18,10 @@ import java.util.ArrayList;
  *
  */
 public class Needle {
+
+    File file;
+    FileOutputStream fo;
+    OutputStreamWriter fow;
 
 	double x; // left/right position
 	double y; // height
@@ -57,7 +65,7 @@ public class Needle {
 		this.x = x;
 		this.y = y;
 		this.w = w;
-		
+
 		threadPoints = new ArrayList<PointF>();
 		//threadPoints.add(new Point2D.Double(x,y));
 		
@@ -83,7 +91,41 @@ public class Needle {
 
 		rescale(800, 600);
 	}
-	
+
+    /**
+     * Create a file pointer for recording demonstrations
+     * @param dir the directory the file will end up in
+     * @param filename the name of the file
+     * @return true if file was opened; false if already opened
+     */
+    public boolean startFileOutput(File dir, String filename) {
+        if (file == null) {
+            file = new File(dir, filename);
+            try {
+                fo = new FileOutputStream(file);
+                fow = new OutputStreamWriter(fo);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean endFileOutput() {
+        if (file != null) {
+            try {
+                fow.close();
+                fo.close();
+                return true;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
+
 	/**
 	 * Simple setter for the surface, right now.
 	 * @param s surface that this needle is now inside of
@@ -196,6 +238,13 @@ public class Needle {
 	}
 
     public void move(double movement, double rotation) {
+
+        try {
+            fow.write(movement + "," + rotation + "\n");
+            fow.flush();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         movement *= movementMultiplier;
         rotation *= rotationMultiplier;
