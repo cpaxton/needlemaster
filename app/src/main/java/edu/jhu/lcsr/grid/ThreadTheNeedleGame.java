@@ -16,6 +16,8 @@ import edu.jhu.lcsr.grid.needlegame.Needle;
 import edu.jhu.lcsr.grid.needlegame.NeedleGameThread;
 import edu.jhu.lcsr.grid.needlegame.Surface;
 
+import static android.os.Environment.MEDIA_MOUNTED;
+
 public class ThreadTheNeedleGame extends View {
 
     final static int fg = Color.argb(125, 0, 0, 0);
@@ -199,11 +201,7 @@ public class ThreadTheNeedleGame extends View {
 	}
 
     public boolean checkPassedLevel() {
-        if (finished && needle.isOffscreen()) {
-            return true;
-        } else {
-            return false;
-        }
+        return finished && needle.isOffscreen();
     }
 
     /**
@@ -225,17 +223,17 @@ public class ThreadTheNeedleGame extends View {
      * 1 == two peaks, four gates
 	 * @param preset which one of the preset levels we want to use
 	 */
-	public String initialize(int preset) {
+    public String initialize(int preset) {
 
         /* set up file output */
         String filename = "trial_" + preset + "_" + System.currentTimeMillis() + ".csv";
         String storageState = Environment.getExternalStorageState();
-        if (Environment.MEDIA_MOUNTED.equals(storageState)) {
-            File subdir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS), "needle_master_trials");
-            if (!subdir.mkdir()) {
+        if (MEDIA_MOUNTED.equals(storageState)) {
+            File subDirectory = new File(Environment.getExternalStorageDirectory(), "needle_master_trials");
+            if (!subDirectory.mkdir()) {
                 System.err.println("Directory for trials not created!");
             }
-            needle.startFileOutput(subdir, filename);
+            needle.startFileOutput(subDirectory, filename);
         } else {
             System.err.println("Could not open external storage to save user demonstrations!");
         }
@@ -365,17 +363,6 @@ public class ThreadTheNeedleGame extends View {
 		}
 		return in;
 	}
-
-    public boolean gatesDone() {
-        int numDone = 0;
-        for (Gate gt: gates) {
-            if (gt.getStatus() == Gate.GATE_FAILED || gt.getStatus() == Gate.GATE_PASSED) {
-                numDone++;
-            }
-        }
-
-        return numDone == gates.size();
-    }
 
     public void redraw() {
         postInvalidate();

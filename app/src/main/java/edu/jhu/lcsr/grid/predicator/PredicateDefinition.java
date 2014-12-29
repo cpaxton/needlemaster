@@ -1,4 +1,4 @@
-package grid.predicator;
+package edu.jhu.lcsr.grid.predicator;
 
 import java.util.ArrayList;
 
