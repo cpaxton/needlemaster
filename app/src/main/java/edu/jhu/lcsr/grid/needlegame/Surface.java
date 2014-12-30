@@ -120,4 +120,29 @@ public class Surface {
      * @return true if it is a virtual surface (aka, does not affect anything); false otherwise.
 	 */
 	public boolean isVirtual() { return isVirtual; }
+
+    public String toString() {
+        String str = "";
+        if (getMovementMultiplier() == 0) {
+            str += "IsDeepTissue: true\n";
+        } else {
+            str += "IsDeepTissue: false\n";
+        }
+        str += "SurfaceX: ";
+        for (int i = 0; i < x.length; i++) {
+            str += x[i] * width;
+            if (i < x.length - 1) {
+                str += ",";
+            }
+        }
+        str += "\nSurfaceY: ";
+        for (int i = 0; i < y.length; i++) {
+            str += y[i] * height;
+            if (i < y.length - 1) {
+                str += ",";
+            }
+        }
+        str += "\n";
+        return str;
+    }
 }

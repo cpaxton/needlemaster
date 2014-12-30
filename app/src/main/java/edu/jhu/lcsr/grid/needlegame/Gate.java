@@ -128,23 +128,25 @@ public class Gate {
         c.drawPath(polygon, gatePaint);
 	}
 
+    float width1, height1, width2, height2, width1m, height1m, width2m, height2m, realX, realY;
+
 	void redraw() {
 
 		synchronized(this) {
             double warningWidth = screenHeight / 100;
 
-			float width1 = scale * (float)(screenHeight * 0.05 * Math.cos(w) + screenHeight * 0.03 * Math.sin(w));
-			float height1 = scale * (float)(screenHeight * 0.05 * Math.sin(w) - screenHeight * 0.03 * Math.cos(w));
-			float width2 = scale * (float)(-1 * screenHeight * 0.05 * Math.cos(w) + screenHeight * 0.03 * Math.sin(w));
-			float height2 = scale * (float)(-1 * screenHeight * 0.05 * Math.sin(w) - screenHeight * 0.03 * Math.cos(w));
+			width1 = scale * (float)(screenHeight * 0.05 * Math.cos(w) + screenHeight * 0.03 * Math.sin(w));
+			height1 = scale * (float)(screenHeight * 0.05 * Math.sin(w) - screenHeight * 0.03 * Math.cos(w));
+			width2 = scale * (float)(-1 * screenHeight * 0.05 * Math.cos(w) + screenHeight * 0.03 * Math.sin(w));
+			height2 = scale * (float)(-1 * screenHeight * 0.05 * Math.sin(w) - screenHeight * 0.03 * Math.cos(w));
 
-            float width1m = scale * (float)((screenHeight * 0.05 - warningWidth) * Math.cos(w) + screenHeight * 0.03 * Math.sin(w));
-            float height1m = scale * (float)((screenHeight * 0.05 - warningWidth) * Math.sin(w) - screenHeight * 0.03 * Math.cos(w));
-            float width2m = scale * (float)((-1 * screenHeight * 0.05 + warningWidth) * Math.cos(w) + screenHeight * 0.03 * Math.sin(w));
-            float height2m = scale * (float)((-1 * screenHeight * 0.05 + warningWidth) * Math.sin(w) - screenHeight * 0.03 * Math.cos(w));
+            width1m = scale * (float)((screenHeight * 0.05 - warningWidth) * Math.cos(w) + screenHeight * 0.03 * Math.sin(w));
+            height1m = scale * (float)((screenHeight * 0.05 - warningWidth) * Math.sin(w) - screenHeight * 0.03 * Math.cos(w));
+            width2m = scale * (float)((-1 * screenHeight * 0.05 + warningWidth) * Math.cos(w) + screenHeight * 0.03 * Math.sin(w));
+            height2m = scale * (float)((-1 * screenHeight * 0.05 + warningWidth) * Math.sin(w) - screenHeight * 0.03 * Math.cos(w));
 
-            float realX = (float)(x * screenWidth);
-            float realY = (float)((1.0 - y) * screenHeight);
+            realX = (float)(x * screenWidth);
+            realY = (float)((1.0 - y) * screenHeight);
 
 			polygon = new Path();
             polygon.setFillType(Path.FillType.EVEN_ODD);
@@ -217,4 +219,18 @@ public class Gate {
 	public int getStatus() {
 		return status;
 	}
+
+    public String toString() {
+        String str = "";
+
+        str += "GatePos: " + x + "," + y + "," + w + "\n";
+        str += "GateX: " + (realX + width1) + "," + (realX + width2) + "," + (realX - width1) + "," + (realX - width2) + "\n";
+        str += "GateY: " + (realY + height1) + "," + (realY + height2) + "," + (realY - height1) + "," + (realY - height2) + "\n";
+        str += "TopX: " + (realX + width1m) + "," + (realX + width1m) + "," + (realX - width2m) + "," + (realX - width2) + "\n";
+        str += "TopY: " + (realY + height1) + "," + (realY + height1m) + "," + (realY - height2m) + "," + (realY - height2) + "\n";
+        str += "BottomX: " + (realX + width2) + "," + (realX + width2m) + "," + (realX - width1m) + "," + (realX - width1) + "\n";
+        str += "BottomY: " + (realY + height2) + "," + (realY + height2m) + "," + (realY - height1m) + "," + (realY - height1) + "\n";
+
+        return str;
+    }
 }

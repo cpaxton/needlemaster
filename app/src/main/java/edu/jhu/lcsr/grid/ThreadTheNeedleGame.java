@@ -9,6 +9,8 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
 import edu.jhu.lcsr.grid.needlegame.Gate;
@@ -33,7 +35,11 @@ public class ThreadTheNeedleGame extends View {
     int index;
     
     NeedleGameThread thread;
-    
+
+    // file output stuff
+    File environmentFile;
+
+    // timing stuff
     long startTime;
     boolean running;
     boolean finished;
@@ -115,6 +121,27 @@ public class ThreadTheNeedleGame extends View {
 
         for (Gate gt: gates) {
             gt.rescale(w, h);
+        }
+
+        // write to file
+        try {
+            FileOutputStream fos = new FileOutputStream(environmentFile);
+            OutputStreamWriter fow = new OutputStreamWriter(fos);
+
+            fow.write("Dimensions: " + w + "," + h + "\n");
+            fow.write("Gates: " + gates.size() + "\n");
+            for (Gate gt: gates) {
+                fow.write(gt.toString());
+            }
+
+            fow.write("Surfaces: " + surfaces.size() + "\n");
+            for (Surface srf: surfaces) {
+                fow.write(srf.toString());
+            }
+            fow.flush();
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -227,6 +254,7 @@ public class ThreadTheNeedleGame extends View {
 
         /* set up file output */
         String filename = "trial_" + preset + "_" + System.currentTimeMillis() + ".csv";
+        String environmentFilename = "environment_" + preset + ".txt";
         String storageState = Environment.getExternalStorageState();
         if (MEDIA_MOUNTED.equals(storageState)) {
             File subDirectory = new File(Environment.getExternalStorageDirectory(), "needle_master_trials");
@@ -234,6 +262,9 @@ public class ThreadTheNeedleGame extends View {
                 System.err.println("Directory for trials not created!");
             }
             needle.startFileOutput(subDirectory, filename);
+
+            environmentFile = new File(subDirectory, environmentFilename);
+
         } else {
             System.err.println("Could not open external storage to save user demonstrations!");
         }

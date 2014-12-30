@@ -239,13 +239,6 @@ public class Needle {
 
     public void move(double movement, double rotation) {
 
-        try {
-            fow.write(movement + "," + rotation + "\n");
-            fow.flush();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
         movement *= movementMultiplier;
         rotation *= rotationMultiplier;
 
@@ -254,6 +247,15 @@ public class Needle {
 
         //if (Math.abs(rotation) > 0.01)
         this.w += rotation;
+
+        try {
+            if (fow != null) {
+                fow.write(getRealX() + "," + getRealY() + "," + w + "," + movement + "," + rotation + "\n");
+                fow.flush();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
