@@ -237,6 +237,11 @@ public class Needle {
 		//System.out.println("move = " + moveX + "," + moveY);
 	}
 
+    /**
+     * Call to move the needle
+     * @param movement -- distance to move, x/y
+     * @param rotation -- change in angle (applied after x/y changes are computed)
+     */
     public void move(double movement, double rotation) {
 
         movement *= movementMultiplier;
