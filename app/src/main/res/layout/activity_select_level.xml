@@ -7,4 +7,12 @@
     tools:context="edu.jhu.lcsr.needlemaster.SelectLevelActivity"
     android:background="@color/background">
 
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/listView"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:choiceMode="singleChoice" />
 </RelativeLayout>
