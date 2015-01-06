@@ -193,7 +193,6 @@ public class Gate {
 
 			screenWidth = width;
 			screenHeight = height;
-			//scale = (float)Math.sqrt(width*width + height*height);
 
 			redraw();
 
@@ -209,7 +208,7 @@ public class Gate {
 			status = GATE_FAILED;
 		} else if (gateRegion.contains((int)pt.x, (int)pt.y) && status == GATE_NEXT) {
             entered = true;
-        } else if (gateRegion.contains((int)pt.x, (int)pt.y)) {
+        } else if (gateRegion.contains((int)pt.x, (int)pt.y) && status != GATE_PASSED) {
             status = GATE_FAILED;
 		} else if (entered == true && status != GATE_FAILED) {
 			status = GATE_PASSED;
@@ -226,7 +225,7 @@ public class Gate {
         str += "GatePos: " + x + "," + y + "," + w + "\n";
         str += "GateX: " + (realX + width1) + "," + (realX + width2) + "," + (realX - width1) + "," + (realX - width2) + "\n";
         str += "GateY: " + (realY + height1) + "," + (realY + height2) + "," + (realY - height1) + "," + (realY - height2) + "\n";
-        str += "TopX: " + (realX + width1m) + "," + (realX + width1m) + "," + (realX - width2m) + "," + (realX - width2) + "\n";
+        str += "TopX: " + (realX + width1) + "," + (realX + width1m) + "," + (realX - width2m) + "," + (realX - width2) + "\n";
         str += "TopY: " + (realY + height1) + "," + (realY + height1m) + "," + (realY - height2m) + "," + (realY - height2) + "\n";
         str += "BottomX: " + (realX + width2) + "," + (realX + width2m) + "," + (realX - width1m) + "," + (realX - width1) + "\n";
         str += "BottomY: " + (realY + height2) + "," + (realY + height2m) + "," + (realY - height1m) + "," + (realY - height1) + "\n";

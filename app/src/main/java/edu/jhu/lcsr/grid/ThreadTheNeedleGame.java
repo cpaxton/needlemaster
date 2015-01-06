@@ -84,6 +84,7 @@ public class ThreadTheNeedleGame extends View {
 		}
 		thread.start();
 		startTime = System.currentTimeMillis();
+        needle.setStartTime(startTime);
 	}
 	
 	public void end() {

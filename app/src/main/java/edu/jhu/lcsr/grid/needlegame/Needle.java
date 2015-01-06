@@ -53,11 +53,13 @@ public class Needle {
 	Path thread;
 	
 	Surface current;
-	
+
+    long startTime;
+
 	private static final int needleColor = Color.argb(255, 134, 200, 188);
 	private static final int threadColor = Color.argb(255, 167, 188, 214);
 	
-	private static final double MAX_DELTA_XY = 0.025;
+	private static final double MAX_DELTA_XY = 0.050;
 	
 	private static final double LENGTH_CONST = 0.08;
 	
@@ -88,6 +90,8 @@ public class Needle {
         needlePaint.setStyle(Paint.Style.FILL_AND_STROKE);
 
         offscreen = false;
+
+        startTime = 0;
 
 		rescale(800, 600);
 	}
@@ -255,7 +259,7 @@ public class Needle {
 
         try {
             if (fow != null) {
-                fow.write(getRealX() + "," + getRealY() + "," + w + "," + movement + "," + rotation + "\n");
+                fow.write((System.currentTimeMillis() - startTime) + "," + getRealX() + "," + getRealY() + "," + w + "," + movement + "," + rotation + "\n");
                 fow.flush();
             }
         } catch (Exception e) {
@@ -340,5 +344,9 @@ public class Needle {
         }
 
         return len;
+    }
+
+    public void setStartTime(long startTime) {
+        this.startTime = startTime;
     }
 }
