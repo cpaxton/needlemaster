@@ -1,6 +1,7 @@
 package edu.jhu.lcsr.grid.needlegame;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.RectF;
@@ -12,6 +13,9 @@ import android.graphics.Region;
  *
  */
 public class Surface {
+
+    final static int tissue = Color.argb(255, 232, 146, 124);
+    final static int deepTissue = Color.argb(255, 207, 69, 32);
 
 	int mycolor; // what color does this surface show up as?
 
@@ -37,9 +41,8 @@ public class Surface {
 	}
 
 	double movementMultiplier;
-	
-	boolean isVirtual;
-	
+    boolean isDeepTissue;
+
 	int width;
 	int height;
 
@@ -48,25 +51,22 @@ public class Surface {
 
     /**
      * Basic surface constructor.
-     * @param color what the surface looks like
+     * @param isDeepTissue what the surface looks like
      * @param x locations of surface boundaries (x)
      * @param y locations of surface boundaries (y)
-     * @param isVirtual is this a real surface, that influences the needle?
      */
-	public Surface(int color, double[] x, double[] y, boolean isVirtual) {
-		mycolor = color;
+	public Surface(boolean isDeepTissue, double[] x, double[] y) {
+        if (isDeepTissue) {
+            mycolor = deepTissue;
+        } else {
+            mycolor = tissue;
+        }
+        this.isDeepTissue = isDeepTissue;
 		this.x = x;
 		this.y = y;
-		this.isVirtual = isVirtual;
 
         myPaint = new Paint();
         myPaint.setColor(mycolor);
-
-        if(isVirtual) {
-            myPaint.setStyle(Paint.Style.STROKE);
-        } else {
-            myPaint.setStyle(Paint.Style.FILL_AND_STROKE);
-        }
 		
 		width = 1;
 		height = 1;
@@ -112,18 +112,13 @@ public class Surface {
 	 * @return true if contained and non-virtual
 	 */
 	public boolean contains(double x, double y) {
-		return scaledLine != null && (!isVirtual) && myRegion.contains((int)x, (int)y);
+		return scaledLine != null && myRegion.contains((int)x, (int)y);
 	}
-	
-	/**
-     * Does this surface actually do anything or does it just exist to create useful predicates?
-     * @return true if it is a virtual surface (aka, does not affect anything); false otherwise.
-	 */
-	public boolean isVirtual() { return isVirtual; }
+
 
     public String toString() {
         String str = "";
-        if (getMovementMultiplier() == 0) {
+        if (isDeepTissue) {
             str += "IsDeepTissue: true\n";
         } else {
             str += "IsDeepTissue: false\n";

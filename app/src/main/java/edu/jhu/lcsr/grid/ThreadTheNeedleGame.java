@@ -23,10 +23,7 @@ import static android.os.Environment.MEDIA_MOUNTED;
 public class ThreadTheNeedleGame extends View {
 
     final static int fg = Color.argb(125, 0, 0, 0);
-    final static int tissue = Color.argb(255, 232, 146, 124);
-    final static int deepTissue = Color.argb(255, 207, 69, 32);
-    final static int outlines = Color.argb(255, 255, 200, 0);
-    
+
     Needle needle;
     ArrayList<Surface> surfaces;
     ArrayList<Surface> failureSurfaces;
@@ -319,7 +316,7 @@ public class ThreadTheNeedleGame extends View {
             gates.add(new Gate(0.5, 0.5, Math.PI / 2));
             gates.get(0).setScale(3.0f);
 
-            Surface s1 = new Surface(tissue, s1x, s1y, false);
+            Surface s1 = new Surface(false, s1x, s1y);
             s1.setMovementMultiplier(0.5);
             s1.setRotationMultiplier(0.15);
             surfaces.add(s1);
@@ -332,7 +329,7 @@ public class ThreadTheNeedleGame extends View {
 
             double[] s2x = {0, 0.2, 0.21, 0.4, 0.41, 1, 1, 0};
             double[] s2y = {0.2, 0.3, 0.8, 0.8, 0.3, 0.2, 0, 0};
-            Surface s2 = new Surface(deepTissue, s2x, s2y, false);
+            Surface s2 = new Surface(true, s2x, s2y);
             surfaces.add(s2);
             failureSurfaces.add(s2);
 
@@ -340,14 +337,14 @@ public class ThreadTheNeedleGame extends View {
         } else if (preset == 6) {
             double[] s1x = {0, 0.25, 0.5, 1, 1, 0};
             double[] s1y = {0.6, 0.3, 0.35, 0.4, 0, 0};
-            Surface s1 = new Surface(tissue, s1x, s1y, false);
+            Surface s1 = new Surface(false, s1x, s1y);
             s1.setMovementMultiplier(0.5);
             s1.setRotationMultiplier(0.15);
             surfaces.add(s1);
 
             double[] s2x = {0, 0.23, 0.45, 1, 1, 0};
             double[] s2y = {0.25, 0.12, 0.17, 0.26, 0, 0};
-            Surface s2 = new Surface(deepTissue, s2x, s2y, false);
+            Surface s2 = new Surface(true, s2x, s2y);
             surfaces.add(s2);
             failureSurfaces.add(s2);
 
@@ -358,14 +355,14 @@ public class ThreadTheNeedleGame extends View {
         } else if (preset == 7) {
 			double[] s1x = {0, 0.4, 0.5, 0.6, 1, 1, 0};
 			double[] s1y = {0.4, 0.6, 0.25, 0.6, 0.4, 0, 0};
-			Surface s1 = new Surface(tissue, s1x, s1y, false);
+			Surface s1 = new Surface(false, s1x, s1y);
 			s1.setMovementMultiplier(0.5);
 			s1.setRotationMultiplier(0.15);
 			surfaces.add(s1);
 			
 			double[] s2x = {0, 0.38, 0.5, 0.61, 1, 1, 0};
 			double[] s2y = {0.21, 0.34, 0.13, 0.32, 0.26, 0, 0};
-			Surface s2 = new Surface(deepTissue, s2x, s2y, false);
+			Surface s2 = new Surface(true, s2x, s2y);
 			surfaces.add(s2);
             failureSurfaces.add(s2);
 
@@ -399,7 +396,6 @@ public class ThreadTheNeedleGame extends View {
     public void redraw() {
         postInvalidate();
     }
-
 
     public int getPassedGates() {
         int passed = 0;
