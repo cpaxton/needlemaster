@@ -159,15 +159,15 @@ public class Surface {
     public double applyMovement(double movement) {
         movement /= 2.0;
         if(!isDeepTissue) {
-            if (Math.abs(movement) > 10.0) {
-                damage += Math.abs(movement) - 10.0;
+            if (Math.abs(movement) > 25.0) {
+                //damage += Math.abs(movement) - 25.0;
 
-                updateDamage();
+                //updateDamage();
 
                 if (movement > 0) {
-                    return 10.0;
+                    return 25.0;
                 } else {
-                    return -10.0;
+                    return -25.0;
                 }
             } else {
                 return movement;
@@ -178,7 +178,25 @@ public class Surface {
     }
 
     public double applyRotation(double rotation) {
-        return rotation / 2.0;
+        rotation /= 2.0;
+        System.out.println(rotation);
+        if(!isDeepTissue) {
+            if (Math.abs(rotation) > 0.01) {
+                damage += (Math.abs(rotation) - 0.01) * 100;
+
+                updateDamage();
+
+                if (rotation > 0) {
+                    return 0.02;
+                } else {
+                    return -0.02;
+                }
+            } else {
+                return rotation;
+            }
+        } else {
+            return 0;
+        }
     }
 
     public boolean destroyed() {

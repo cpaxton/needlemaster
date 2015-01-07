@@ -87,7 +87,7 @@ public class Needle {
         threadPaint = new Paint();
         threadPaint.setStyle(Paint.Style.STROKE);
         threadPaint.setColor(threadColor);
-        threadPaint.setStrokeWidth(2.0f);
+        threadPaint.setStrokeWidth(4.0f);
         needlePaint = new Paint();
         needlePaint.setColor(needleColor);
         needlePaint.setStyle(Paint.Style.FILL_AND_STROKE);
@@ -207,11 +207,9 @@ public class Needle {
 							(1.0f - threadPoints.get(i).y) * screenHeight);
                     //thread.moveTo(threadPoints.get(i).x, threadPoints.get(i).y);
 				}
-
-                System.out.println(threadPoints.get(threadPoints.size()-1).x +","+ threadPoints.get(threadPoints.size()-1).y);
 			}
 
-            if (x > 1.0 && topX > screenWidth && bottomX > screenHeight) {
+            if (x > screenWidth && topX > screenWidth && bottomX > screenHeight) {
                 offscreen = true;
             } else {
                 offscreen = false;
@@ -368,7 +366,7 @@ public class Needle {
         //return pm.getLength();
         double len = 0.0;
         for (PointF pt: threadPoints) {
-            len += Math.sqrt((pt.x*pt.x) + (pt.y*pt.y)) / scale;
+            len += Math.sqrt((pt.x*pt.x) + (pt.y*pt.y));
         }
 
         return len;
