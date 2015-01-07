@@ -26,6 +26,9 @@ public class Needle {
 	double x; // left/right position
 	double y; // height
 	double w; // rotation
+
+    double fx;
+    double fy;
 	
 	double lastMoveX; // where was the last input X?
 	double lastMoveY; // where was the last input Y?
@@ -59,13 +62,13 @@ public class Needle {
 	private static final int needleColor = Color.argb(255, 134, 200, 188);
 	private static final int threadColor = Color.argb(255, 167, 188, 214);
 	
-	private static final double MAX_DELTA_XY = 0.050;
+	private static final double MAX_DELTA_XY = 75.0;
 	
 	private static final double LENGTH_CONST = 0.08;
 	
 	public Needle(double x, double y, double w) {
-		this.x = x;
-		this.y = y;
+		this.fx = x;
+		this.fy = y;
 		this.w = w;
 
 		threadPoints = new ArrayList<PointF>();
@@ -173,8 +176,8 @@ public class Needle {
 
 		synchronized(this) {
 			
-			double realX = x * screenWidth;
-			double realY = (1.0 - y) * screenHeight;
+			double realX = x;// * screenWidth;
+			double realY = y;//(1.0 - y) * screenHeight;
 			polygon = new Path();
 			polygon.moveTo((float)realX, (float)realY);
 			
@@ -197,11 +200,15 @@ public class Needle {
 			if (threadPoints.size() > 0) {
 				thread.moveTo(threadPoints.get(0).x * screenWidth,
 						(1.0f - threadPoints.get(0).y) * screenHeight);
-				
+				//thread.moveTo(threadPoints.get(0).x, threadPoints.get(0).y);
+
 				for (int i = 1; i < threadPoints.size(); i++) {
 					thread.lineTo(threadPoints.get(i).x * screenWidth,
 							(1.0f - threadPoints.get(i).y) * screenHeight);
+                    //thread.moveTo(threadPoints.get(i).x, threadPoints.get(i).y);
 				}
+
+                System.out.println(threadPoints.get(threadPoints.size()-1).x +","+ threadPoints.get(threadPoints.size()-1).y);
 			}
 
             if (x > 1.0 && topX > screenWidth && bottomX > screenHeight) {
@@ -220,9 +227,12 @@ public class Needle {
 			screenWidth = width;
 			screenHeight = height;
 			scale = Math.sqrt(width*width + height*height);
-			
-			redraw();
-				
+
+            x = screenWidth * fx;
+            y = (1 - fy) * screenHeight;
+
+            redraw();
+
 			return true;
 		}
 		else return false;
@@ -231,13 +241,16 @@ public class Needle {
 	public void draw(Canvas c) {
 		synchronized(this) {
 			c.drawPath(polygon, needlePaint);
-			c.drawPath(thread, threadPaint);
+            if(threadPoints.size() > 0) {
+                c.drawPath(thread, threadPaint);
+                c.drawCircle(threadPoints.get(0).x, threadPoints.get(0).y, 10.0f, threadPaint);
+            }
 		}
 	}
 	
 	public void updateMove(float x, float y) {
-		moveX = (double)x / screenWidth;
-		moveY = 1.0 - ((double)y / screenHeight); 
+		moveX = (double)x; // / screenWidth;
+		moveY = (double)(screenHeight - y); //1.0 - ((double)y / screenHeight);
 		//System.out.println("move = " + moveX + "," + moveY);
 	}
 
@@ -248,11 +261,23 @@ public class Needle {
      */
     public void move(double movement, double rotation) {
 
-        movement *= movementMultiplier;
-        rotation *= rotationMultiplier;
+        //System.out.println("m=" + movement + ", r=" + rotation);
+
+        if(current != null) {
+            movement = current.applyMovement(movement);
+            rotation = current.applyRotation(rotation);
+        } else {
+            if(Math.abs(movement) > MAX_DELTA_XY) {
+                if (movement > 0) movement = MAX_DELTA_XY;
+                else movement = -1*MAX_DELTA_XY;
+            }
+        }
+
+        //movement *= movementMultiplier;
+        //rotation *= rotationMultiplier;
 
         this.x = this.x + (movement * Math.cos(w));
-        this.y = this.y - (movement * Math.sin(w));
+        this.y = this.y + (movement * Math.sin(w));
 
         //if (Math.abs(rotation) > 0.01)
         this.w += rotation;
@@ -281,15 +306,19 @@ public class Needle {
 			// we want to take the angle FROM the current direction to the new point
 			double dx = moveX - lastMoveX;
 			double dy = moveY - lastMoveY;
-			
+
+
+            //System.out.println(moveX + "-->" + lastMoveX);
+            //System.out.println(moveY + "-->" + lastMoveY);
+
 			lastMoveX = moveX;
 			lastMoveY = moveY;
+
 			
 			double dist = Math.sqrt((dx*dx)+(dy*dy));
-			
-			if (dist > MAX_DELTA_XY) {
-				dist = MAX_DELTA_XY;
-			}
+			//if (dist > MAX_DELTA_XY) {
+			//	dist = MAX_DELTA_XY;
+			//}
 
 			if (Math.abs(dy) > 0 || Math.abs(dx) > 0) {
 				// creating a triangle: current (x,y), new (x,y), and projected (x,y) onto line from old angle
@@ -297,9 +326,9 @@ public class Needle {
 				// we also may want to apply a threshold so that this works better
 				double dw = w + Math.atan2(dy, dx);
 				
-				threadPoints.add(new PointF((float)this.x, (float)this.y));
+				threadPoints.add(new PointF((float)this.x/screenWidth, (float)1.0f - ((float)y / screenHeight)));
 				
-				double movement = dist * Math.cos(dw); // x projection of the motion?
+				double movement =  dist * Math.cos(dw); // x projection of the motion?
 				double rotation = Math.sin(dw) / 15.0;
 
                 move(movement, rotation);
@@ -313,13 +342,12 @@ public class Needle {
 			}
 
 			redraw();
-
         }
 	}
 
 	public void startMove(float x2, float y2) {
-		moveX = lastMoveX = (double)x2 / screenWidth;
-		moveY = lastMoveY = 1.0 - ((double)y2 / screenHeight);
+		moveX = lastMoveX = (double)(x2); // / screenWidth;
+		moveY = lastMoveY = (double)(screenHeight - y2); //1.0 - ((double)y2 / screenHeight);
 		isMoving = true;
 	}
 
@@ -328,11 +356,11 @@ public class Needle {
 	}
 
 	public synchronized float getRealX() {
-		return (float) x * screenWidth;
+		return (float) x; // * screenWidth;
 	}
 
 	public synchronized float getRealY() {
-		return (float)(1.0 - y) * screenHeight;
+		return (float) y; //(1.0 - y) * screenHeight;
 	}
 
     public double getPathLength() {
@@ -340,7 +368,7 @@ public class Needle {
         //return pm.getLength();
         double len = 0.0;
         for (PointF pt: threadPoints) {
-            len += Math.sqrt((pt.x*pt.x) + (pt.y*pt.y));
+            len += Math.sqrt((pt.x*pt.x) + (pt.y*pt.y)) / scale;
         }
 
         return len;

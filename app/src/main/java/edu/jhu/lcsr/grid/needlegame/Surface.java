@@ -40,6 +40,8 @@ public class Surface {
 		this.movementMultiplier = movementMultiplier;
 	}
 
+    double damage;
+
 	double movementMultiplier;
     boolean isDeepTissue;
 
@@ -67,6 +69,7 @@ public class Surface {
 
         myPaint = new Paint();
         myPaint.setColor(mycolor);
+        damage = 0;
 		
 		width = 1;
 		height = 1;
@@ -139,5 +142,46 @@ public class Surface {
         }
         str += "\n";
         return str;
+    }
+
+    private void updateDamage() {
+        System.out.println(damage);
+
+        if(damage > 100) damage = 100.;
+
+        int r = (int)((232) + ((207.0 - 232.0) * damage / 100.0));
+        int g = (int)((146) + ((69.0 - 146.0) * damage / 100.0));
+        int b = (int)((142) + ((32.0 - 142.0) * damage / 100.0));
+
+        myPaint.setColor(Color.argb(255, r, g, b));
+    }
+
+    public double applyMovement(double movement) {
+        movement /= 2.0;
+        if(!isDeepTissue) {
+            if (Math.abs(movement) > 10.0) {
+                damage += Math.abs(movement) - 10.0;
+
+                updateDamage();
+
+                if (movement > 0) {
+                    return 10.0;
+                } else {
+                    return -10.0;
+                }
+            } else {
+                return movement;
+            }
+        } else {
+            return 0;
+        }
+    }
+
+    public double applyRotation(double rotation) {
+        return rotation / 2.0;
+    }
+
+    public boolean destroyed() {
+        return damage >= 100.0;
     }
 }

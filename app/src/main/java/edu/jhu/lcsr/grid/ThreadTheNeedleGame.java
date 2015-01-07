@@ -239,6 +239,11 @@ public class ThreadTheNeedleGame extends View {
                 return true;
             }
         }
+        for (Surface s: surfaces) {
+            if (s.destroyed()) {
+                return true;
+            }
+        }
         return false;
     }
 
