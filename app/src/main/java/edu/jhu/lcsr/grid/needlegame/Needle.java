@@ -241,7 +241,6 @@ public class Needle {
 			c.drawPath(polygon, needlePaint);
             if(threadPoints.size() > 0) {
                 c.drawPath(thread, threadPaint);
-                c.drawCircle(threadPoints.get(0).x, threadPoints.get(0).y, 10.0f, threadPaint);
             }
 		}
 	}
