@@ -221,7 +221,7 @@ public class Needle {
 	public boolean rescale(int width, int height) {
 		if (screenWidth != width || screenHeight != height) {
 			// scale the needle; regenerate the path creating its image
-			
+
 			screenWidth = width;
 			screenHeight = height;
 			scale = Math.sqrt(width*width + height*height);
@@ -361,11 +361,15 @@ public class Needle {
 	}
 
     public double getPathLength() {
-        //PathMeasure pm = new PathMeasure(thread, false);
-        //return pm.getLength();
         double len = 0.0;
-        for (PointF pt: threadPoints) {
-            len += Math.sqrt((pt.x*pt.x) + (pt.y*pt.y));
+        for (int i = 1; i < threadPoints.size(); i++) {
+            PointF pt0 = threadPoints.get(i-1);
+            PointF pt1 = threadPoints.get(i);
+
+            float dx = pt1.x - pt0.x;
+            float dy = pt1.y - pt0.y;
+
+            len += Math.sqrt((dx*dx) + (dy*dy));
         }
 
         return len;
