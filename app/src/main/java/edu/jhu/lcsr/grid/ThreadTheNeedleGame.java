@@ -23,6 +23,7 @@ import static android.os.Environment.MEDIA_MOUNTED;
 public class ThreadTheNeedleGame extends View {
 
     final static int fg = Color.argb(125, 0, 0, 0);
+    public static final int MAX_LEVEL = 10;
 
     Needle needle;
     ArrayList<Surface> surfaces;
@@ -359,6 +360,72 @@ public class ThreadTheNeedleGame extends View {
 
             return "Go from left to right without hitting the dark tissue!";
         } else if (preset == 7) {
+
+            double[] s1x = {0, 0.2, 0.2, 0.4, 0.4, 0.6, 0.6, 0.8, 0.8, 1};
+            double[] s1y = {0, 0.05, 1, 1, 0.05, 0.05, 1, 1, 0.05, 0};
+            Surface s1 = new Surface(false, s1x, s1y);
+            s1.setMovementMultiplier(0.5);
+            s1.setRotationMultiplier(0.15);
+
+            surfaces.add(s1);
+            gates.add(new Gate(0.5, 0.7, Math.PI / 2));
+            gates.add(new Gate(0.9, 0.5, Math.PI / 2));
+            gates.get(0).setScale(3.0f);
+            gates.get(1).setScale(2.0f);
+
+            return "Position yourself carefully when entering tissue!";
+
+        } else if (preset == 8) {
+
+            double[] s1x = {0, 0.1, 0.25, 0.5, 0.6};
+            double[] s1y = {0, 0.02, 0.6, 0.4, 0};
+            Surface s1 = new Surface(false, s1x, s1y);
+            s1.setMovementMultiplier(0.5);
+            s1.setRotationMultiplier(0.15);
+            surfaces.add(s1);
+
+            double[] s2x = {0.15, 0.25, 0.5};
+            double[] s2y = {0, 0.4, 0};
+            Surface s2 = new Surface(true, s2x, s2y);
+            surfaces.add(s2);
+            failureSurfaces.add(s2);
+
+            gates.add(new Gate(0.2, 0.8, Math.PI / 2));
+            gates.add(new Gate(0.4, 0.6, -1 * Math.PI / 4));
+            gates.add(new Gate(0.6, 0.4, 0));
+            gates.add(new Gate(0.8, 0.5, Math.PI / 4));
+            gates.get(1).setScale(1.5f);
+            gates.get(2).setScale(2.0f);
+
+            return "Beautiful movements!";
+        } else if (preset == 9) {
+
+            double[] s1x = {0.25, 0.5, 0.75};
+            double[] s1y = {0, 0.8, 0};
+            Surface s1 = new Surface(false, s1x, s1y);
+            s1.setMovementMultiplier(0.5);
+            s1.setRotationMultiplier(0.15);
+            surfaces.add(s1);
+
+            double[] s2x = {0.3, 0.4, 0.6, 0.7};
+            double[] s2y = {0, 0.4, 0.4, 0};
+            Surface s2 = new Surface(true, s2x, s2y);
+            surfaces.add(s2);
+            failureSurfaces.add(s2);
+
+            gates.add(new Gate(0.2, 0.8, -1 * Math.PI / 4));
+            gates.add(new Gate(0.3, 0.6, -1 * Math.PI / 4));
+            gates.add(new Gate(0.5, 0.5, Math.PI / 2));
+            gates.add(new Gate(0.8, 0.2, -1 * Math.PI / 4));
+
+            gates.get(0).setScale(2.0f);
+            gates.get(1).setScale(1.5f);
+            gates.get(3).setScale(1.5f);
+
+            return "Watch your step!";
+        //} else if (preset == 10) {
+        //} else if (preset == 11) {
+        } else if (preset == 10) {
 			double[] s1x = {0, 0.4, 0.5, 0.6, 1, 1, 0};
 			double[] s1y = {0.4, 0.6, 0.25, 0.6, 0.4, 0, 0};
 			Surface s1 = new Surface(false, s1x, s1y);

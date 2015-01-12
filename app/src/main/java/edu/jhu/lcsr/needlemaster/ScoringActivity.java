@@ -1,5 +1,6 @@
 package edu.jhu.lcsr.needlemaster;
 
+import edu.jhu.lcsr.grid.ThreadTheNeedleGame;
 import edu.jhu.lcsr.needlemaster.util.SystemUiHider;
 
 import android.app.Activity;
@@ -138,7 +139,7 @@ public class ScoringActivity extends Activity {
         });
 
 
-        if (level == 7 || !passed) {
+        if (level == ThreadTheNeedleGame.MAX_LEVEL || !passed) {
             nextButton.setEnabled(false);
             nextButton.setVisibility(View.INVISIBLE);
         }

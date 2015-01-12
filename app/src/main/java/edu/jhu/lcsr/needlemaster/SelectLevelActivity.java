@@ -31,7 +31,10 @@ public class SelectLevelActivity extends Activity {
                 "Intro 5: Tissue",
                 "Intro 6: Deep Tissue",
                 "Level 1: Getting Started",
-                "Level 2: Mind The Gap"
+                "Level 2: Carefully Now!",
+                "Level 3: Big Dipper",
+                "Level 4: The Mountain",
+                "Level 5: Mind The Gap"
         };
         ArrayList<String> list = new ArrayList<String>();
         for (int i = 0; i < levels.length; i++) {
