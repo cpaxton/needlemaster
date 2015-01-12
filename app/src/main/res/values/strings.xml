@@ -18,7 +18,7 @@
     <string name="next_button_label">Next Level</string>
     <string name="final_report_title">Final Report</string>
     <string name="gates_default_label">\???/???</string>
-    <string name="tissue_label">Time in Tissue</string>
+    <string name="tissue_label">Tissue Damage</string>
     <string name="deep_tissue_label">Deep Tissue</string>
     <string name="length_label">Path Length</string>
     <string name="default_label">\???</string>

@@ -26,6 +26,7 @@ public class ScoringActivity extends Activity {
     long timeRemaining;
     boolean passed;
     boolean deepTissue;
+    double damage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +36,7 @@ public class ScoringActivity extends Activity {
         int gatesScore;
         int timeScore;
         int pathScore;
+        int damageScore;
 
         setContentView(R.layout.activity_scoring);
 
@@ -48,6 +50,7 @@ public class ScoringActivity extends Activity {
             timeRemaining = extras.getLong("TIME_REMAINING",0l);
             passed = extras.getBoolean("LEVEL_PASSED", true);
             deepTissue = extras.getBoolean("DEEP_TISSUE", false);
+            damage = extras.getDouble("TISSUE",0.0);
 
             final TextView gatesView = (TextView) findViewById(R.id.gatesView);
             final TextView gatesScoreView = (TextView) findViewById(R.id.gatesScore);
@@ -63,9 +66,16 @@ public class ScoringActivity extends Activity {
             final TextView pathLengthView = (TextView) findViewById(R.id.lengthView);
             final TextView pathLengthScoreView = (TextView) findViewById(R.id.pathScore);
             pathLengthView.setText("" + String.format("%.02f", pathLength));
-            pathScore = -1 * (int)pathLength;
+            pathScore = (int)(-50 * pathLength);
             score += pathScore;
             pathLengthScoreView.setText("" + pathScore);
+
+            final TextView tissueView = (TextView) findViewById(R.id.tissueTimeView);
+            final TextView tissueScoreView = (TextView) findViewById(R.id.tissueScore);
+            tissueView.setText("" + String.format("%.02f",damage));
+            damageScore = (int)(-4 * damage);
+            tissueScoreView.setText("" + damageScore);
+            score += damageScore;
 
             double t = (double)timeRemaining / 1000.0;
             final TextView timeView = (TextView) findViewById(R.id.timeView);

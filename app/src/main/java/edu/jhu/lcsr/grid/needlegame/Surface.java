@@ -202,4 +202,9 @@ public class Surface {
     public boolean destroyed() {
         return damage >= 100.0;
     }
+
+    public double getDamage() {
+        if(this.isDeepTissue) return 0;
+        else return damage;
+    }
 }

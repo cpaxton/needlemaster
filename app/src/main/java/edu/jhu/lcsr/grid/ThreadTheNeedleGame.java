@@ -45,8 +45,9 @@ public class ThreadTheNeedleGame extends View {
     Paint endTextPaint;
 
     long time;
+    private double damage;
 
-	public ThreadTheNeedleGame(Context context, AttributeSet attrs) {
+    public ThreadTheNeedleGame(Context context, AttributeSet attrs) {
         //int width, int height, int preset
         super(context, attrs);
 
@@ -422,5 +423,14 @@ public class ThreadTheNeedleGame extends View {
 
     public long getTimeRemaining() {
         return time;
+    }
+
+    public double getDamage() {
+        double damage = 0;
+        for (Surface s: surfaces) {
+            damage += s.getDamage();
+        }
+
+        return damage;
     }
 }
