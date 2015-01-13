@@ -28,7 +28,7 @@
     <string name="title_activity_select_level">Select Level</string>
     <string name="title_activity_about">About</string>
     <string name="about_title_label">About This Game</string>
-    <string name="about_text_label">\tThis game was created by Chris Paxton, of Johns Hopkins University, as part of a research project on learning from demonstration. Your performances on levels may be collected in a de-identified way and used for this research.</string>
+    <string name="about_text_label">\tThis game was created by Chris Paxton, at The Johns Hopkins University, as part of a research project on robot learning from demonstration. As you complete different levels, think about how you are moving the needle in relation to different parts of the environment. You might find yourself using some of the same patterns over and over again as you try to accomplish different things.\n\n\tInterested in helping out? Leave me a comment!</string>
     <string name="checkbox_label">I understand.</string>
     <string name="title_activity_options">Options</string>
     <string name="options_title_view">Game Options</string>

@@ -48,5 +48,6 @@
         android:id="@+id/checkBox"
         android:checked="false"
         android:layout_below="@+id/textView2"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:visibility="invisible" />
 </RelativeLayout>
