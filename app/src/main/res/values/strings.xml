@@ -30,5 +30,6 @@
     <string name="about_title_label">About This Game</string>
     <string name="about_text_label">\tThis game was created by Chris Paxton, of Johns Hopkins University, as part of a research project on learning from demonstration. Your performances on levels may be collected in a de-identified way and used for this research.</string>
     <string name="checkbox_label">I understand.</string>
+    <string name="title_activity_options">Options</string>
 
 </resources>
