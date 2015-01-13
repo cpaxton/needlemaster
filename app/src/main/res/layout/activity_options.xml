@@ -4,9 +4,69 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="edu.jhu.lcsr.needlemaster.Options">
+    tools:context="edu.jhu.lcsr.needlemaster.Options"
+    android:background="@color/background">
 
-    <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/options_title_view"
+        android:id="@+id/optionsTitleView"
+        android:textSize="50sp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/option_collect_data"
+        android:id="@+id/textView5"
+        android:layout_below="@+id/optionsTitleView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/store_data_checkbox_text"
+        android:id="@+id/storeDataCheckBox"
+        android:layout_below="@+id/textView5"
+        android:layout_centerHorizontal="true"
+        android:checked="false" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/options_clear_text"
+        android:id="@+id/optionsClearView"
+        android:layout_below="@+id/storeDataCheckBox"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/delete_button_text"
+        android:id="@+id/deleteButton"
+        android:layout_below="@+id/optionsClearView"
+        android:background="?android:attr/selectableItemBackground"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:textSize="@dimen/abc_text_size_large_material"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/deepTissue" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/files_button_text"
+        android:id="@+id/files_button"
+        android:layout_below="@+id/deleteButton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

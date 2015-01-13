@@ -57,7 +57,11 @@
         </activity>
         <activity
             android:name=".Options"
-            android:label="@string/title_activity_options" >
+            android:label="@string/title_activity_options"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:noHistory="true"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
         </activity>
     </application>
 

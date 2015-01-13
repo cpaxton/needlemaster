@@ -31,5 +31,12 @@
     <string name="about_text_label">\tThis game was created by Chris Paxton, of Johns Hopkins University, as part of a research project on learning from demonstration. Your performances on levels may be collected in a de-identified way and used for this research.</string>
     <string name="checkbox_label">I understand.</string>
     <string name="title_activity_options">Options</string>
+    <string name="options_title_view">Game Options</string>
+    <string name="option_collect_data">Should the game save trials to device storage for later analysis? By default they will be stored in the directory "needle_master_trials" alongside files describing the levels themselves.</string>
+    <string name="store_data_checkbox_text">Yes, save data files to this directory!</string>
+    <string name="options_clear_text">Press the button below to delete the contents of the \"needle_master_trials\" directory.</string>
+    <string name="delete_button_text">CLEAR DATA</string>
+    <string name="files_button_text">There are currently XXX saved data files.</string>
+    <string name="options_button_text">Options</string>
 
 </resources>

@@ -75,4 +75,25 @@
         android:paddingLeft="20dp"
         android:textColor="@color/black_overlay" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/options_button_text"
+        android:id="@+id/optionsButton"
+        android:layout_below="@+id/aboutButton"
+        android:layout_alignRight="@+id/aboutButton"
+        android:layout_alignEnd="@+id/aboutButton"
+        android:padding="10dp"
+        android:paddingTop="0dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="0dp"
+        android:textSize="@dimen/abc_text_size_large_material"
+        android:enabled="true"
+        android:background="?android:attr/selectableItemBackground"
+        android:paddingLeft="20dp"
+        android:textColor="@color/black_overlay"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        />
+
 </RelativeLayout>

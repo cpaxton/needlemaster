@@ -44,6 +44,15 @@ public class MainActivity extends Activity {
             }
         });
 
+        final Button button4 = (Button) findViewById(R.id.optionsButton);
+        button4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), Options.class);
+                startActivity(i);
+            }
+        });
+
 
     }
 
