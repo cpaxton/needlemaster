@@ -23,7 +23,7 @@ import static android.os.Environment.MEDIA_MOUNTED;
 public class ThreadTheNeedleGame extends View {
 
     final static int fg = Color.argb(125, 0, 0, 0);
-    public static final int MAX_LEVEL = 10;
+    public static final int MAX_LEVEL = 15;
 
     Needle needle;
     ArrayList<Surface> surfaces;
@@ -423,9 +423,39 @@ public class ThreadTheNeedleGame extends View {
             gates.get(3).setScale(1.5f);
 
             return "Watch your step!";
-        //} else if (preset == 10) {
-        //} else if (preset == 11) {
         } else if (preset == 10) {
+            gates.add(new Gate(0.35, 0.8, Math.PI / 2));
+            gates.get(0).setScale(2.0f);
+            gates.add(new Gate(0.5, 0.75, Math.PI / 2));
+            gates.add(new Gate(0.65, 0.6, -1 * Math.PI / 4));
+            gates.add(new Gate(0.7, 0.4, 0));
+            gates.add(new Gate(0.55, 0.2, Math.PI / 4));
+            gates.add(new Gate(0.4, 0.1, Math.PI / 2));
+            gates.get(4).setScale(1.5f);
+            gates.get(5).setScale(2.0f);
+
+            return "Around the loop!";
+        } else if (preset == 11) {
+            gates.add(new Gate(0.5,0.5,Math.PI / 2));
+            gates.get(0).setScale(1.5f);
+            gates.add(new Gate(0.75, 0.8, Math.PI / 4));
+            gates.add(new Gate(0.85, 0.8, -1 * Math.PI / 4));
+
+            double[] s1x = {0.3, 0.5, 0.7};
+            double[] s1y = {0, 0.8, 0};
+            Surface s1 = new Surface(false, s1x, s1y);
+            s1.setMovementMultiplier(0.5);
+            s1.setRotationMultiplier(0.15);
+            surfaces.add(s1);
+
+            double[] s2x = {0.7, 0.8, 0.9};
+            double[] s2y = {0, 0.8, 0};
+            Surface s2 = new Surface(true, s2x, s2y);
+            surfaces.add(s2);
+            failureSurfaces.add(s2);
+
+            return "In and out";
+        } else if (preset == 12) {
 			double[] s1x = {0, 0.4, 0.5, 0.6, 1, 1, 0};
 			double[] s1y = {0.4, 0.6, 0.25, 0.6, 0.4, 0, 0};
 			Surface s1 = new Surface(false, s1x, s1y);
@@ -444,8 +474,66 @@ public class ThreadTheNeedleGame extends View {
 			gates.add(new Gate(0.6, 0.5, Math.PI / 2));
 			gates.add(new Gate(0.8, 0.7, 1.5));
 
-            return "Hit all of the gates!";
-		}
+            return "Use the gap to your advantage if needed."; //"Hit all of the gates!";
+		} else if (preset == 13) {
+            double[] s1x = {0.3, 0.25, 0.5, 0.75, 0.7};
+            double[] s1y = {0, 0.5, 0.75, 0.5, 0};
+            Surface s1 = new Surface(false, s1x, s1y);
+            s1.setMovementMultiplier(0.5);
+            s1.setRotationMultiplier(0.15);
+            surfaces.add(s1);
+
+            double[] s2x = {0.35, 0.5, 0.65, 0.5};
+            double[] s2y = {0.5, 0.65, 0.5, 0.35};
+            Surface s2 = new Surface(true, s2x, s2y);
+            surfaces.add(s2);
+            failureSurfaces.add(s2);
+
+            gates.add(new Gate(0.25, 0.65, -1 * Math.PI / 4));
+            gates.add(new Gate(0.75, 0.3, -1 * Math.PI / 4));
+            gates.get(1).setScale(1.5f);
+            gates.add(new Gate(0.85, 0.25, Math.PI / 2));
+            gates.get(2).setScale(2f);
+
+            return "An exercise in obstacle avoidance.";
+        } else if (preset == 14) {
+            double[] s1x = {0.25, 0.3, 0.35, 0.3};
+            double[] s1y = {0.7, 0.75, 0.7, 0.65};
+            Surface s1 = new Surface(true, s1x, s1y);
+            surfaces.add(s1);
+            failureSurfaces.add(s1);
+
+            double[] s2x = {0.4, 0.5, 0.6, 0.5};
+            double[] s2y = {0.3, 0.4, 0.3, 0.2};
+            Surface s2 = new Surface(true, s2x, s2y);
+            surfaces.add(s2);
+            failureSurfaces.add(s2);
+
+            gates.add(new Gate(0.15, 0.7, Math.PI / 2));
+            gates.add(new Gate(0.35, 0.65, 0));
+            gates.add(new Gate(0.5, 0.10, Math.PI / 2));
+            gates.add(new Gate(0.7, 0.5, Math.PI / 4));
+
+            return "Pathfinder";
+        } else if (preset == 15) {
+            double[] s1x = {0.3, 0.3, 0.4, 0.4, 0.7, 0.7, 0.9, 0.9};
+            double[] s1y = {0, 0.8, 0.8, 0, 0, 0.8, 0.8, 0};
+            Surface s1 = new Surface(true, s1x, s1y);
+            surfaces.add(s1);
+            failureSurfaces.add(s1);
+
+            double[] s2x = {0.5, 0.5, 0.6, 0.6};
+            double[] s2y = {1.0, 0.3, 0.3, 1.0};
+            Surface s2 = new Surface(true, s2x, s2y);
+            surfaces.add(s2);
+            failureSurfaces.add(s2);
+
+            gates.add(new Gate(0.45, 0.6, 0));
+            gates.add(new Gate(0.55, 0.25, Math.PI / 2));
+            gates.add(new Gate(0.8, 0.9, Math.PI / 2));
+
+            return "The Maze";
+        }
 
         return "Unknown level! Have fun!";
 	}

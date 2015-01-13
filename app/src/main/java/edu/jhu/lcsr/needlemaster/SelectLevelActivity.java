@@ -34,7 +34,12 @@ public class SelectLevelActivity extends Activity {
                 "Level 2: Carefully Now!",
                 "Level 3: Big Dipper",
                 "Level 4: The Mountain",
-                "Level 5: Mind The Gap"
+                "Level 5: The Loop",
+                "Level 6: In and Out",
+                "Level 7: Mind The Gap",
+                "Level 8: Obstacle Avoidance",
+                "Level 9: Pathfinder",
+                "Level 10: The Maze"
         };
         ArrayList<String> list = new ArrayList<String>();
         for (int i = 0; i < levels.length; i++) {
