@@ -13,6 +13,7 @@ import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
+import edu.jhu.lcsr.grid.needlegame.GameDataStore;
 import edu.jhu.lcsr.grid.needlegame.Gate;
 import edu.jhu.lcsr.grid.needlegame.Needle;
 import edu.jhu.lcsr.grid.needlegame.NeedleGameThread;
@@ -257,21 +258,25 @@ public class ThreadTheNeedleGame extends View {
 	 */
     public String initialize(int preset) {
 
+        GameDataStore gds = new GameDataStore(getContext());
+        if (gds.checkSaveData()) {
+
         /* set up file output */
-        String filename = "trial_" + preset + "_" + System.currentTimeMillis() + ".csv";
-        String environmentFilename = "environment_" + preset + ".txt";
-        String storageState = Environment.getExternalStorageState();
-        if (MEDIA_MOUNTED.equals(storageState)) {
-            File subDirectory = new File(Environment.getExternalStorageDirectory(), "needle_master_trials");
-            if (!subDirectory.mkdir()) {
-                System.err.println("Directory for trials not created!");
+            String filename = "trial_" + preset + "_" + System.currentTimeMillis() + ".csv";
+            String environmentFilename = "environment_" + preset + ".txt";
+            String storageState = Environment.getExternalStorageState();
+            if (MEDIA_MOUNTED.equals(storageState)) {
+                File subDirectory = new File(Environment.getExternalStorageDirectory(), "needle_master_trials");
+                if (!subDirectory.mkdir()) {
+                    System.err.println("Directory for trials not created!");
+                }
+                needle.startFileOutput(subDirectory, filename);
+
+                environmentFile = new File(subDirectory, environmentFilename);
+
+            } else {
+                System.err.println("Could not open external storage to save user demonstrations!");
             }
-            needle.startFileOutput(subDirectory, filename);
-
-            environmentFile = new File(subDirectory, environmentFilename);
-
-        } else {
-            System.err.println("Could not open external storage to save user demonstrations!");
         }
 
         if (preset == 0) {

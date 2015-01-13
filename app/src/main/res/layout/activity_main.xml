@@ -30,10 +30,10 @@
         android:paddingBottom="0dp"
         android:textSize="@dimen/abc_text_size_large_material"
         android:background="?android:attr/selectableItemBackground"
+        android:textColor="@color/black_overlay"
         android:layout_above="@+id/selectLevelButton"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textColor="@color/black_overlay" />
+        android:layout_alignParentStart="true" />
 
     <Button
         android:layout_width="wrap_content"
@@ -46,14 +46,11 @@
         android:paddingTop="0dp"
         android:paddingBottom="0dp"
         android:textSize="@dimen/abc_text_size_large_material"
-        android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_toStartOf="@+id/logoView"
         android:background="?android:attr/selectableItemBackground"
-        android:layout_alignRight="@+id/newGameButton"
-        android:layout_alignEnd="@+id/newGameButton"
-        android:textColor="@color/black_overlay" />
+        android:textColor="@color/black_overlay"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/logoView"
+        android:layout_toStartOf="@+id/logoView" />
 
     <Button
         android:layout_width="wrap_content"
@@ -66,23 +63,18 @@
         android:paddingBottom="0dp"
         android:textSize="@dimen/abc_text_size_large_material"
         android:enabled="true"
-        android:layout_below="@+id/selectLevelButton"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/selectLevelButton"
-        android:layout_alignEnd="@+id/selectLevelButton"
         android:background="?android:attr/selectableItemBackground"
         android:paddingLeft="20dp"
-        android:textColor="@color/black_overlay" />
+        android:textColor="@color/black_overlay"
+        android:layout_below="@+id/optionsButton"
+        android:layout_toLeftOf="@+id/logoView" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/options_button_text"
         android:id="@+id/optionsButton"
-        android:layout_below="@+id/aboutButton"
-        android:layout_alignRight="@+id/aboutButton"
-        android:layout_alignEnd="@+id/aboutButton"
         android:padding="10dp"
         android:paddingTop="0dp"
         android:paddingRight="20dp"
@@ -92,8 +84,8 @@
         android:background="?android:attr/selectableItemBackground"
         android:paddingLeft="20dp"
         android:textColor="@color/black_overlay"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        />
+        android:layout_below="@+id/selectLevelButton"
+        android:layout_toLeftOf="@+id/logoView" />
 
 </RelativeLayout>

@@ -36,12 +36,25 @@
         android:layout_centerHorizontal="true"
         android:checked="false" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/delete_button_text"
+        android:id="@+id/deleteButton"
+        android:background="?android:attr/selectableItemBackground"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:textSize="@dimen/abc_text_size_large_material"
+        android:textColor="@color/deepTissue"
+        android:layout_below="@+id/filesView"
+        android:layout_centerHorizontal="true" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/options_clear_text"
-        android:id="@+id/optionsClearView"
+        android:text="@string/files_button_text"
+        android:id="@+id/filesView"
         android:layout_below="@+id/storeDataCheckBox"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -49,24 +62,15 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/delete_button_text"
-        android:id="@+id/deleteButton"
-        android:layout_below="@+id/optionsClearView"
+        android:text="@string/back_to_main_label"
+        android:id="@+id/optionsBackButton"
         android:background="?android:attr/selectableItemBackground"
+        android:textColor="@color/black_overlay"
         android:paddingTop="15dp"
         android:paddingBottom="15dp"
         android:textSize="@dimen/abc_text_size_large_material"
-        android:layout_centerHorizontal="true"
-        android:textColor="@color/deepTissue" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/files_button_text"
-        android:id="@+id/files_button"
-        android:layout_below="@+id/deleteButton"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignTop="@+id/deleteButton"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

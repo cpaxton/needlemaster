@@ -36,7 +36,8 @@
     <string name="store_data_checkbox_text">Yes, save data files to this directory!</string>
     <string name="options_clear_text">Press the button below to delete the contents of the \"needle_master_trials\" directory.</string>
     <string name="delete_button_text">CLEAR DATA</string>
-    <string name="files_button_text">There are currently XXX saved data files.</string>
+    <string name="files_button_text">There are currently %d saved data files.</string>
     <string name="options_button_text">Options</string>
+    <string name="files_empty_text">The data directory is currently empty!</string>
 
 </resources>
