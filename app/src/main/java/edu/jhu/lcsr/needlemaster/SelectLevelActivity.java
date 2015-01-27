@@ -25,8 +25,10 @@ public class SelectLevelActivity extends Activity {
         listView = (ListView) findViewById(R.id.listView);
         String[] levels = {
                 "Intro 1: Movement",
-                "Intro 2: Gates",
-                "Intro 3: Chains of Gates",
+                "Intro 2a: Gates",
+                "Intro 2b: Gates",
+                "Intro 3a: Pairs of Gates",
+                "Intro 3b: Chains of Gates",
                 "Intro 4: Order",
                 "Intro 5: Tissue",
                 "Intro 6: Deep Tissue",

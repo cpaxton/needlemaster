@@ -270,14 +270,10 @@ public class Needle {
             }
         }
 
-        //movement *= movementMultiplier;
-        //rotation *= rotationMultiplier;
+        this.w += rotation;
 
         this.x = this.x + (movement * Math.cos(w));
         this.y = this.y + (movement * Math.sin(w));
-
-        //if (Math.abs(rotation) > 0.01)
-        this.w += rotation;
 
         try {
             if (fow != null) {
