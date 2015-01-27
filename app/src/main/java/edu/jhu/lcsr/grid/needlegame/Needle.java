@@ -260,6 +260,15 @@ public class Needle {
 
         //System.out.println("m=" + movement + ", r=" + rotation);
 
+        try {
+            if (fow != null) {
+                fow.write((System.currentTimeMillis() - startTime) + "," + getRealX() + "," + getRealY() + "," + w + "," + movement + "," + rotation + "\n");
+                fow.flush();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         if(current != null) {
             movement = current.applyMovement(movement);
             rotation = current.applyRotation(rotation);
@@ -274,15 +283,6 @@ public class Needle {
 
         this.x = this.x + (movement * Math.cos(w));
         this.y = this.y + (movement * Math.sin(w));
-
-        try {
-            if (fow != null) {
-                fow.write((System.currentTimeMillis() - startTime) + "," + getRealX() + "," + getRealY() + "," + w + "," + movement + "," + rotation + "\n");
-                fow.flush();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     /**
