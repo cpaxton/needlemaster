@@ -41,6 +41,7 @@ public class Options extends Activity {
         TextView filesView = (TextView) findViewById(R.id.filesView);
         Button clearButton = (Button) findViewById(R.id.deleteButton);
         CheckBox collect = (CheckBox) findViewById(R.id.storeDataCheckBox);
+        CheckBox randomize = (CheckBox) findViewById(R.id.randomStartBox);
         Button backButton = (Button) findViewById(R.id.optionsBackButton);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,6 +55,14 @@ public class Options extends Activity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 gds.setCollectData(isChecked);
+            }
+        });
+
+        randomize.setChecked(gds.checkRandomStart());
+        randomize.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                gds.setRandomStart(isChecked);
             }
         });
 

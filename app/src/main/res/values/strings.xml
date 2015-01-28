@@ -39,5 +39,6 @@
     <string name="files_button_text">There are currently %d saved data files.</string>
     <string name="options_button_text">Options</string>
     <string name="files_empty_text">The data directory is currently empty!</string>
+    <string name="randomStartOption">Slightly randomize starting positions on each level.</string>
 
 </resources>

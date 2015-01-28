@@ -374,4 +374,12 @@ public class Needle {
     public void setStartTime(long startTime) {
         this.startTime = startTime;
     }
+
+    public void setPosition(double x, double y, double w) {
+        this.fx = x;
+        this.fy = y;
+        this.w = w;
+
+        this.rescale(this.screenWidth, this.screenHeight);
+    }
 }

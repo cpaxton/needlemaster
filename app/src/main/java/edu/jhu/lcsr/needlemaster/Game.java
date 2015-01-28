@@ -37,9 +37,9 @@ public class Game extends Activity {
         } else {
             level = 2;
         }
+
         String text = gameView.initialize(level);
         instructions.setText(text);
-
     }
 
     @Override

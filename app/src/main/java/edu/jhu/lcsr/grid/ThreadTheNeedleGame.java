@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+import java.util.Random;
 
 import edu.jhu.lcsr.grid.needlegame.GameDataStore;
 import edu.jhu.lcsr.grid.needlegame.Gate;
@@ -77,6 +78,22 @@ public class ThreadTheNeedleGame extends View {
         System.out.println("Starting game");
         start();
 	}
+
+    public void randomizeNeedleStart() {
+
+        double x = 0.07;
+        double y = 0.85;
+        double w = -1.0*Math.PI;
+
+        Random rand = new Random();
+        x += (rand.nextDouble() / 10.0);
+        y += (rand.nextDouble() / 10.0);
+        w += (rand.nextDouble() / 5.0);
+
+        System.out.println("New x,y,angle: " + x + ", " + y + ", " + w);
+
+        needle.setPosition(x, y, w);
+    }
 	
 	public void start() {
 		synchronized(this) {
@@ -124,25 +141,27 @@ public class ThreadTheNeedleGame extends View {
             gt.rescale(w, h);
         }
 
-        // write to file
-        try {
-            FileOutputStream fos = new FileOutputStream(environmentFile);
-            OutputStreamWriter fow = new OutputStreamWriter(fos);
+        if (environmentFile != null) {
+            // write to file
+            try {
+                FileOutputStream fos = new FileOutputStream(environmentFile);
+                OutputStreamWriter fow = new OutputStreamWriter(fos);
 
-            fow.write("Dimensions: " + w + "," + h + "\n");
-            fow.write("Gates: " + gates.size() + "\n");
-            for (Gate gt: gates) {
-                fow.write(gt.toString());
+                fow.write("Dimensions: " + w + "," + h + "\n");
+                fow.write("Gates: " + gates.size() + "\n");
+                for (Gate gt : gates) {
+                    fow.write(gt.toString());
+                }
+
+                fow.write("Surfaces: " + surfaces.size() + "\n");
+                for (Surface srf : surfaces) {
+                    fow.write(srf.toString());
+                }
+                fow.flush();
+
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-
-            fow.write("Surfaces: " + surfaces.size() + "\n");
-            for (Surface srf: surfaces) {
-                fow.write(srf.toString());
-            }
-            fow.flush();
-
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
@@ -259,6 +278,11 @@ public class ThreadTheNeedleGame extends View {
     public String initialize(int preset) {
 
         GameDataStore gds = new GameDataStore(getContext());
+
+        if(gds.checkRandomStart()) {
+            randomizeNeedleStart();
+        }
+
         if (gds.checkSaveData()) {
 
         /* set up file output */
@@ -283,7 +307,7 @@ public class ThreadTheNeedleGame extends View {
             return "Swipe in the direction you want to move! Go off the right edge of the screen.";
         } else if (preset == 1) {
             Gate g = new Gate(0.7, 0.7, Math.PI / 2);
-            g.setScale(5.0f);
+            g.setScale(3.5f);
 
             gates.add(g);
 
@@ -298,8 +322,8 @@ public class ThreadTheNeedleGame extends View {
             return "Go through the gate without hitting the red top or bottom!";
 
         } else if (preset == 3) {
-            Gate g1 = new Gate(0.5, 0.3, -1.0 * Math.PI / 4);
-            g1.setScale(2.0f);
+            Gate g1 = new Gate(0.35, 0.3, -1.0 * Math.PI / 4);
+            g1.setScale(3.5f);
 
             Gate g2 = new Gate(0.75, 0.8, Math.PI / 2);
             g2.setScale(2.0f);
