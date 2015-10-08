@@ -53,11 +53,15 @@ public class Gate {
     Region bottomRegion;
     Region gateRegion;
 
+    Gate partner;
+
 	public Gate(double x, double y, double w) {
 		this.x = x;
 		this.y = y;
 		this.w = w;
 		status = GATE_CLOSED;
+
+        partner = null;
 
         warningPaint = new Paint();
         warningPaint.setColor(warning);
@@ -71,6 +75,18 @@ public class Gate {
 
 		entered = false;
 	}
+
+    /**
+     * Set this gate's partner.
+     * If partner is not null, then when this gate is updated by the needle, that one will as well, and vice versa.
+     * @param gt
+     */
+    public void setPartner(Gate gt) {
+        partner = gt;
+        if (gt.partner != this) {
+            gt.setPartner(this);
+        }
+    }
 
     public void setScale(float scale) {
         this.scale = scale;

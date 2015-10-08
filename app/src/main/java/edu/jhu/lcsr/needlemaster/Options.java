@@ -76,11 +76,15 @@ public class Options extends Activity {
         String storageState = Environment.getExternalStorageState();
         if (MEDIA_MOUNTED.equals(storageState)) {
             subDirectory = new File(Environment.getExternalStorageDirectory(), dirName);
-            //if (!subDirectory.mkdir()) {
-            //    System.err.println("Directory for trials not created!");
-            //}
             String[] files = subDirectory.list();
-            if (files.length > 0) {
+            if (files == null) {
+
+                subDirectory.mkdir();
+
+                filesView.setText(getString(R.string.files_empty_text));
+                clearButton.setEnabled(false);
+
+            } else if (files.length > 0) {
                 filesView.setText(String.format(getString(R.string.files_button_text),files.length));
             } else {
                 filesView.setText(getString(R.string.files_empty_text));
