@@ -372,7 +372,7 @@ public class ThreadTheNeedleGame extends View {
             gates.get(0).setScale(3.0f);
 
             Surface s1 = new Surface(false, s1x, s1y);
-            s1.setMovementMultiplier(0.5);
+            s1.setMovementMultiplier(1.0);
             s1.setRotationMultiplier(0.15);
             surfaces.add(s1);
 
@@ -390,46 +390,34 @@ public class ThreadTheNeedleGame extends View {
 
             return "Touching dark-colored tissue will immediately end the level!";
         } else if (preset == 8) {
-            double[] s1x = {0, 0.25, 0.5, 1, 1, 0};
-            double[] s1y = {0.6, 0.3, 0.35, 0.4, 0, 0};
+            double[] s1x = {0, 0, 0.5, 0.3, 0};
+            double[] s1y = {0, 1, 1, 0, 0};
             Surface s1 = new Surface(false, s1x, s1y);
-            s1.setMovementMultiplier(0.5);
+            s1.setMovementMultiplier(1.0);
             s1.setRotationMultiplier(0.15);
             surfaces.add(s1);
 
-            double[] s2x = {0, 0.23, 0.45, 1, 1, 0};
-            double[] s2y = {0.25, 0.12, 0.17, 0.26, 0, 0};
-            Surface s2 = new Surface(true, s2x, s2y);
-            surfaces.add(s2);
-            failureSurfaces.add(s2);
-
-            gates.add(new Gate(0.2, 0.7, 0.3));
+            gates.add(new Gate(0.5, 0.5, 0.3));
             gates.get(0).setScale(3.0f);
 
-            return "Go from left to right without hitting the dark tissue!";
+            return "Be careful when you start out in tissue!";
         } else if (preset == 9) {
             double[] s1x = {0, 0.25, 0.5, 1, 1, 0};
             double[] s1y = {0.6, 0.3, 0.35, 0.4, 0, 0};
             Surface s1 = new Surface(false, s1x, s1y);
-            s1.setMovementMultiplier(0.5);
+            s1.setMovementMultiplier(1.0);
             s1.setRotationMultiplier(0.15);
             surfaces.add(s1);
-
-            double[] s2x = {0, 0.23, 0.45, 1, 1, 0};
-            double[] s2y = {0.25, 0.12, 0.17, 0.26, 0, 0};
-            Surface s2 = new Surface(true, s2x, s2y);
-            surfaces.add(s2);
-            failureSurfaces.add(s2);
 
             gates.add(new Gate(0.2, 0.7, 0.3));
             gates.get(0).setScale(3.0f);
 
-            return "Go from left to right without hitting the dark tissue!";
+            return "Line up to pass through both gates!";
         } else if (preset == 10) {
             double[] s1x = {0, 0.25, 0.5, 1, 1, 0};
             double[] s1y = {0.6, 0.3, 0.35, 0.4, 0, 0};
             Surface s1 = new Surface(false, s1x, s1y);
-            s1.setMovementMultiplier(0.5);
+            s1.setMovementMultiplier(1.0);
             s1.setRotationMultiplier(0.15);
             surfaces.add(s1);
 
@@ -447,7 +435,7 @@ public class ThreadTheNeedleGame extends View {
             double[] s1x = {0, 0.25, 0.5, 1, 1, 0};
             double[] s1y = {0.6, 0.3, 0.35, 0.4, 0, 0};
             Surface s1 = new Surface(false, s1x, s1y);
-            s1.setMovementMultiplier(0.5);
+            s1.setMovementMultiplier(1.0);
             s1.setRotationMultiplier(0.15);
             surfaces.add(s1);
 
@@ -466,7 +454,7 @@ public class ThreadTheNeedleGame extends View {
             double[] s1x = {0, 0.2, 0.2, 0.4, 0.4, 0.6, 0.6, 0.8, 0.8, 1};
             double[] s1y = {0, 0.05, 1, 1, 0.05, 0.05, 1, 1, 0.05, 0};
             Surface s1 = new Surface(false, s1x, s1y);
-            s1.setMovementMultiplier(0.5);
+            s1.setMovementMultiplier(1.0);
             s1.setRotationMultiplier(0.15);
 
             surfaces.add(s1);
@@ -482,7 +470,7 @@ public class ThreadTheNeedleGame extends View {
             double[] s1x = {0, 0.1, 0.25, 0.5, 0.6};
             double[] s1y = {0, 0.02, 0.6, 0.4, 0};
             Surface s1 = new Surface(false, s1x, s1y);
-            s1.setMovementMultiplier(0.5);
+            s1.setMovementMultiplier(1.0);
             s1.setRotationMultiplier(0.15);
             surfaces.add(s1);
 
@@ -505,7 +493,7 @@ public class ThreadTheNeedleGame extends View {
             double[] s1x = {0.25, 0.5, 0.75};
             double[] s1y = {0, 0.8, 0};
             Surface s1 = new Surface(false, s1x, s1y);
-            s1.setMovementMultiplier(0.5);
+            s1.setMovementMultiplier(1.0);
             s1.setRotationMultiplier(0.15);
             surfaces.add(s1);
 
@@ -546,7 +534,7 @@ public class ThreadTheNeedleGame extends View {
             double[] s1x = {0.3, 0.5, 0.7};
             double[] s1y = {0, 0.8, 0};
             Surface s1 = new Surface(false, s1x, s1y);
-            s1.setMovementMultiplier(0.5);
+            s1.setMovementMultiplier(1.0);
             s1.setRotationMultiplier(0.15);
             surfaces.add(s1);
 
@@ -561,7 +549,7 @@ public class ThreadTheNeedleGame extends View {
 			double[] s1x = {0, 0.4, 0.5, 0.6, 1, 1, 0};
 			double[] s1y = {0.4, 0.6, 0.25, 0.6, 0.4, 0, 0};
 			Surface s1 = new Surface(false, s1x, s1y);
-			s1.setMovementMultiplier(0.5);
+			s1.setMovementMultiplier(1.0);
 			s1.setRotationMultiplier(0.15);
 			surfaces.add(s1);
 			
@@ -581,7 +569,7 @@ public class ThreadTheNeedleGame extends View {
             double[] s1x = {0.3, 0.25, 0.5, 0.75, 0.7};
             double[] s1y = {0, 0.5, 0.75, 0.5, 0};
             Surface s1 = new Surface(false, s1x, s1y);
-            s1.setMovementMultiplier(0.5);
+            s1.setMovementMultiplier(1.0);
             s1.setRotationMultiplier(0.15);
             surfaces.add(s1);
 

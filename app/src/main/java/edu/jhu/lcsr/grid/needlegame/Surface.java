@@ -157,9 +157,9 @@ public class Surface {
     }
 
     public double applyMovement(double movement) {
-        movement /= 2.0;
+        //movement /= 2.0;
         if(!isDeepTissue) {
-            if (Math.abs(movement) > 25.0) {
+            if (false && Math.abs(movement) > 25.0) {
                 //damage += Math.abs(movement) - 25.0;
 
                 //updateDamage();
