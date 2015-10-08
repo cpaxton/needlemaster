@@ -408,6 +408,60 @@ public class ThreadTheNeedleGame extends View {
 
             return "Go from left to right without hitting the dark tissue!";
         } else if (preset == 9) {
+            double[] s1x = {0, 0.25, 0.5, 1, 1, 0};
+            double[] s1y = {0.6, 0.3, 0.35, 0.4, 0, 0};
+            Surface s1 = new Surface(false, s1x, s1y);
+            s1.setMovementMultiplier(0.5);
+            s1.setRotationMultiplier(0.15);
+            surfaces.add(s1);
+
+            double[] s2x = {0, 0.23, 0.45, 1, 1, 0};
+            double[] s2y = {0.25, 0.12, 0.17, 0.26, 0, 0};
+            Surface s2 = new Surface(true, s2x, s2y);
+            surfaces.add(s2);
+            failureSurfaces.add(s2);
+
+            gates.add(new Gate(0.2, 0.7, 0.3));
+            gates.get(0).setScale(3.0f);
+
+            return "Go from left to right without hitting the dark tissue!";
+        } else if (preset == 10) {
+            double[] s1x = {0, 0.25, 0.5, 1, 1, 0};
+            double[] s1y = {0.6, 0.3, 0.35, 0.4, 0, 0};
+            Surface s1 = new Surface(false, s1x, s1y);
+            s1.setMovementMultiplier(0.5);
+            s1.setRotationMultiplier(0.15);
+            surfaces.add(s1);
+
+            double[] s2x = {0, 0.23, 0.45, 1, 1, 0};
+            double[] s2y = {0.25, 0.12, 0.17, 0.26, 0, 0};
+            Surface s2 = new Surface(true, s2x, s2y);
+            surfaces.add(s2);
+            failureSurfaces.add(s2);
+
+            gates.add(new Gate(0.2, 0.7, 0.3));
+            gates.get(0).setScale(3.0f);
+
+            return "Go from left to right without hitting the dark tissue!";
+        } else if (preset == 11) {
+            double[] s1x = {0, 0.25, 0.5, 1, 1, 0};
+            double[] s1y = {0.6, 0.3, 0.35, 0.4, 0, 0};
+            Surface s1 = new Surface(false, s1x, s1y);
+            s1.setMovementMultiplier(0.5);
+            s1.setRotationMultiplier(0.15);
+            surfaces.add(s1);
+
+            double[] s2x = {0, 0.23, 0.45, 1, 1, 0};
+            double[] s2y = {0.25, 0.12, 0.17, 0.26, 0, 0};
+            Surface s2 = new Surface(true, s2x, s2y);
+            surfaces.add(s2);
+            failureSurfaces.add(s2);
+
+            gates.add(new Gate(0.2, 0.7, 0.3));
+            gates.get(0).setScale(3.0f);
+
+            return "Go from left to right without hitting the dark tissue!";
+        } else if (preset == 12) {
 
             double[] s1x = {0, 0.2, 0.2, 0.4, 0.4, 0.6, 0.6, 0.8, 0.8, 1};
             double[] s1y = {0, 0.05, 1, 1, 0.05, 0.05, 1, 1, 0.05, 0};
@@ -423,7 +477,7 @@ public class ThreadTheNeedleGame extends View {
 
             return "Position yourself carefully when entering tissue!";
 
-        } else if (preset == 10) {
+        } else if (preset == 13) {
 
             double[] s1x = {0, 0.1, 0.25, 0.5, 0.6};
             double[] s1y = {0, 0.02, 0.6, 0.4, 0};
@@ -446,7 +500,7 @@ public class ThreadTheNeedleGame extends View {
             gates.get(2).setScale(2.0f);
 
             return "Beautiful movements!";
-        } else if (preset == 11) {
+        } else if (preset == 14) {
 
             double[] s1x = {0.25, 0.5, 0.75};
             double[] s1y = {0, 0.8, 0};
@@ -471,7 +525,7 @@ public class ThreadTheNeedleGame extends View {
             gates.get(3).setScale(1.5f);
 
             return "Watch your step!";
-        } else if (preset == 12) {
+        } else if (preset == 15) {
             gates.add(new Gate(0.35, 0.8, Math.PI / 2));
             gates.get(0).setScale(2.0f);
             gates.add(new Gate(0.5, 0.75, Math.PI / 2));
@@ -483,7 +537,7 @@ public class ThreadTheNeedleGame extends View {
             gates.get(5).setScale(2.0f);
 
             return "Around the loop!";
-        } else if (preset == 13) {
+        } else if (preset == 16) {
             gates.add(new Gate(0.5,0.5,Math.PI / 2));
             gates.get(0).setScale(1.5f);
             gates.add(new Gate(0.75, 0.8, Math.PI / 4));
@@ -503,7 +557,7 @@ public class ThreadTheNeedleGame extends View {
             failureSurfaces.add(s2);
 
             return "In and out";
-        } else if (preset == 14) {
+        } else if (preset == 17) {
 			double[] s1x = {0, 0.4, 0.5, 0.6, 1, 1, 0};
 			double[] s1y = {0.4, 0.6, 0.25, 0.6, 0.4, 0, 0};
 			Surface s1 = new Surface(false, s1x, s1y);
@@ -523,7 +577,7 @@ public class ThreadTheNeedleGame extends View {
 			gates.add(new Gate(0.8, 0.7, 1.5));
 
             return "Use the gap to your advantage if needed."; //"Hit all of the gates!";
-		} else if (preset == 15) {
+		} else if (preset == 18) {
             double[] s1x = {0.3, 0.25, 0.5, 0.75, 0.7};
             double[] s1y = {0, 0.5, 0.75, 0.5, 0};
             Surface s1 = new Surface(false, s1x, s1y);
@@ -544,7 +598,7 @@ public class ThreadTheNeedleGame extends View {
             gates.get(2).setScale(2f);
 
             return "An exercise in obstacle avoidance.";
-        } else if (preset == 16) {
+        } else if (preset == 19) {
             double[] s1x = {0.25, 0.3, 0.35, 0.3};
             double[] s1y = {0.7, 0.75, 0.7, 0.65};
             Surface s1 = new Surface(true, s1x, s1y);
@@ -563,7 +617,7 @@ public class ThreadTheNeedleGame extends View {
             gates.add(new Gate(0.7, 0.5, Math.PI / 4));
 
             return "Pathfinder";
-        } else if (preset == 17) {
+        } else if (preset == 20) {
             double[] s1x = {0.3, 0.3, 0.4, 0.4, 0.7, 0.7, 0.9, 0.9};
             double[] s1y = {0, 0.8, 0.8, 0, 0, 0.8, 0.8, 0};
             Surface s1 = new Surface(true, s1x, s1y);
