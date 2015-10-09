@@ -25,7 +25,7 @@ import static android.os.Environment.MEDIA_MOUNTED;
 public class ThreadTheNeedleGame extends View {
 
     final static int fg = Color.argb(125, 0, 0, 0);
-    public static final int MAX_LEVEL = 17;
+    public static final int MAX_LEVEL = 20;
 
     Needle needle;
     ArrayList<Surface> surfaces;
@@ -400,33 +400,29 @@ public class ThreadTheNeedleGame extends View {
 
             return "Be careful when you start out in tissue!";
         } else if (preset == 9) {
-            double[] s1x = {0, 0.25, 0.5, 1, 1, 0};
-            double[] s1y = {0.6, 0.3, 0.35, 0.4, 0, 0};
+            double[] s1x = {0.25, 0.25, 0.75, 0.75, 0.25};
+            double[] s1y = {0, 1.0, 1.0, 0, 0};
             Surface s1 = new Surface(false, s1x, s1y);
             s1.setRotationMultiplier(0.15);
             surfaces.add(s1);
 
-            gates.add(new Gate(0.2, 0.7, 0.3));
-            gates.get(0).setScale(3.0f);
+            gates.add(new Gate(0.4, 0.5, Math.PI / 2));
+            gates.get(0).setScale(2.0f);
+
+            gates.add(new Gate(0.6, 0.5, Math.PI / 2));
+            gates.get(1).setScale(2.0f);
 
             return "Line up to pass through both gates!";
         } else if (preset == 10) {
-            double[] s1x = {0, 0.25, 0.5, 1, 1, 0};
-            double[] s1y = {0.6, 0.3, 0.35, 0.4, 0, 0};
-            Surface s1 = new Surface(false, s1x, s1y);
-            s1.setRotationMultiplier(0.15);
-            surfaces.add(s1);
 
-            double[] s2x = {0, 0.23, 0.45, 1, 1, 0};
-            double[] s2y = {0.25, 0.12, 0.17, 0.26, 0, 0};
-            Surface s2 = new Surface(true, s2x, s2y);
-            surfaces.add(s2);
-            failureSurfaces.add(s2);
+            gates.add(new Gate(0.5, 0.33, Math.PI / 2));
+            gates.get(0).setScale(2.5f);
+            gates.add(new Gate(0.5, 0.66, Math.PI / 2));
+            gates.get(1).setScale(2.5f);
 
-            gates.add(new Gate(0.2, 0.7, 0.3));
-            gates.get(0).setScale(3.0f);
+            gates.get(0).setPartner(gates.get(1));
 
-            return "Go from left to right without hitting the dark tissue!";
+            return "Choose either gate!";
         } else if (preset == 11) {
             double[] s1x = {0, 0.25, 0.5, 1, 1, 0};
             double[] s1y = {0.6, 0.3, 0.35, 0.4, 0, 0};

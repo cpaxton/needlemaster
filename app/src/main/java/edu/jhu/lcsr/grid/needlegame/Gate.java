@@ -30,7 +30,7 @@ public class Gate {
 
 	boolean entered; // have you entered this gate?
 
-	public static final int GATE_FAILED = -1;
+	public static final int GATE_FAILED = 4;
 	public static final int GATE_CLOSED = 0;
 	public static final int GATE_ON_DECK = 1;
 	public static final int GATE_NEXT = 2;
@@ -98,7 +98,7 @@ public class Gate {
 	 * @return true if the status was updated; false otherwise.
 	 */
 	public boolean setStatus(int status) {
-		if (status < 0 || status > 3) {
+		if (status < 0 || status > 4) {
 			System.err.println("Status not recognized: " + status);
 			return false;
 		} else {
@@ -220,15 +220,17 @@ public class Gate {
 	public void update(Needle needle) {
 		PointF pt = new PointF(needle.getRealX(), needle.getRealY());
 
-		if (topRegion.contains((int)pt.x, (int)pt.y) || bottomRegion.contains((int)pt.x, (int)pt.y)) {
+		if ((status != GATE_PASSED) && (topRegion.contains((int)pt.x, (int)pt.y) || bottomRegion.contains((int)pt.x, (int)pt.y))) {
 			status = GATE_FAILED;
 		} else if (gateRegion.contains((int)pt.x, (int)pt.y) && status == GATE_NEXT) {
             entered = true;
-        } else if (gateRegion.contains((int)pt.x, (int)pt.y) && status != GATE_PASSED) {
-            status = GATE_FAILED;
 		} else if (entered == true && status != GATE_FAILED) {
 			status = GATE_PASSED;
 		}
+
+        if (partner != null && status > partner.status) {
+            partner.setStatus(status);
+        }
 	}
 
 	public int getStatus() {
